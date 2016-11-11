@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.writer;
+package com.web4enterprise.pdf.core;
 
 import java.util.ArrayList;
 import java.util.List;

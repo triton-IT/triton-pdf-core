@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.writer;
+package com.web4enterprise.pdf.core;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,16 +8,16 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.web4enterprise.pdf.writer.BezierPath;
-import com.web4enterprise.pdf.writer.BezierPoint;
-import com.web4enterprise.pdf.writer.Color;
-import com.web4enterprise.pdf.writer.Pdf;
-import com.web4enterprise.pdf.writer.Page;
-import com.web4enterprise.pdf.writer.PdfGenerationException;
-import com.web4enterprise.pdf.writer.Point;
-import com.web4enterprise.pdf.writer.StraightPath;
+import com.web4enterprise.pdf.core.BezierPath;
+import com.web4enterprise.pdf.core.BezierPoint;
+import com.web4enterprise.pdf.core.Color;
+import com.web4enterprise.pdf.core.Page;
+import com.web4enterprise.pdf.core.Pdf;
+import com.web4enterprise.pdf.core.PdfGenerationException;
+import com.web4enterprise.pdf.core.Point;
+import com.web4enterprise.pdf.core.StraightPath;
 
-public class DocumentTest {
+public class PdfTest {
 	@Test
 	public void testWrite() throws IOException, PdfGenerationException {
 		OutputStream out = new FileOutputStream("testWrite.pdf");

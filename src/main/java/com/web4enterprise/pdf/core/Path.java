@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.writer;
+package com.web4enterprise.pdf.core;
 
 public abstract class Path {
 	protected Point startPoint;

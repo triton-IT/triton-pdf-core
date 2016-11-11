@@ -1,6 +1,6 @@
-package com.web4enterprise.pdf.writer;
+package com.web4enterprise.pdf.core;
 
-import static com.web4enterprise.pdf.writer.PDFObject.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.PDFObject.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.writer;
+package com.web4enterprise.pdf.core;
 
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;

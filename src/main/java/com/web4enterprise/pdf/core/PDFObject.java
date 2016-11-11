@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.writer;
+package com.web4enterprise.pdf.core;
 
 public interface PDFObject {
 	static String LINE_SEPARATOR = "\n";
