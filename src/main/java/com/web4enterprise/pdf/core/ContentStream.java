@@ -92,7 +92,8 @@ public class ContentStream implements PDFObject {
 				+ textsValues
 				+ linesValues
 				+ bezierLinesValues
-				+ "endstream" + LINE_SEPARATOR;
+				+ "endstream" + LINE_SEPARATOR
+				+ "endobj" + LINE_SEPARATOR;
 		
 		return asString;
 	}

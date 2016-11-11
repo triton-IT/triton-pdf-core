@@ -17,6 +17,7 @@ public class PageTree extends RootPageTree {
 	public String asString() {
 		String asString = id + " 0 obj" + LINE_SEPARATOR
 				+ "<< /Type /Pages" + LINE_SEPARATOR
+				+ "    /Parent 2 0 R" + LINE_SEPARATOR
 				+ "    /Kids [" + LINE_SEPARATOR;
 		
 		for(PageNode pageNode : pageNodes) {
