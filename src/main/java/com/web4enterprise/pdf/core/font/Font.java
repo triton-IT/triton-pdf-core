@@ -10,21 +10,25 @@ public abstract class Font {
 	protected static Map<Byte, Integer> widths = new HashMap<>();
 	protected static Map<Byte, BoundingBox> boxes = new HashMap<>();
 	
+	public static Font TIMES_ROMAN = new TimesRoman();
 	static {
-		fonts.put("Times-Roman", new TimesRoman());
+		fonts.put("Times-Roman", TIMES_ROMAN);
 	}
 	
-	public int getWidth(Integer size, String text) {
+	public int getWidth(Integer size, String string) {
 		int fullWidth = 0;
-		for(byte letter : text.getBytes()) {
-			fullWidth += widths.get(letter);
+		for(byte letter : string.getBytes()) {
+			Integer width = widths.get(letter);
+			if(width != null) {
+				fullWidth += width;
+			}
 		}
 		return (int) Math.round(fullWidth * size / 1000.0f);
 	}
 	
-	public int getHeight(Integer size, String text) {
+	public int getHeight(Integer size, String string) {
 		int greaterHeight = 0;
-		for(byte letter : text.getBytes()) {
+		for(byte letter : string.getBytes()) {
 			BoundingBox letterBox = boxes.get(letter);
 			int height = letterBox.getHeight();
 			if(height > greaterHeight) {
