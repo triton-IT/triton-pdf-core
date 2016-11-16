@@ -1,5 +1,7 @@
 package com.web4enterprise.pdf.core;
 
+import com.web4enterprise.pdf.core.font.FontVariant;
+
 public class Page implements PDFObject, PageNode {	
 	/**
 	 * This properties are read-only and defined internally of library.
@@ -23,15 +25,6 @@ public class Page implements PDFObject, PageNode {
 		return id + " 0 obj" + LINE_SEPARATOR
 				+ "<<  /Type /Page" + LINE_SEPARATOR
 				+ "    /Parent " + parentId + " 0 R" + LINE_SEPARATOR
-				+ "    /Resources" + LINE_SEPARATOR
-				+ "    << /Font" + LINE_SEPARATOR
-				+ "        << /F1" + LINE_SEPARATOR
-				+ "            << /Type /Font" + LINE_SEPARATOR
-				+ "                /Subtype /Type1" + LINE_SEPARATOR
-				+ "                /BaseFont /Times-Roman" + LINE_SEPARATOR
-				+ "            >>" + LINE_SEPARATOR
-				+ "        >>" + LINE_SEPARATOR
-				+ "    >>" + LINE_SEPARATOR
 			    + "    /Contents " + contentStream.getId() + " 0 R" + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
@@ -44,6 +37,10 @@ public class Page implements PDFObject, PageNode {
 	
 	public void addText(int x, int y, int size, String text) {
 		contentStream.addText(new Text(x, y, size, text));
+	}
+	
+	public void addText(int x, int y, int size, FontVariant fontVariant, String text) {
+		contentStream.addText(new Text(x, y, size, fontVariant, text));
 	}
 	
 	public void addPath(StraightPath path) {

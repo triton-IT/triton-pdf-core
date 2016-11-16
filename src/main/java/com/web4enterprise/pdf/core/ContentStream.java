@@ -19,7 +19,7 @@ public class ContentStream implements PDFObject {
 		String textsValues = "";
 		for(Text text : texts) {
 			textsValues += "  BT" + LINE_SEPARATOR //Begin text
-			+ "    /F1 " + text.getSize() + " Tf" + LINE_SEPARATOR //Use font named "F1"
+			+ "    /" + text.getFontVariant().getName() + " " + text.getSize() + " Tf" + LINE_SEPARATOR //Use font named "F1"
 			+ "    " + text.getX() + " " + text.getY() + " Td" + LINE_SEPARATOR //Start text as 0, 0
 			+ "    (" + text.getValue() + ") Tj" + LINE_SEPARATOR
 			+ "  ET" + LINE_SEPARATOR; //End text

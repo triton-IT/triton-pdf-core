@@ -3,42 +3,49 @@ package com.web4enterprise.pdf.core.font;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.web4enterprise.pdf.core.BoundingBox;
-
-public abstract class Font {	
-	protected static Map<String, Font> fonts = new HashMap<>();
-	protected static Map<Byte, Integer> widths = new HashMap<>();
-	protected static Map<Byte, BoundingBox> boxes = new HashMap<>();
-	
+public class Font {
 	public static Font TIMES_ROMAN = new TimesRoman();
+	
+	protected static Map<String, Font> fonts = new HashMap<>();
+	
 	static {
 		fonts.put("Times-Roman", TIMES_ROMAN);
 	}
+
+	protected FontVariant plain;
+	protected FontVariant bold;
+	protected FontVariant italic;
+	protected FontVariant boldItalic;
 	
-	public int getWidth(Integer size, String string) {
-		int fullWidth = 0;
-		for(byte letter : string.getBytes()) {
-			Integer width = widths.get(letter);
-			if(width != null) {
-				fullWidth += width;
-			}
-		}
-		return (int) Math.round(fullWidth * size / 1000.0f);
-	}
-	
-	public int getHeight(Integer size, String string) {
-		int greaterHeight = 0;
-		for(byte letter : string.getBytes()) {
-			BoundingBox letterBox = boxes.get(letter);
-			int height = letterBox.getHeight();
-			if(height > greaterHeight) {
-				greaterHeight = height;
-			}
-		}
-		return (int) Math.round(greaterHeight * size / 1000.0f);
+	public Font(FontVariant plain, FontVariant bold, FontVariant italic, FontVariant boldItalic) {
+		this.plain = plain;
+		this.bold = bold;
+		this.italic = italic;
+		this.boldItalic = boldItalic;
 	}
 	
 	public static Font getFont(String name) {
 		return fonts.get(name);
+	}
+	
+	public int getWidth(FontStyle style, Integer size, String string) {
+		return getVariant(style).getWidth(size, string);
+	}
+	
+	public int getHeight(FontStyle style, Integer size, String string) {
+		return getVariant(style).getHeight(size, string);
+	}
+	
+	public FontVariant getVariant(FontStyle style) {
+		switch (style) {
+		case BOLD:			
+			return bold;
+		case ITALIC:
+			return italic;
+		case BOLD_ITALIC:
+			return boldItalic;
+		default:
+			return plain;
+		}
 	}
 }

@@ -16,6 +16,9 @@ import com.web4enterprise.pdf.core.Pdf;
 import com.web4enterprise.pdf.core.PdfGenerationException;
 import com.web4enterprise.pdf.core.Point;
 import com.web4enterprise.pdf.core.StraightPath;
+import com.web4enterprise.pdf.core.font.TimesRomanBold;
+import com.web4enterprise.pdf.core.font.TimesRomanBoldItalic;
+import com.web4enterprise.pdf.core.font.TimesRomanItalic;
 
 public class PdfTest {
 	@Test
@@ -24,8 +27,10 @@ public class PdfTest {
 
 		Pdf document = new Pdf();
 		Page page1 = document.createPage(595, 842);
-		page1.addText(60, 100, 24, "Hello world!");
-		page1.addText(20, 20, 6, "And yo man!");
+		page1.addText(20, 100, 24, "Times-Roman");
+		page1.addText(20, 60, 18, new TimesRomanBold(), "Times-Roman Bold");
+		page1.addText(20, 40, 12, new TimesRomanItalic(), "Times-Roman Italic");
+		page1.addText(20, 20, 6, new TimesRomanBoldItalic(), "Times-Roman Bold Italic");
 		Page page2 = document.createPage(595, 842);
 		page2.addText(100, 120, 50, "Another page...");
 		
