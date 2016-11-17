@@ -6,8 +6,8 @@ public abstract class Path {
 	protected boolean closed;
 	protected boolean filled;
 	protected float lineWidth = 1.0f;
-	protected Color strokeColor = new Color(0.0f, 0.0f, 0.0f);
-	protected Color fillColor = new Color(0.0f, 0.0f, 0.0f);
+	protected Color strokeColor = Color.BLACK;
+	protected Color fillColor = Color.BLACK;
 	
 	public Path(Point startPoint) {
 		this.startPoint = startPoint;

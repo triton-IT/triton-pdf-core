@@ -21,6 +21,10 @@ public class ContentStream implements PDFObject {
 			textsValues += "  BT" + LINE_SEPARATOR //Begin text
 			+ "    /" + text.getFontVariant().getName() + " " + text.getSize() + " Tf" + LINE_SEPARATOR //Use font named "F1"
 			+ "    " + text.getX() + " " + text.getY() + " Td" + LINE_SEPARATOR //Start text as 0, 0
+			+ "    " + text.getColor().getRed() / 255.0f 
+					+ " " + text.getColor().getGreen() / 255.0f
+					+ " " + text.getColor().getBlue() / 255.0f
+					+ " rg" + LINE_SEPARATOR
 			+ "    (" + text.getValue() + ") Tj" + LINE_SEPARATOR
 			+ "  ET" + LINE_SEPARATOR; //End text
 		}
@@ -29,14 +33,14 @@ public class ContentStream implements PDFObject {
 		for(StraightPath path : lines) {
 			linesValues += path.getLineWidth() + " w ";
 			
-			linesValues += path.getStrokeColor().getR() + " "
-					+ path.getStrokeColor().getG() + " "
-					+ path.getStrokeColor().getB() + " "
+			linesValues += (((float) path.getStrokeColor().getRed()) / 255.0f) + " "
+					+ (((float) path.getStrokeColor().getGreen()) / 255.0f) + " "
+					+ (((float) path.getStrokeColor().getBlue()) / 255.0f) + " "
 					+ "RG ";
 			
-			linesValues += path.getFillColor().getR() + " "
-					+ path.getFillColor().getG() + " "
-					+ path.getFillColor().getB() + " "
+			linesValues += (((float) path.getFillColor().getRed()) / 255.0f) / 255.0f + " "
+					+ (((float) path.getFillColor().getGreen()) / 255.0f) + " "
+					+ (((float) path.getFillColor().getBlue()) / 255.0f) + " "
 					+ "rg ";
 			
 			linesValues += path.getStartPoint().getX() + " " + path.getStartPoint().getY() + " m ";
@@ -58,14 +62,14 @@ public class ContentStream implements PDFObject {
 		for(BezierPath path : bezierLines) {
 			bezierLinesValues += path.getLineWidth() + " w ";
 			
-			bezierLinesValues += path.getStrokeColor().getR() + " "
-					+ path.getStrokeColor().getG() + " "
-					+ path.getStrokeColor().getB() + " "
+			bezierLinesValues += (((float) path.getStrokeColor().getRed()) / 255.0f) + " "
+					+ (((float) path.getStrokeColor().getGreen()) / 255.0f) + " "
+					+ (((float) path.getStrokeColor().getBlue()) / 255.0f) + " "
 					+ "RG ";
 			
-			bezierLinesValues += path.getFillColor().getR() + " "
-					+ path.getFillColor().getG() + " "
-					+ path.getFillColor().getB() + " "
+			bezierLinesValues += (((float) path.getFillColor().getRed()) / 255.0f) + " "
+					+ (((float) path.getFillColor().getGreen()) / 255.0f) + " "
+					+ (((float) path.getFillColor().getBlue()) / 255.0f) + " "
 					+ "rg ";
 			
 			bezierLinesValues += path.getStartPoint().getX() + " " + path.getStartPoint().getY() + " m ";

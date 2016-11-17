@@ -28,7 +28,7 @@ public class PdfTest {
 		Pdf document = new Pdf();
 		Page page1 = document.createPage(595, 842);
 		page1.addText(20, 100, 24, "Times-Roman");
-		page1.addText(20, 60, 18, new TimesRomanBold(), "Times-Roman Bold");
+		page1.addText(20, 60, 18, new TimesRomanBold(), new Color(255, 255, 80), "Times-Roman Bold");
 		page1.addText(20, 40, 12, new TimesRomanItalic(), "Times-Roman Italic");
 		page1.addText(20, 20, 6, new TimesRomanBoldItalic(), "Times-Roman Bold Italic");
 		Page page2 = document.createPage(595, 842);
@@ -56,7 +56,7 @@ public class PdfTest {
 		bezierPoints2.add(new BezierPoint(100, 30, 80, 20, 100, 20));
 		BezierPath bezierPath2 = new BezierPath(new Point(60, 10), bezierPoints2);
 		bezierPath2.fill();
-		bezierPath2.setStrokeColor(new Color(0.5f, 0.9f, 0.0f));
+		bezierPath2.setStrokeColor(new Color(127, 240, 0));
 		bezierPath2.setLineWidth(3.0f);
 		page2.addPath(bezierPath2);
 		
@@ -67,7 +67,7 @@ public class PdfTest {
 		BezierPath bezierPath3 = new BezierPath(new Point(160, 10), bezierPoints3);
 		bezierPath3.fill();
 		bezierPath3.unstroke();
-		bezierPath3.setFillColor(new Color(0.9f, 0.5f, 0.0f));
+		bezierPath3.setFillColor(new Color(240, 127, 0));
 		page2.addPath(bezierPath3);
 		
 		Page page3 = document.createPage(842, 595);

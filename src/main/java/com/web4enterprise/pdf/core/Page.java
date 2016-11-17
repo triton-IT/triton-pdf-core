@@ -43,6 +43,10 @@ public class Page implements PDFObject, PageNode {
 		contentStream.addText(new Text(x, y, size, fontVariant, text));
 	}
 	
+	public void addText(int x, int y, int size, FontVariant fontVariant, Color color, String text) {
+		contentStream.addText(new Text(x, y, size, fontVariant, color, text));
+	}
+	
 	public void addPath(StraightPath path) {
 		contentStream.addPath(path);
 	}
