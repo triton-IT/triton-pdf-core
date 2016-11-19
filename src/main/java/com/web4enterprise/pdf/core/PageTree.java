@@ -1,5 +1,8 @@
 package com.web4enterprise.pdf.core;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 
 
 public class PageTree extends RootPageTree {
@@ -15,7 +18,7 @@ public class PageTree extends RootPageTree {
 	}
 	
 	@Override
-	public String asString() {
+	public int write(OutputStream stream) throws PdfGenerationException {
 		String asString = id + " 0 obj" + LINE_SEPARATOR
 				+ "<< /Type /Pages" + LINE_SEPARATOR
 				+ "    /Parent 2 0 R" + LINE_SEPARATOR
@@ -31,6 +34,12 @@ public class PageTree extends RootPageTree {
 				+ ">>" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
 		
-		return asString;
+		try {
+			stream.write(asString.getBytes());
+		} catch (IOException e) {
+			throw new PdfGenerationException("Cannot write to output stream", e);
+		}
+		
+		return asString.length();
 	}
 }

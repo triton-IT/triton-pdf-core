@@ -1,5 +1,7 @@
 package com.web4enterprise.pdf.core;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +11,14 @@ public class ContentStream implements PDFObject {
 	protected List<Text> texts = new ArrayList<>();
 	protected List<StraightPath> lines = new ArrayList<>();
 	protected List<BezierPath> bezierLines = new ArrayList<>();
+	protected List<Image> images = new ArrayList<>();
 	
 	public ContentStream(int id) {
 		this.id = id;
 	}
 	
 	@Override
-	public String asString() {
+	public int write(OutputStream stream) throws PdfGenerationException {
 		String textsValues = "";
 		for(Text text : texts) {
 			textsValues += "  BT" + LINE_SEPARATOR //Begin text
@@ -89,6 +92,15 @@ public class ContentStream implements PDFObject {
 			}
 			bezierLinesValues += LINE_SEPARATOR;
 		}
+		
+		String imagesValues = "";		
+		for(Image image : images) {
+			imagesValues += "q" + LINE_SEPARATOR;
+			imagesValues += image.getWidth() + " " + image.getSkewY() + " " + image.getSkewX() + " " + image.getHeight() + " " 
+					+ image.getX() + " " + image.getY() + " cm" + LINE_SEPARATOR;
+			imagesValues += "/image" + image.getId() + " Do" + LINE_SEPARATOR;
+			imagesValues += "Q" + LINE_SEPARATOR;
+		}
 
 		String asString = id + " 0 obj" + LINE_SEPARATOR
 				+ "<< /Length " + textsValues.length() + " >>" + LINE_SEPARATOR
@@ -96,10 +108,17 @@ public class ContentStream implements PDFObject {
 				+ textsValues
 				+ linesValues
 				+ bezierLinesValues
+				+ imagesValues
 				+ "endstream" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
 		
-		return asString;
+		try {
+			stream.write(asString.getBytes());
+		} catch (IOException e) {
+			throw new PdfGenerationException("Cannot write to output stream", e);
+		}
+		
+		return asString.length();
 	}
 
 	@Override
@@ -117,5 +136,9 @@ public class ContentStream implements PDFObject {
 	
 	public void addPath(BezierPath path) {
 		bezierLines.add(path);
+	}
+	
+	public void addImage(Image image) {
+		images.add(image);
 	}
 }

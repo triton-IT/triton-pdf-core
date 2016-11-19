@@ -1,5 +1,8 @@
 package com.web4enterprise.pdf.core;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import com.web4enterprise.pdf.core.font.FontVariant;
 
 public class Page implements PDFObject, PageNode {	
@@ -21,13 +24,21 @@ public class Page implements PDFObject, PageNode {
 	}
 	
 	@Override
-	public String asString() {
-		return id + " 0 obj" + LINE_SEPARATOR
-				+ "<<  /Type /Page" + LINE_SEPARATOR
-				+ "    /Parent " + parentId + " 0 R" + LINE_SEPARATOR
-			    + "    /Contents " + contentStream.getId() + " 0 R" + LINE_SEPARATOR
+	public int write(OutputStream stream) throws PdfGenerationException {
+		String asString = id + " 0 obj <<" + LINE_SEPARATOR
+				+ "  /Type /Page" + LINE_SEPARATOR
+				+ "  /Parent " + parentId + " 0 R" + LINE_SEPARATOR
+			    + "  /Contents " + contentStream.getId() + " 0 R" + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
+		
+		try {
+			stream.write(asString.getBytes());
+		} catch (IOException e) {
+			throw new PdfGenerationException("Cannot write to output stream", e);
+		}
+		
+		return asString.length();
 	}
 
 	@Override
@@ -53,6 +64,10 @@ public class Page implements PDFObject, PageNode {
 	
 	public void addPath(BezierPath path) {
 		contentStream.addPath(path);
+	}
+	
+	public void addImage(Image image) {
+		contentStream.addImage(image);
 	}
 	
 	protected ContentStream getContentStream() {
