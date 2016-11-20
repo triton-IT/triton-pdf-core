@@ -8,6 +8,8 @@ public class Image implements PDFObject {
 	protected int id;
 	protected int x;
 	protected int y;
+	protected int originalWidth;
+	protected int originalHeight;
 	protected int width;
 	protected int height;
 	protected int skewX;
@@ -29,6 +31,18 @@ public class Image implements PDFObject {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	public int getOriginalWidth() {
+		return originalWidth;
+	}
+	public void setOriginalWidth(int originalWidth) {
+		this.originalWidth = originalWidth;
+	}
+	public int getOriginalHeight() {
+		return originalHeight;
+	}
+	public void setOriginalHeight(int originalHeight) {
+		this.originalHeight = originalHeight;
 	}
 	public int getWidth() {
 		return width;
@@ -70,8 +84,8 @@ public class Image implements PDFObject {
 		+ "  /Subtype /Image" + LINE_SEPARATOR
 		+ "  /Filter /FlateDecode" + LINE_SEPARATOR
 		+ "  /BitsPerComponent 8" + LINE_SEPARATOR
-		+ "  /Width " + width + LINE_SEPARATOR
-		+ "  /Height " + height + LINE_SEPARATOR
+		+ "  /Width " + originalWidth + LINE_SEPARATOR
+		+ "  /Height " + originalHeight + LINE_SEPARATOR
 		+ "  /ColorSpace /DeviceRGB" + LINE_SEPARATOR
 		+ ">>" + LINE_SEPARATOR
 		+ "stream" + LINE_SEPARATOR;
@@ -111,5 +125,22 @@ public class Image implements PDFObject {
 	@Override
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * Clone the image parameters but not its content.
+	 * @return The image filled-in with parameters.
+	 */
+	public Image cloneReference() {
+		Image clone = new Image(this.id);
+		
+		clone.x = this.x;
+		clone.y = this.y;
+		clone.width = this.width;
+		clone.height = this.height;
+		clone.skewX = this.skewX;
+		clone.skewY = this.skewY;
+		
+		return clone;
 	}
 }

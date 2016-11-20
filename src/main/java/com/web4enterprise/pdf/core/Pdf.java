@@ -104,9 +104,11 @@ public class Pdf{
 	
 			int width = bufferedImage.getWidth();
 			image.setWidth(width);
+			image.setOriginalWidth(width);
 			
 			int height = bufferedImage.getHeight();
 			image.setHeight(height);
+			image.setOriginalHeight(height);
 			
 			//Read image data.
 			int[] lineBuffer = new int[width];

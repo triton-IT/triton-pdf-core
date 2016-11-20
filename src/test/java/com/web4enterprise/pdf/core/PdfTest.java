@@ -23,7 +23,17 @@ public class PdfTest {
 			page1.addText(20, 60, 18, new TimesRomanBold(), new Color(255, 255, 80), "Times-Roman Bold");
 			page1.addText(20, 40, 12, new TimesRomanItalic(), "Times-Roman Italic");
 			page1.addText(20, 20, 6, new TimesRomanBoldItalic(), "Times-Roman Bold Italic");
+			image.setX(300);
+			image.setY(300);
+			image.setWidth(150);
+			image.setHeight(75);
 			page1.addImage(image);
+			Image image2 = image.cloneReference();
+			image2.setX(100);
+			image2.setY(500);
+			image2.setWidth(150);
+			image2.setHeight(75);
+			page1.addImage(image2);
 			Page page2 = document.createPage(595, 842);
 			page2.addText(100, 120, 50, "Another page...");
 			
