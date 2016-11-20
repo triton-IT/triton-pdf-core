@@ -17,7 +17,7 @@ public abstract class FontVariant {
 				fullWidth += width;
 			}
 		}
-		return (int) Math.round(fullWidth * size / 1000.0f);
+		return (int) Math.round(fullWidth * ((float) size) / 1000.0f);
 	}
 	
 	public int getHeight(Integer size, String string) {
@@ -29,7 +29,7 @@ public abstract class FontVariant {
 				greaterHeight = height;
 			}
 		}
-		return (int) Math.round(greaterHeight * size / 1000.0f);
+		return (int) Math.round(greaterHeight * ((float) size) / 1000.0f);
 	}
 	
 	public abstract String getName();
