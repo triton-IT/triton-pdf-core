@@ -58,21 +58,37 @@ public class FontVariant {
 		int fullWidth = 0;
 		Byte previousLetter = null;
 		for(byte letter : string.getBytes()) {
-			Integer width = widths.get(letter);
-			if(width != null) {
-				fullWidth += width;
-			}
-			if(previousLetter != null) {
-				Map<Byte, Integer> kerns = kernings.get(previousLetter);
-				if(kerns != null) {
-					Integer kern = kerns.get(letter);
-					if(kern != null) {
-						fullWidth += kern;
-					}
-				}
-			}
+			fullWidth += getWidth(letter);
+			fullWidth += getKerning(previousLetter, letter);
 			previousLetter = letter;
 		}
 		return Math.round(fullWidth * ((float) size) / 1000.0f);
+	}
+	
+	private int getWidth(Byte letter) {
+		int result = 0;
+		
+		Integer width = widths.get(letter);
+		if(width != null) {
+			result = width;
+		}
+		
+		return result;
+	}
+	
+	private int getKerning (Byte previous, Byte current) {
+		int kerning = 0;
+		
+		if(previous != null) {
+			Map<Byte, Integer> kerns = kernings.get(previous);
+			if(kerns != null) {
+				Integer kern = kerns.get(current);
+				if(kern != null) {
+					kerning = kern;
+				}
+			}
+		}
+		
+		return kerning;
 	}
 }
