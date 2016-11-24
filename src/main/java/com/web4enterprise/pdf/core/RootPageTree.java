@@ -5,10 +5,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.font.TimesRomanBold;
-import com.web4enterprise.pdf.core.font.TimesRomanBoldItalic;
-import com.web4enterprise.pdf.core.font.TimesRomanItalic;
-import com.web4enterprise.pdf.core.font.TimesRomanPlain;
+import com.web4enterprise.pdf.core.font.Font;
+import com.web4enterprise.pdf.core.font.FontStyle;
 
 public class RootPageTree implements PDFObject, PageNode {
 	/**
@@ -47,26 +45,20 @@ public class RootPageTree implements PDFObject, PageNode {
 				+ "  /MediaBox [0 0 0 0]" + LINE_SEPARATOR
 				+ "  /Resources <<" + LINE_SEPARATOR
 				+ "    /Font <<" + LINE_SEPARATOR
-				+ "      /" + TimesRomanPlain.NAME + " <<" + LINE_SEPARATOR
-				+ "        /Type /Font" + LINE_SEPARATOR
-				+ "        /Subtype /Type1" + LINE_SEPARATOR
-				+ "        /BaseFont /Times-Roman" + LINE_SEPARATOR
-				+ "      >>" + LINE_SEPARATOR
-				+ "      /" + TimesRomanBold.NAME + " <<" + LINE_SEPARATOR
-				+ "        /Type /Font" + LINE_SEPARATOR
-				+ "        /Subtype /Type1" + LINE_SEPARATOR
-				+ "        /BaseFont /Times-Bold" + LINE_SEPARATOR
-				+ "      >>" + LINE_SEPARATOR
-				+ "      /" + TimesRomanItalic.NAME + " <<" + LINE_SEPARATOR
-				+ "        /Type /Font" + LINE_SEPARATOR
-				+ "        /Subtype /Type1" + LINE_SEPARATOR
-				+ "        /BaseFont /Times-Italic" + LINE_SEPARATOR
-				+ "      >>" + LINE_SEPARATOR
-				+ "      /" + TimesRomanBoldItalic.NAME + " <<" + LINE_SEPARATOR
-				+ "        /Type /Font" + LINE_SEPARATOR
-				+ "        /Subtype /Type1" + LINE_SEPARATOR
-				+ "        /BaseFont /Times-BoldItalic" + LINE_SEPARATOR
-				+ "      >>" + LINE_SEPARATOR
+				+ embedFontVariant(Font.COURIER.getVariant(FontStyle.PLAIN).getName())
+				+ embedFontVariant(Font.COURIER.getVariant(FontStyle.BOLD).getName())
+				+ embedFontVariant(Font.COURIER.getVariant(FontStyle.ITALIC).getName())
+				+ embedFontVariant(Font.COURIER.getVariant(FontStyle.BOLD_ITALIC).getName())
+				+ embedFontVariant(Font.HELVTICA.getVariant(FontStyle.PLAIN).getName())
+				+ embedFontVariant(Font.HELVTICA.getVariant(FontStyle.BOLD).getName())
+				+ embedFontVariant(Font.HELVTICA.getVariant(FontStyle.ITALIC).getName())
+				+ embedFontVariant(Font.HELVTICA.getVariant(FontStyle.BOLD_ITALIC).getName())
+				+ embedFontVariant(Font.SYMBOL.getVariant(FontStyle.PLAIN).getName())
+				+ embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.PLAIN).getName())
+				+ embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.BOLD).getName())
+				+ embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.ITALIC).getName())
+				+ embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.BOLD_ITALIC).getName())
+				+ embedFontVariant(Font.ZAPF_DINGBATS.getVariant(FontStyle.PLAIN).getName())
 				+ "    >>" + LINE_SEPARATOR;
 		if(!images.isEmpty()) {
 			for(Image image : images) {
@@ -109,5 +101,13 @@ public class RootPageTree implements PDFObject, PageNode {
 	 */
 	protected void addImage(Image image) {
 		images.add(image);
+	}
+	
+	private String embedFontVariant(String fontVariant) {
+		return "      /" + fontVariant + " <<" + LINE_SEPARATOR
+				+ "        /Type /Font" + LINE_SEPARATOR
+				+ "        /Subtype /Type1" + LINE_SEPARATOR
+				+ "        /BaseFont /" + fontVariant + LINE_SEPARATOR
+				+ "      >>" + LINE_SEPARATOR;
 	}
 }

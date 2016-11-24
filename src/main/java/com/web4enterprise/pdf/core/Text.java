@@ -1,7 +1,8 @@
 package com.web4enterprise.pdf.core;
 
+import com.web4enterprise.pdf.core.font.Font;
+import com.web4enterprise.pdf.core.font.FontStyle;
 import com.web4enterprise.pdf.core.font.FontVariant;
-import com.web4enterprise.pdf.core.font.TimesRomanPlain;
 
 
 public class Text {	
@@ -13,7 +14,7 @@ public class Text {
 	protected String value;
 	
 	public Text(int x, int y, int size, String value) {
-		this(x, y, size, new TimesRomanPlain(), Color.BLACK, value);
+		this(x, y, size, Font.TIMES_ROMAN.getVariant(FontStyle.PLAIN), Color.BLACK, value);
 	}
 	
 	public Text(int x, int y, int size, FontVariant fontVariant, String value) {

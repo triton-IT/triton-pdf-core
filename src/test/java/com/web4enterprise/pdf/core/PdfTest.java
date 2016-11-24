@@ -8,9 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.web4enterprise.pdf.core.font.TimesRomanBold;
-import com.web4enterprise.pdf.core.font.TimesRomanBoldItalic;
-import com.web4enterprise.pdf.core.font.TimesRomanItalic;
+import com.web4enterprise.pdf.core.font.Font;
+import com.web4enterprise.pdf.core.font.FontStyle;
 
 public class PdfTest {
 	@Test
@@ -19,10 +18,18 @@ public class PdfTest {
 			Pdf document = new Pdf();
 			Image image = document.createImage(this.getClass().getResourceAsStream("/test.png"));
 			Page page1 = document.createPage(595, 842);
-			page1.addText(20, 100, 24, "Times-Roman");
-			page1.addText(20, 60, 18, new TimesRomanBold(), new Color(255, 255, 80), "Times-Roman Bold");
-			page1.addText(20, 40, 12, new TimesRomanItalic(), "Times-Roman Italic");
-			page1.addText(20, 20, 6, new TimesRomanBoldItalic(), "Times-Roman Bold Italic");
+			page1.addText(20, 700, 24, "Times-Roman");
+			page1.addText(20, 660, 18, Font.TIMES_ROMAN.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Times-Roman Bold");
+			page1.addText(20, 640, 12, Font.TIMES_ROMAN.getVariant(FontStyle.ITALIC), "Times-Roman Italic");
+			page1.addText(20, 620, 6, Font.TIMES_ROMAN.getVariant(FontStyle.BOLD_ITALIC), "Times-Roman Bold Italic");
+			page1.addText(200, 700, 24, Font.COURIER.getVariant(FontStyle.PLAIN), "Courier");
+			page1.addText(200, 660, 18, Font.COURIER.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Courier Bold");
+			page1.addText(200, 640, 12, Font.COURIER.getVariant(FontStyle.ITALIC), "Courier Italic");
+			page1.addText(200, 620, 6, Font.COURIER.getVariant(FontStyle.BOLD_ITALIC), "Courier Bold Italic");
+			page1.addText(320, 700, 24, Font.HELVTICA.getVariant(FontStyle.PLAIN), "Helvetica");
+			page1.addText(320, 660, 18, Font.HELVTICA.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Helvetica Bold");
+			page1.addText(320, 640, 12, Font.HELVTICA.getVariant(FontStyle.ITALIC), "Helvetica Italic");
+			page1.addText(320, 620, 6, Font.HELVTICA.getVariant(FontStyle.BOLD_ITALIC), "Helvetica Bold Italic");
 			image.setX(300);
 			image.setY(300);
 			image.setWidth(150);

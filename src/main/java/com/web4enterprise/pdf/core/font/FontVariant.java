@@ -5,10 +5,67 @@ import java.util.Map;
 
 import com.web4enterprise.pdf.core.BoundingBox;
 
-public abstract class FontVariant {	
-	protected static Map<Byte, Integer> widths = new HashMap<>();
-	protected static Map<Byte, BoundingBox> boxes = new HashMap<>();
+public class FontVariant {	
+	protected Map<Byte, Integer> widths = new HashMap<>();
+	protected Map<Byte, BoundingBox> boxes = new HashMap<>();
+	protected Map<Byte, Map<Byte, Integer>> kernings = new HashMap<>();
+	protected int underlinePosition;
+	protected int underlineThickness;
+	protected String name;
 	
+	public Map<Byte, Integer> getWidths() {
+		return widths;
+	}
+
+	public void addWidth(Byte character, Integer width) {
+		this.widths.put(character, width);
+	}
+
+	public Map<Byte, BoundingBox> getBoxes() {
+		return boxes;
+	}
+
+	public void addBox(Byte character, BoundingBox box) {
+		this.boxes.put(character, box);
+	}
+
+	public Map<Byte, Map<Byte, Integer>> getKernings() {
+		return kernings;
+	}
+
+	public void addKerning(Byte source, Byte destination, Integer kerning) {
+		Map<Byte, Integer> kernMap = this.kernings.get(this.kernings);
+		if(kernMap == null) {
+			kernMap = new HashMap<>();
+			this.kernings.put(source, kernMap);
+		}
+		kernMap.put(destination, kerning);
+	}
+
+	public int getUnderlinePosition() {
+		return underlinePosition;
+	}
+
+	public void setUnderlinePosition(int underlinePosition) {
+		this.underlinePosition = underlinePosition;
+	}
+
+	public int getUnderlineThickness() {
+		return underlineThickness;
+	}
+
+	public void setUnderlineThickness(int underlineThickness) {
+		this.underlineThickness = underlineThickness;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getWidth(Integer size, String string) {
 		int fullWidth = 0;
 		for(byte letter : string.getBytes()) {
@@ -19,18 +76,4 @@ public abstract class FontVariant {
 		}
 		return (int) Math.round(fullWidth * ((float) size) / 1000.0f);
 	}
-	
-	public int getHeight(Integer size, String string) {
-		int greaterHeight = 0;
-		for(byte letter : string.getBytes()) {
-			BoundingBox letterBox = boxes.get(letter);
-			int height = letterBox.getHeight();
-			if(height > greaterHeight) {
-				greaterHeight = height;
-			}
-		}
-		return (int) Math.round(greaterHeight * ((float) size) / 1000.0f);
-	}
-	
-	public abstract String getName();
 }

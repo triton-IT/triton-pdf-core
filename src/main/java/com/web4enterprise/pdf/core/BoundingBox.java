@@ -1,20 +1,15 @@
 package com.web4enterprise.pdf.core;
 
 public class BoundingBox {
-	protected int upperLeft;
-	protected int upperRight;
-	protected int lowerLeft;
-	protected int lowerRight;
+	protected int left;
+	protected int bottom;
+	protected int right;
+	protected int top;
 
-	public BoundingBox(int upperLeft, int upperRight, int lowerLeft,
-			int lowerRight) {
-		this.upperLeft = upperLeft;
-		this.upperRight = upperRight;
-		this.lowerLeft = lowerLeft;
-		this.lowerRight = lowerRight;
+	public BoundingBox(int left, int bottom, int right,	int top) {
+		this.left = left;
+		this.bottom = bottom;
+		this.right = right;
+		this.top = top;
 	}
-	
-    public int getHeight() {
-        return upperLeft - lowerLeft;
-    }
 }
