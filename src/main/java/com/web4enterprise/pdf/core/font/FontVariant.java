@@ -74,6 +74,6 @@ public class FontVariant {
 				fullWidth += width;
 			}
 		}
-		return (int) Math.round(fullWidth * ((float) size) / 1000.0f);
+		return Math.round(fullWidth * ((float) size) / 1000.0f);
 	}
 }

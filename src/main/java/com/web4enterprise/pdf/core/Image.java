@@ -1,10 +1,14 @@
 package com.web4enterprise.pdf.core;
 
+import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
-public class Image implements PDFObject {
+
+public class Image implements PdfObject {
 	protected int id;
 	protected int x;
 	protected int y;
@@ -94,26 +98,17 @@ public class Image implements PDFObject {
 		
 		try {
 			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write root page tree to output stream", e);
-		}
-		
-		//Write data.
-		try {
 			stream.write(data);
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write root page tree to output stream", e);
-		}
-		length += data.length;
-
-		//Write image footer.
-		asString = LINE_SEPARATOR		
-			+ "endstream" + LINE_SEPARATOR
-			+ "endobj" + LINE_SEPARATOR;
-		
-		length += asString.length();
-		
-		try {
+			
+			length += data.length;
+			
+			//Write image footer.
+			asString = LINE_SEPARATOR		
+				+ "endstream" + LINE_SEPARATOR
+				+ "endobj" + LINE_SEPARATOR;
+			
+			length += asString.length();
+			
 			stream.write(asString.getBytes());
 		} catch (IOException e) {
 			throw new PdfGenerationException("Cannot write root page tree to output stream", e);

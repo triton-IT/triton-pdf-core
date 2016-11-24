@@ -3,25 +3,23 @@ package com.web4enterprise.pdf.core.font;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Font {
-	private static Logger logger = Logger.getLogger(Font.class.getName());
-	
-	public static Font COURIER;
-	public static Font HELVTICA;
-	public static Font SYMBOL;
-	public static Font TIMES_ROMAN;
-	public static Font ZAPF_DINGBATS;
+import com.web4enterprise.pdf.core.exceptions.ConfigurationException;
+
+public class Font {	
+	public static final Font COURIER;
+	public static final Font HELVTICA;
+	public static final Font SYMBOL;
+	public static final Font TIMES_ROMAN;
+	public static final Font ZAPF_DINGBATS;
 	static {
 		try {
 			COURIER = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier-Bold.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier-Oblique.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier-BoldOblique.afm")));
-		} catch (IOException | NullPointerException e) {
-			logger.log(Level.SEVERE, "Unable to load font Courier.", e);
+		} catch (IOException e) {
+			throw new ConfigurationException("Unable to load font Courier.", e);
 		}
 		try {
 			HELVTICA = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica.afm")), 
@@ -29,12 +27,12 @@ public class Font {
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica-Oblique.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica-BoldOblique.afm")));
 		} catch (IOException | NullPointerException e) {
-			logger.log(Level.SEVERE, "Unable to load font Helvetica.", e);
+			throw new ConfigurationException("Unable to load font Helvetica.", e);
 		}
 		try {
 			SYMBOL = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Symbol.afm")));
 		} catch (IOException | NullPointerException e) {
-			logger.log(Level.SEVERE, "Unable to load font Symbol.", e);
+			throw new ConfigurationException("Unable to load font Symbol.", e);
 		}
 		try {
 			TIMES_ROMAN = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-Roman.afm")), 
@@ -42,12 +40,12 @@ public class Font {
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-Italic.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-BoldItalic.afm")));
 		} catch (IOException | NullPointerException e) {
-			logger.log(Level.SEVERE, "Unable to load font Times-Roman.", e);
+			throw new ConfigurationException("Unable to load font Times-Roman.", e);
 		}
 		try {
 			ZAPF_DINGBATS = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/ZapfDingbats.afm")));
 		} catch (IOException | NullPointerException e) {
-			logger.log(Level.SEVERE, "Unable to load font Zapf-Dingbats.", e);
+			throw new ConfigurationException("Unable to load font Zapf-Dingbats.", e);
 		}
 	}
 	

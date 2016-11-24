@@ -1,7 +1,11 @@
 package com.web4enterprise.pdf.core;
 
+import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+
 import java.io.IOException;
 import java.io.OutputStream;
+
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
 
 
@@ -19,21 +23,24 @@ public class PageTree extends RootPageTree {
 	
 	@Override
 	public int write(OutputStream stream) throws PdfGenerationException {
-		String asString = id + " 0 obj" + LINE_SEPARATOR
-				+ "<< /Type /Pages" + LINE_SEPARATOR
-				+ "    /Parent 2 0 R" + LINE_SEPARATOR
-				+ "    /Kids [" + LINE_SEPARATOR;
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append(id + " 0 obj").append(LINE_SEPARATOR)
+		.append("<< /Type /Pages").append(LINE_SEPARATOR)
+		.append("    /Parent 2 0 R").append(LINE_SEPARATOR)
+		.append("    /Kids [").append(LINE_SEPARATOR);
 		
 		for(PageNode pageNode : pageNodes) {
-			asString += "        " + pageNode.getId() + " 0 R" + LINE_SEPARATOR;
+			builder.append("        ").append(pageNode.getId()).append(" 0 R").append(LINE_SEPARATOR);
 		}
 		
-		asString += "    ]" + LINE_SEPARATOR
-				+ "    /Count " + pageNodes.size() + LINE_SEPARATOR
-				+ "    /MediaBox [0 0 " + width + " " + height+ "]" + LINE_SEPARATOR
-				+ ">>" + LINE_SEPARATOR
-				+ "endobj" + LINE_SEPARATOR;
+		builder.append("    ]").append(LINE_SEPARATOR)
+		.append("    /Count ").append(pageNodes.size()).append(LINE_SEPARATOR)
+		.append("    /MediaBox [0 0 ").append(width).append(" ").append(height+ "]").append(LINE_SEPARATOR)
+		.append(">>").append(LINE_SEPARATOR)
+		.append("endobj").append(LINE_SEPARATOR);
 		
+		String asString = builder.toString();
 		try {
 			stream.write(asString.getBytes());
 		} catch (IOException e) {

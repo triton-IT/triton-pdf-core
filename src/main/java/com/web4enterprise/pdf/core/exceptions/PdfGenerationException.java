@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.exceptions;
 
 public class PdfGenerationException extends Exception {
 	/**

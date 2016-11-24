@@ -10,6 +10,9 @@ import java.util.Map;
 import com.web4enterprise.pdf.core.BoundingBox;
 
 public class AfmLoader {
+	private AfmLoader() {
+		throw new IllegalAccessError("Utility class");
+	}
 	public static FontVariant load(InputStream stream) throws IOException {
 		Map<String, Byte> nameByteMapping = new HashMap<>();
 		

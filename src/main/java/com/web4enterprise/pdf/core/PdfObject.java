@@ -2,12 +2,9 @@ package com.web4enterprise.pdf.core;
 
 import java.io.OutputStream;
 
-public interface PDFObject {
-	/**
-	 * The line separator that will be used in this PDF.
-	 */
-	static String LINE_SEPARATOR = "\n";
-	
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+
+public interface PdfObject {	
 	/**
 	 * Render an object to output stream.
 	 * 

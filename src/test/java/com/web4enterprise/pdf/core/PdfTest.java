@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontStyle;
 
@@ -22,14 +23,16 @@ public class PdfTest {
 			page1.addText(20, 660, 18, Font.TIMES_ROMAN.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Times-Roman Bold");
 			page1.addText(20, 640, 12, Font.TIMES_ROMAN.getVariant(FontStyle.ITALIC), "Times-Roman Italic");
 			page1.addText(20, 620, 6, Font.TIMES_ROMAN.getVariant(FontStyle.BOLD_ITALIC), "Times-Roman Bold Italic");
-			page1.addText(200, 700, 24, Font.COURIER.getVariant(FontStyle.PLAIN), "Courier");
-			page1.addText(200, 660, 18, Font.COURIER.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Courier Bold");
-			page1.addText(200, 640, 12, Font.COURIER.getVariant(FontStyle.ITALIC), "Courier Italic");
-			page1.addText(200, 620, 6, Font.COURIER.getVariant(FontStyle.BOLD_ITALIC), "Courier Bold Italic");
+			page1.addText(180, 700, 24, Font.COURIER.getVariant(FontStyle.PLAIN), "Courier");
+			page1.addText(180, 660, 18, Font.COURIER.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Courier Bold");
+			page1.addText(180, 640, 12, Font.COURIER.getVariant(FontStyle.ITALIC), "Courier Italic");
+			page1.addText(180, 620, 6, Font.COURIER.getVariant(FontStyle.BOLD_ITALIC), "Courier Bold Italic");
 			page1.addText(320, 700, 24, Font.HELVTICA.getVariant(FontStyle.PLAIN), "Helvetica");
 			page1.addText(320, 660, 18, Font.HELVTICA.getVariant(FontStyle.BOLD), new Color(255, 255, 80), "Helvetica Bold");
 			page1.addText(320, 640, 12, Font.HELVTICA.getVariant(FontStyle.ITALIC), "Helvetica Italic");
 			page1.addText(320, 620, 6, Font.HELVTICA.getVariant(FontStyle.BOLD_ITALIC), "Helvetica Bold Italic");
+			page1.addText(20, 740, 24, Font.SYMBOL.getVariant(FontStyle.PLAIN), "Symbol");
+			page1.addText(180, 740, 18, Font.ZAPF_DINGBATS.getVariant(FontStyle.PLAIN), "Zapf-Dingbats");
 			image.setX(300);
 			image.setY(300);
 			image.setWidth(150);

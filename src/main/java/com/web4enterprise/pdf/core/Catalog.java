@@ -1,9 +1,13 @@
 package com.web4enterprise.pdf.core;
 
+import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class Catalog implements PDFObject {
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+
+public class Catalog implements PdfObject {
 	@Override
 	public int write(OutputStream stream) throws PdfGenerationException {
 		String asString = "1 0 obj" + LINE_SEPARATOR

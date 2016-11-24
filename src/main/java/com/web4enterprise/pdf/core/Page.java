@@ -1,11 +1,14 @@
 package com.web4enterprise.pdf.core;
 
+import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
 
-public class Page implements PDFObject, PageNode {	
+public class Page implements PdfObject, PageNode {	
 	/**
 	 * This properties are read-only and defined internally of library.
 	 */

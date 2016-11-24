@@ -1,7 +1,5 @@
 package com.web4enterprise.pdf.core;
 
-import static com.web4enterprise.pdf.core.PDFObject.LINE_SEPARATOR;
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,11 +13,17 @@ import java.util.zip.DeflaterOutputStream;
 
 import javax.imageio.ImageIO;
 
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+
 public class Pdf{
+	/**
+	 * The line separator that will be used in this PDF.
+	 */
+	static String LINE_SEPARATOR = "\n";
 	/**
 	 * The list of indirect objects.
 	 */
-	List<PDFObject> indirectsObjects = new ArrayList<>();
+	List<PdfObject> indirectsObjects = new ArrayList<>();
 	
 	/**
 	 * The list of bytes written before each indirect object.
@@ -173,11 +177,12 @@ public class Pdf{
 	protected int writeBody(OutputStream stream, int position) throws PdfGenerationException {
 		int length = 0;
 		
+		int newPosition = position;
 		for(int i = 0; i < indirectsObjects.size(); i++) {
-			indirectsPositions.add(position);
+			indirectsPositions.add(newPosition);
 			//Identifiers start at 1 and not 0.
 			length += indirectsObjects.get(i).write(stream);
-			position += length;
+			newPosition += length;
 		}
 		
 		return length;
@@ -191,17 +196,20 @@ public class Pdf{
 	 * @throws IOException When trailer cannot be written to stream.
 	 */
 	protected void writeXRef(OutputStream stream) throws IOException {
-		String asString = "xref" + LINE_SEPARATOR
-				// cross-reference identifier is 0 because we always generate only one XRef.
-				+ "0 " + (indirectsObjects.size() + 1) + LINE_SEPARATOR
-				//This line is a PDF convention one.
-				+ "0000000000 65535 f" + LINE_SEPARATOR;
+		StringBuilder builder = new StringBuilder();
 		
+		builder.append("xref" + LINE_SEPARATOR)
+		// cross-reference identifier is 0 because we always generate only one XRef.
+		.append("0 ").append((indirectsObjects.size() + 1)).append(LINE_SEPARATOR)
+		//This line is a PDF convention one.
+		.append("0000000000 65535 f").append(LINE_SEPARATOR);
+
 		for(int i = 0; i < indirectsObjects.size(); i++) {
 			String position = String.format("%010d", indirectsPositions.get(i));
 			//We generate object only once, so generation number is always 00000, and object is in use, so use 'n' tag.
-			asString += position + " 00000 n" + LINE_SEPARATOR;
-		}
+			builder.append(position).append(" 00000 n").append(LINE_SEPARATOR);
+		}		
+		String asString = builder.toString();
 		
 		stream.write(asString.getBytes());
 	}
