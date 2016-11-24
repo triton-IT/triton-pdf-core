@@ -22,7 +22,7 @@ public class FontVariant {
 	}
 
 	public void addKerning(Byte source, Byte destination, Integer kerning) {
-		Map<Byte, Integer> kernMap = this.kernings.get(this.kernings);
+		Map<Byte, Integer> kernMap = this.kernings.get(source);
 		if(kernMap == null) {
 			kernMap = new HashMap<>();
 			this.kernings.put(source, kernMap);
@@ -56,11 +56,22 @@ public class FontVariant {
 
 	public int getWidth(Integer size, String string) {
 		int fullWidth = 0;
+		Byte previousLetter = null;
 		for(byte letter : string.getBytes()) {
 			Integer width = widths.get(letter);
 			if(width != null) {
 				fullWidth += width;
 			}
+			if(previousLetter != null) {
+				Map<Byte, Integer> kerns = kernings.get(previousLetter);
+				if(kerns != null) {
+					Integer kern = kerns.get(letter);
+					if(kern != null) {
+						fullWidth += kern;
+					}
+				}
+			}
+			previousLetter = letter;
 		}
 		return Math.round(fullWidth * ((float) size) / 1000.0f);
 	}
