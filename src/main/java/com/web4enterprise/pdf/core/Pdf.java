@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Pdf{
 	/**
 	 * The line separator that will be used in this PDF.
 	 */
-	static String LINE_SEPARATOR = "\n";
+	static final String LINE_SEPARATOR = "\n";
 	/**
 	 * The list of indirect objects.
 	 */
@@ -63,8 +62,6 @@ public class Pdf{
 			writeTrailer(stream);
 			writeStartXRef(stream, position);
 			stream.write("%%EOF".getBytes());
-		} catch (UnsupportedEncodingException e) {
-			throw new PdfGenerationException("Cannot encode to UTF-8", e);
 		} catch(IOException e) {
 			throw new PdfGenerationException("Cannot write PDF.", e);
 		}
@@ -200,7 +197,7 @@ public class Pdf{
 		
 		builder.append("xref" + LINE_SEPARATOR)
 		// cross-reference identifier is 0 because we always generate only one XRef.
-		.append("0 ").append((indirectsObjects.size() + 1)).append(LINE_SEPARATOR)
+		.append("0 ").append(indirectsObjects.size() + 1).append(LINE_SEPARATOR)
 		//This line is a PDF convention one.
 		.append("0000000000 65535 f").append(LINE_SEPARATOR);
 

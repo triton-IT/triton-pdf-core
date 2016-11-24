@@ -68,14 +68,14 @@ public class ContentStream implements PdfObject {
 		for(BezierPath path : bezierLines) {
 			builder.append(path.getLineWidth()).append(" w ")
 			
-			.append((((float) path.getStrokeColor().getRed()) / 255.0f)).append(" ")
-			.append((((float) path.getStrokeColor().getGreen()) / 255.0f)).append(" ")
-			.append((((float) path.getStrokeColor().getBlue()) / 255.0f)).append(" ")
+			.append(((float) path.getStrokeColor().getRed()) / 255.0f).append(" ")
+			.append(((float) path.getStrokeColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) path.getStrokeColor().getBlue()) / 255.0f).append(" ")
 			.append("RG ")
 			
-			.append((((float) path.getFillColor().getRed()) / 255.0f)).append(" ")
-			.append((((float) path.getFillColor().getGreen()) / 255.0f)).append(" ")
-			.append((((float) path.getFillColor().getBlue()) / 255.0f)).append(" ")
+			.append(((float) path.getFillColor().getRed()) / 255.0f).append(" ")
+			.append(((float) path.getFillColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) path.getFillColor().getBlue()) / 255.0f).append(" ")
 			.append("rg ")
 			
 			.append(path.getStartPoint().getX()).append(" ").append(path.getStartPoint().getY()).append(" m ");
@@ -102,14 +102,14 @@ public class ContentStream implements PdfObject {
 		for(StraightPath path : lines) {
 			builder.append(path.getLineWidth()).append(" w ")
 			
-			.append((((float) path.getStrokeColor().getRed()) / 255.0f)).append(" ")
-			.append((((float) path.getStrokeColor().getGreen()) / 255.0f)).append(" ")
-			.append((((float) path.getStrokeColor().getBlue()) / 255.0f)).append(" ")
+			.append(((float) path.getStrokeColor().getRed()) / 255.0f).append(" ")
+			.append(((float) path.getStrokeColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) path.getStrokeColor().getBlue()) / 255.0f).append(" ")
 			.append("RG ")
 			
-			.append((((float) path.getFillColor().getRed()) / 255.0f) / 255.0f).append(" ")
-			.append((((float) path.getFillColor().getGreen()) / 255.0f)).append(" ")
-			.append((((float) path.getFillColor().getBlue()) / 255.0f)).append(" ")
+			.append(((float) path.getFillColor().getRed()) / 255.0f).append(" ")
+			.append(((float) path.getFillColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) path.getFillColor().getBlue()) / 255.0f).append(" ")
 			.append("rg ")
 			
 			.append(path.getStartPoint().getX()).append(" ").append(path.getStartPoint().getY()).append(" m ");
@@ -138,7 +138,8 @@ public class ContentStream implements PdfObject {
 			.append(" ").append(text.getColor().getGreen() / 255.0f)
 			.append(" ").append(text.getColor().getBlue() / 255.0f)
 			.append(" rg").append(LINE_SEPARATOR)
-			.append("    (").append(text.getValue()).append(") Tj").append(LINE_SEPARATOR)
+			//( and ) are interpreted by PDF readers, so we must escape them.
+			.append("    (").append(text.getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
 			.append("  ET").append(LINE_SEPARATOR); //End text
 		}
 		return builder.toString();

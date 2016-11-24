@@ -12,25 +12,13 @@ public class FontVariant {
 	protected int underlinePosition;
 	protected int underlineThickness;
 	protected String name;
-	
-	public Map<Byte, Integer> getWidths() {
-		return widths;
-	}
 
 	public void addWidth(Byte character, Integer width) {
 		this.widths.put(character, width);
 	}
 
-	public Map<Byte, BoundingBox> getBoxes() {
-		return boxes;
-	}
-
 	public void addBox(Byte character, BoundingBox box) {
 		this.boxes.put(character, box);
-	}
-
-	public Map<Byte, Map<Byte, Integer>> getKernings() {
-		return kernings;
 	}
 
 	public void addKerning(Byte source, Byte destination, Integer kerning) {
