@@ -1,5 +1,12 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.path;
 
+import com.web4enterprise.pdf.core.geometry.Point;
+
+/**
+ * Class extending a simple point to add controls necessary for Bezier curves.
+ * 
+ * @author Régis Ramillien
+ */
 public class BezierPoint extends Point {
 	protected int x1;
 	protected int y1;

@@ -1,5 +1,13 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.path;
 
+import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.styling.Color;
+
+/**
+ * Class representing a simple path with its default properties.
+ * 
+ * @author Régis Ramillien
+ */
 public abstract class Path {
 	protected Point startPoint;
 	protected boolean stroked = true;

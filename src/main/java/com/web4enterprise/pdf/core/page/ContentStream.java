@@ -1,21 +1,26 @@
 package com.web4enterprise.pdf.core.page;
 
-import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.BezierPath;
-import com.web4enterprise.pdf.core.BezierPoint;
-import com.web4enterprise.pdf.core.PdfObject;
-import com.web4enterprise.pdf.core.Point;
-import com.web4enterprise.pdf.core.StraightPath;
-import com.web4enterprise.pdf.core.Text;
+import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.image.Image;
+import com.web4enterprise.pdf.core.path.BezierPath;
+import com.web4enterprise.pdf.core.path.BezierPoint;
+import com.web4enterprise.pdf.core.path.StraightPath;
+import com.web4enterprise.pdf.core.text.Text;
 
+/**
+ * Internal class to write data to the content-stream section of PDF.
+ * 
+ * @author Régis Ramillien
+ */
 public class ContentStream implements PdfObject {
 	protected int id;
 	

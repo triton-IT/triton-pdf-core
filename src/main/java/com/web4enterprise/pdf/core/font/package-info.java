@@ -1,8 +1,6 @@
 /**
+ * Package containing font related classes.
  * 
- */
-/**
- * @author rramillien
- *
+ * @author Régis Ramillien
  */
 package com.web4enterprise.pdf.core.font;

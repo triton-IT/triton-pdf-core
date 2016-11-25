@@ -1,5 +1,10 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.styling;
 
+/**
+ * Defines a color using 3 components (red, green and blue).
+ * 
+ * @author Régis Ramillien
+ */
 public class Color {
 	protected int red;
 	protected int green;

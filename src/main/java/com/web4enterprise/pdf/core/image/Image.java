@@ -1,14 +1,20 @@
 package com.web4enterprise.pdf.core.image;
 
-import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.web4enterprise.pdf.core.PdfObject;
+import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
-
+/**
+ * Class representing an image that must be embeded and rendered into a PDF document.
+ * The same class is used to both represent the image data and image positioning (position, size, skew, etc).
+ * The image data must be added only once to PDF to save space while it can be positioned many times without adding its data.
+ * 
+ * @author Régis Ramillien
+ */
 public class Image implements PdfObject {
 	protected int id;
 	protected int x;

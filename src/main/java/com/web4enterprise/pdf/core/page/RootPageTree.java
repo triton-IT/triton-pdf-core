@@ -1,18 +1,23 @@
 package com.web4enterprise.pdf.core.page;
 
-import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.PdfObject;
+import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontStyle;
 import com.web4enterprise.pdf.core.image.Image;
 
+/**
+ * Represent the root page of a PDF document.
+ * 
+ * @author Régis Ramillien
+ */
 public class RootPageTree implements PdfObject, PageNode {
 	/**
 	 * The pages in the PDF.

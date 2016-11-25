@@ -1,5 +1,10 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.geometry;
 
+/**
+ * Class representing the bounding box of a 2 dimensional object.
+ * 
+ * @author Régis Ramillien
+ */
 public class BoundingBox {
 	protected int left;
 	protected int bottom;

@@ -1,19 +1,24 @@
 package com.web4enterprise.pdf.core.page;
 
-import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.web4enterprise.pdf.core.BezierPath;
-import com.web4enterprise.pdf.core.Color;
-import com.web4enterprise.pdf.core.PdfObject;
-import com.web4enterprise.pdf.core.StraightPath;
-import com.web4enterprise.pdf.core.Text;
+import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
 import com.web4enterprise.pdf.core.image.Image;
+import com.web4enterprise.pdf.core.path.BezierPath;
+import com.web4enterprise.pdf.core.path.StraightPath;
+import com.web4enterprise.pdf.core.styling.Color;
+import com.web4enterprise.pdf.core.text.Text;
 
+/**
+ * Class representing a page and its content in PDF.
+ * 
+ * @author Régis Ramillien
+ */
 public class Page implements PdfObject, PageNode {	
 	/**
 	 * This properties are read-only and defined internally of library.

@@ -1,8 +1,6 @@
 /**
+ * Package containing all custom exceptions.
  * 
- */
-/**
- * @author rramillien
- *
+ * @author Régis Ramillien
  */
 package com.web4enterprise.pdf.core.exceptions;

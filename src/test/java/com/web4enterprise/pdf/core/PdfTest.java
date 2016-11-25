@@ -6,11 +6,17 @@ import java.io.OutputStream;
 
 import org.junit.Test;
 
+import com.web4enterprise.pdf.core.document.Pdf;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontStyle;
+import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.image.Image;
 import com.web4enterprise.pdf.core.page.Page;
+import com.web4enterprise.pdf.core.path.BezierPath;
+import com.web4enterprise.pdf.core.path.BezierPoint;
+import com.web4enterprise.pdf.core.path.StraightPath;
+import com.web4enterprise.pdf.core.styling.Color;
 
 public class PdfTest {
 	@Test

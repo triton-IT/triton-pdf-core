@@ -6,6 +6,12 @@ import java.util.Map;
 
 import com.web4enterprise.pdf.core.exceptions.ConfigurationException;
 
+/**
+ * Class representing a font with its variants (plain, bold, italic and bold/italic).
+ * Contains also the 14 base fonts that must be present in every PDF readers.
+ * 
+ * @author Régis Ramillien
+ */
 public class Font {	
 	public static final Font COURIER;
 	public static final Font HELVTICA;

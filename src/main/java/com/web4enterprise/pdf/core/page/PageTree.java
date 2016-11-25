@@ -1,14 +1,18 @@
 package com.web4enterprise.pdf.core.page;
 
-import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
-
-
+/**
+ * Represent a page tree in a PDF.
+ * The page tree default styling for future pages. 
+ * 
+ * @author Régis Ramillien
+ */
 public class PageTree extends RootPageTree {
 	protected int parent;
 	protected int width;

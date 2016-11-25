@@ -1,5 +1,10 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.geometry;
 
+/**
+ * A simple point in a 2 dimensions space.
+ * 
+ * @author Régis Ramillien
+ */
 public class Point {
 	protected int x;
 	protected int y;

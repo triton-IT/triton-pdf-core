@@ -7,12 +7,19 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.web4enterprise.pdf.core.BoundingBox;
+import com.web4enterprise.pdf.core.geometry.BoundingBox;
 
+/**
+ * Loader for AFM fonts.
+ * 
+ * @author Régis Ramillien
+ *
+ */
 public class AfmLoader {
 	private AfmLoader() {
 		throw new IllegalAccessError("Utility class");
 	}
+	
 	public static FontVariant load(InputStream stream) throws IOException {
 		Map<String, Byte> nameByteMapping = new HashMap<>();
 		

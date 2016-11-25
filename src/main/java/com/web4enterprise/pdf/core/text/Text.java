@@ -1,10 +1,15 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.text;
 
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontStyle;
 import com.web4enterprise.pdf.core.font.FontVariant;
+import com.web4enterprise.pdf.core.styling.Color;
 
-
+/**
+ * Class representing a text to render in a PDF document.
+ * 
+ * @author Régis Ramillien
+ */
 public class Text {	
 	protected int x;
 	protected int y;

@@ -7,7 +7,7 @@
 
   <name>Simply PDF core</name>
   <description>Simple relatively low-level API to create a PDF.</description>
-  <url>https://github.com/rramillien/pdf-core</url>
+  <url>https://github.com/rramillien/simplypdf-core</url>
 
   <licenses>
     <license>
@@ -26,9 +26,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/rramillien/pdf-core.git</connection>
-    <developerConnection>scm:git:ssh://github.com:rramillien/pdf-core.git</developerConnection>
-    <url>https://github.com/rramillien/pdf-core/tree/master</url>
+    <connection>scm:git:git://github.com/rramillien/simplypdf-core.git</connection>
+    <developerConnection>scm:git:ssh://github.com:rramillien/simplypdf-core.git</developerConnection>
+    <url>https://github.com/rramillien/simplypdf-core/tree/master</url>
   </scm>
 
   <properties>

@@ -1,6 +1,6 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.document;
 
-import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -3,8 +3,14 @@ package com.web4enterprise.pdf.core.font;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.web4enterprise.pdf.core.BoundingBox;
+import com.web4enterprise.pdf.core.geometry.BoundingBox;
 
+/**
+ * Class representing a font variant.
+ * A font variant is a "styling" (plain, bold, italic) of a base font.
+ * 
+ * @author Régis Ramillien
+ */
 public class FontVariant {	
 	protected Map<Byte, Integer> widths = new HashMap<>();
 	protected Map<Byte, BoundingBox> boxes = new HashMap<>();
