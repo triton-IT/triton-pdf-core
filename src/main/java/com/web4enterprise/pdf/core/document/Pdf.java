@@ -121,7 +121,7 @@ public class Pdf{
 			
 			byte[] data = new byte[width * height * 3];
 	
-			int rgbs[] = bufferedImage.getRGB(0, 0, width, height, lineBuffer, 0, width);
+			int[] rgbs = bufferedImage.getRGB(0, 0, width, height, lineBuffer, 0, width);
 			int componentId = 0;
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
@@ -132,10 +132,8 @@ public class Pdf{
 				}
 			}
 	
-			//Compress image data.			
-			byte[] compressedImage = deflate(data);
-			
-			image.setData(compressedImage);
+			//Compress and set image data.			
+			image.setData(deflate(data));
 			
 			indirectsObjects.add(image);
 			rootPageTree.addImage(image);
@@ -146,25 +144,12 @@ public class Pdf{
 		return image;
 	}
 
-	private byte[] deflate(byte[] data) throws IOException {
-		ByteArrayOutputStream compressedOutpuStream = null;
-		DeflaterOutputStream deflaterOutputStream = null;
-		
-		try {
-			compressedOutpuStream = new ByteArrayOutputStream(data.length);
-			deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream);
-			
+	private byte[] deflate(byte[] data) throws IOException {		
+		try(ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
+				DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream)) {
 			deflaterOutputStream.write(data, 0, data.length);
-		} finally {
-			if(deflaterOutputStream != null) {
-				deflaterOutputStream.close();
-			}
-			if(compressedOutpuStream != null) {
-				compressedOutpuStream.close();
-			}
-		}
-		
-		return compressedOutpuStream.toByteArray();
+			return compressedOutpuStream.toByteArray();
+		}		
 	}
 	
 	/**

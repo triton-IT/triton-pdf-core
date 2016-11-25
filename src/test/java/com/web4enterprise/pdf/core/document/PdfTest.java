@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.document;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
