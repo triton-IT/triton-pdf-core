@@ -9,6 +9,8 @@ import org.junit.Test;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontStyle;
+import com.web4enterprise.pdf.core.image.Image;
+import com.web4enterprise.pdf.core.page.Page;
 
 public class PdfTest {
 	@Test

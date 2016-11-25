@@ -1,10 +1,11 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.image;
 
 import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.web4enterprise.pdf.core.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
 
@@ -83,14 +84,14 @@ public class Image implements PdfObject {
 	public int write(OutputStream stream) throws PdfGenerationException {
 		//Write image header.
 		String asString = id + " 0 obj <<" + LINE_SEPARATOR
-		+ "  /Length " + data.length + LINE_SEPARATOR
-		+ "  /Type /XObject" + LINE_SEPARATOR
-		+ "  /Subtype /Image" + LINE_SEPARATOR
-		+ "  /Filter /FlateDecode" + LINE_SEPARATOR
-		+ "  /BitsPerComponent 8" + LINE_SEPARATOR
-		+ "  /Width " + originalWidth + LINE_SEPARATOR
-		+ "  /Height " + originalHeight + LINE_SEPARATOR
-		+ "  /ColorSpace /DeviceRGB" + LINE_SEPARATOR
+		+ "/Length " + data.length + LINE_SEPARATOR
+		+ "/Type /XObject" + LINE_SEPARATOR
+		+ "/Subtype /Image" + LINE_SEPARATOR
+		+ "/Filter /FlateDecode" + LINE_SEPARATOR
+		+ "/BitsPerComponent 8" + LINE_SEPARATOR
+		+ "/Width " + originalWidth + LINE_SEPARATOR
+		+ "/Height " + originalHeight + LINE_SEPARATOR
+		+ "/ColorSpace /DeviceRGB" + LINE_SEPARATOR
 		+ ">>" + LINE_SEPARATOR
 		+ "stream" + LINE_SEPARATOR;
 		

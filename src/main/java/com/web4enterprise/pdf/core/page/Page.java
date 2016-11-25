@@ -1,12 +1,18 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.page;
 
 import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.web4enterprise.pdf.core.BezierPath;
+import com.web4enterprise.pdf.core.Color;
+import com.web4enterprise.pdf.core.PdfObject;
+import com.web4enterprise.pdf.core.StraightPath;
+import com.web4enterprise.pdf.core.Text;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
+import com.web4enterprise.pdf.core.image.Image;
 
 public class Page implements PdfObject, PageNode {	
 	/**
@@ -29,9 +35,9 @@ public class Page implements PdfObject, PageNode {
 	@Override
 	public int write(OutputStream stream) throws PdfGenerationException {
 		String asString = id + " 0 obj <<" + LINE_SEPARATOR
-				+ "  /Type /Page" + LINE_SEPARATOR
-				+ "  /Parent " + parentId + " 0 R" + LINE_SEPARATOR
-			    + "  /Contents " + contentStream.getId() + " 0 R" + LINE_SEPARATOR
+				+ "/Type /Page" + LINE_SEPARATOR
+				+ "/Parent " + parentId + " 0 R" + LINE_SEPARATOR
+			    + "/Contents " + contentStream.getId() + " 0 R" + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
 		

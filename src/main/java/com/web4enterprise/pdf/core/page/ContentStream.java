@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.page;
 
 import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
 
@@ -7,7 +7,14 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.web4enterprise.pdf.core.BezierPath;
+import com.web4enterprise.pdf.core.BezierPoint;
+import com.web4enterprise.pdf.core.PdfObject;
+import com.web4enterprise.pdf.core.Point;
+import com.web4enterprise.pdf.core.StraightPath;
+import com.web4enterprise.pdf.core.Text;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+import com.web4enterprise.pdf.core.image.Image;
 
 public class ContentStream implements PdfObject {
 	protected int id;
@@ -28,8 +35,9 @@ public class ContentStream implements PdfObject {
 		String bezierLinesValues = writeBezierLines();
 		String imagesValues = writeImages();
 
-		String asString = id + " 0 obj" + LINE_SEPARATOR
-				+ "<< /Length " + textsValues.length() + " >>" + LINE_SEPARATOR
+		String asString = id + " 0 obj <<" + LINE_SEPARATOR
+				+ "/Length " + (textsValues.length() + linesValues.length() + bezierLinesValues.length() + imagesValues.length()) + LINE_SEPARATOR
+				+ ">>" + LINE_SEPARATOR
 				+ "stream" + LINE_SEPARATOR
 				+ textsValues
 				+ linesValues
@@ -80,9 +88,9 @@ public class ContentStream implements PdfObject {
 			
 			.append(path.getStartPoint().getX()).append(" ").append(path.getStartPoint().getY()).append(" m ");
 			for(BezierPoint point : path.getBezierPoints()) {
-				builder.append(point.getX1()).append(" ").append(point.getY1())
-				.append(" ").append(point.getX2()).append(" ").append(point.getY2())
-				.append(" ").append(point.getX()).append(" ").append(point.getY())
+				builder.append(point.getX1()).append(" ").append(point.getY1()).append(" ")
+				.append(point.getX2()).append(" ").append(point.getY2()).append(" ")
+				.append(point.getX()).append(" ").append(point.getY())
 				.append(" c ");
 			}
 			if(path.isFilled() && path.isStroked()) {
@@ -131,16 +139,16 @@ public class ContentStream implements PdfObject {
 	private String writeTexts() {
 		StringBuilder builder = new StringBuilder();
 		for(Text text : texts) {
-			builder.append("  BT").append(LINE_SEPARATOR) //Begin text
-			.append("    /").append(text.getFontVariant().getName()).append(" ").append(text.getSize()).append(" Tf").append(LINE_SEPARATOR) //Use font named "F1"
-			.append("    ").append(text.getX()).append(" ").append(text.getY()).append(" Td").append(LINE_SEPARATOR) //Start text as 0, 0
-			.append("    ").append(text.getColor().getRed() / 255.0f) 
-			.append(" ").append(text.getColor().getGreen() / 255.0f)
-			.append(" ").append(text.getColor().getBlue() / 255.0f)
-			.append(" rg").append(LINE_SEPARATOR)
+			builder.append("BT").append(LINE_SEPARATOR) //Begin text
+			.append("/").append(text.getFontVariant().getName()).append(" ").append(text.getSize()).append(" Tf").append(LINE_SEPARATOR) //Use font named "F1"
+			.append(text.getX()).append(" ").append(text.getY()).append(" Td").append(LINE_SEPARATOR) //Start text as 0, 0
+			.append(text.getColor().getRed() / 255.0f).append(" ")
+			.append(text.getColor().getGreen() / 255.0f).append(" ")
+			.append(text.getColor().getBlue() / 255.0f).append(" ")
+			.append("rg").append(LINE_SEPARATOR)
 			//( and ) are interpreted by PDF readers, so we must escape them.
-			.append("    (").append(text.getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
-			.append("  ET").append(LINE_SEPARATOR); //End text
+			.append("(").append(text.getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
+			.append("ET").append(LINE_SEPARATOR); //End text
 		}
 		return builder.toString();
 	}

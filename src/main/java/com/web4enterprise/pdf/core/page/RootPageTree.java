@@ -1,4 +1,4 @@
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.page;
 
 import static com.web4enterprise.pdf.core.Pdf.LINE_SEPARATOR;
 
@@ -7,9 +7,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.web4enterprise.pdf.core.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontStyle;
+import com.web4enterprise.pdf.core.image.Image;
 
 public class RootPageTree implements PdfObject, PageNode {
 	/**
@@ -38,18 +40,18 @@ public class RootPageTree implements PdfObject, PageNode {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append(id).append(" 0 obj <<").append(LINE_SEPARATOR)
-		.append("  /Type /Pages").append(LINE_SEPARATOR)
-		.append("  /Kids [").append(LINE_SEPARATOR);
+		.append("/Type /Pages").append(LINE_SEPARATOR)
+		.append("/Kids [").append(LINE_SEPARATOR);
 
 		for(PageNode pageNode : pageNodes) {
-			builder.append("    ").append(pageNode.getId()).append(" 0 R").append(LINE_SEPARATOR);
+			builder.append(pageNode.getId()).append(" 0 R").append(LINE_SEPARATOR);
 		}
 		
-		builder.append("  ]").append(LINE_SEPARATOR)
-		.append("  /Count ").append(pageNodes.size()).append(LINE_SEPARATOR)
-		.append("  /MediaBox [0 0 0 0]").append(LINE_SEPARATOR)
-		.append("  /Resources <<").append(LINE_SEPARATOR)
-		.append("    /Font <<").append(LINE_SEPARATOR)
+		builder.append("]").append(LINE_SEPARATOR)
+		.append("/Count ").append(pageNodes.size()).append(LINE_SEPARATOR)
+		.append("/MediaBox [0 0 595 842]").append(LINE_SEPARATOR)
+		.append("/Resources <<").append(LINE_SEPARATOR)
+		.append("/Font <<").append(LINE_SEPARATOR)
 		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.PLAIN).getName()))
 		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.BOLD).getName()))
 		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.ITALIC).getName()))
@@ -64,15 +66,15 @@ public class RootPageTree implements PdfObject, PageNode {
 		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.ITALIC).getName()))
 		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.BOLD_ITALIC).getName()))
 		.append(embedFontVariant(Font.ZAPF_DINGBATS.getVariant(FontStyle.PLAIN).getName()))
-		.append("    >>").append(LINE_SEPARATOR);
+		.append(">>").append(LINE_SEPARATOR);
 		if(!images.isEmpty()) {
 			for(Image image : images) {
-				builder.append("    /XObject <<").append(LINE_SEPARATOR)
-				.append("     /image").append(image.id).append(" ").append(image.id).append(" 0 R").append(LINE_SEPARATOR)
-				.append("    >>").append(LINE_SEPARATOR);
+				builder.append("/XObject <<").append(LINE_SEPARATOR)
+				.append("/image").append(image.getId()).append(" ").append(image.getId()).append(" 0 R").append(LINE_SEPARATOR)
+				.append(">>").append(LINE_SEPARATOR);
 			}
 		}
-		builder.append(" >>").append(LINE_SEPARATOR)
+		builder.append(">>").append(LINE_SEPARATOR)
 		.append(">>").append(LINE_SEPARATOR)
 		.append("endobj").append(LINE_SEPARATOR);
 		
@@ -96,7 +98,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	 * 
 	 * @param pageNode The page node to attach.
 	 */
-	protected void addPageNode(PageNode pageNode) {
+	public void addPageNode(PageNode pageNode) {
 		pageNodes.add(pageNode);
 	}
 	
@@ -105,15 +107,15 @@ public class RootPageTree implements PdfObject, PageNode {
 	 * 
 	 * @param pageNode The page node to attach.
 	 */
-	protected void addImage(Image image) {
+	public void addImage(Image image) {
 		images.add(image);
 	}
 	
 	private String embedFontVariant(String fontVariant) {
-		return "      /" + fontVariant + " <<" + LINE_SEPARATOR
-				+ "        /Type /Font" + LINE_SEPARATOR
-				+ "        /Subtype /Type1" + LINE_SEPARATOR
-				+ "        /BaseFont /" + fontVariant + LINE_SEPARATOR
-				+ "      >>" + LINE_SEPARATOR;
+		return "/" + fontVariant + " <<" + LINE_SEPARATOR
+				+ "/Type /Font" + LINE_SEPARATOR
+				+ "/Subtype /Type1" + LINE_SEPARATOR
+				+ "/BaseFont /" + fontVariant + LINE_SEPARATOR
+				+ ">>" + LINE_SEPARATOR;
 	}
 }
