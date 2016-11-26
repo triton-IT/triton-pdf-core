@@ -11,22 +11,59 @@ import com.web4enterprise.pdf.core.geometry.BoundingBox;
  * 
  * @author Régis Ramillien
  */
-public class FontVariant {	
+public class FontVariant {
+	/**
+	 * The width of each byte described in the font.
+	 */
 	protected Map<Byte, Integer> widths = new HashMap<>();
+	/**
+	 * The bounding box of each byte described in the font.
+	 */
 	protected Map<Byte, BoundingBox> boxes = new HashMap<>();
+	/**
+	 * The kerning between two bytes.
+	 */
 	protected Map<Byte, Map<Byte, Integer>> kernings = new HashMap<>();
+	/**
+	 * The position of underline.
+	 */
 	protected int underlinePosition;
+	/**
+	 * The thickness of underline.
+	 */
 	protected int underlineThickness;
+	/**
+	 * The name of font variant.
+	 */
 	protected String name;
 
+	/**
+	 * Add the width of the given byte.
+	 * 
+	 * @param character The byte to add the width for.
+	 * @param width The width of the byte.
+	 */
 	public void addWidth(Byte character, Integer width) {
 		this.widths.put(character, width);
 	}
 
+	/**
+	 * Add the bounding box of the given byte.
+	 * 
+	 * @param character The byte to add the bounding box for.
+	 * @param box The bounding box of the byte.
+	 */
 	public void addBox(Byte character, BoundingBox box) {
 		this.boxes.put(character, box);
 	}
 
+	/**
+	 * Add a kerning between two bytes.
+	 * 
+	 * @param source The source byte.
+	 * @param destination The "bound" byte.
+	 * @param kerning The kerning between the two bytes.
+	 */
 	public void addKerning(Byte source, Byte destination, Integer kerning) {
 		Map<Byte, Integer> kernMap = this.kernings.get(source);
 		if(kernMap == null) {
@@ -36,30 +73,67 @@ public class FontVariant {
 		kernMap.put(destination, kerning);
 	}
 
+	/**
+	 * Get the position of underline.
+	 * 
+	 * @return The position.
+	 */
 	public int getUnderlinePosition() {
 		return underlinePosition;
 	}
 
-	public void setUnderlinePosition(int underlinePosition) {
-		this.underlinePosition = underlinePosition;
+	/**
+	 * Set the standard position of the underline.
+	 * 
+	 * @param position The position of the underline.
+	 */
+	public void setUnderlinePosition(int position) {
+		this.underlinePosition = position;
 	}
 
+	/**
+	 * Get the thickness of the underline.
+	 * 
+	 * @return The thickness.
+	 */
 	public int getUnderlineThickness() {
 		return underlineThickness;
 	}
 
-	public void setUnderlineThickness(int underlineThickness) {
-		this.underlineThickness = underlineThickness;
+	/**
+	 * Set the standard thickness of the underline.
+	 * 
+	 * @param thickness The thickness of the underline.
+	 */
+	public void setUnderlineThickness(int thickness) {
+		this.underlineThickness = thickness;
 	}
 
+	/**
+	 * Get the name of the font variant.
+	 * 
+	 * @return The name.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set the name of the font variant.
+	 * 
+	 * @param name The name.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Get the width of the String with the variant and the given size.
+	 * 
+	 * @param size The size to get the width for.
+	 * @param string The String to get the width for.
+	 * @return The size of String.
+	 */
 	public int getWidth(Integer size, String string) {
 		int fullWidth = 0;
 		Byte previousLetter = null;
@@ -71,10 +145,16 @@ public class FontVariant {
 		return Math.round(fullWidth * ((float) size) / 1000.0f);
 	}
 	
-	private int getWidth(Byte letter) {
+	/**
+	 * Get the width of a byte.
+	 * 
+	 * @param character The character to get width for.
+	 * @return THe size of the byte.
+	 */
+	private int getWidth(Byte character) {
 		int result = 0;
 		
-		Integer width = widths.get(letter);
+		Integer width = widths.get(character);
 		if(width != null) {
 			result = width;
 		}
@@ -82,6 +162,13 @@ public class FontVariant {
 		return result;
 	}
 	
+	/**
+	 * Get the kerning between two characters.
+	 * 
+	 * @param previous The first character to get kerning from.
+	 * @param current The second character to get kerning from.
+	 * @return The kerning found or 0 if none.
+	 */
 	private int getKerning (Byte previous, Byte current) {
 		int kerning = 0;
 		

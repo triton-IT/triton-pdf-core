@@ -10,7 +10,7 @@ import java.util.List;
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
-import com.web4enterprise.pdf.core.font.FontStyle;
+import com.web4enterprise.pdf.core.font.FontsVariant;
 import com.web4enterprise.pdf.core.image.Image;
 
 /**
@@ -34,6 +34,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	
 	/**
 	 * Construct a RootPageTree with the given identifier.
+	 * 
 	 * @param id The identifier this object.
 	 */
 	public RootPageTree(int id) {
@@ -57,20 +58,20 @@ public class RootPageTree implements PdfObject, PageNode {
 		.append("/MediaBox [0 0 595 842]").append(LINE_SEPARATOR)
 		.append("/Resources <<").append(LINE_SEPARATOR)
 		.append("/Font <<").append(LINE_SEPARATOR)
-		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.PLAIN).getName()))
-		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.BOLD).getName()))
-		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.ITALIC).getName()))
-		.append(embedFontVariant(Font.COURIER.getVariant(FontStyle.BOLD_ITALIC).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontStyle.PLAIN).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontStyle.BOLD).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontStyle.ITALIC).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontStyle.BOLD_ITALIC).getName()))
-		.append(embedFontVariant(Font.SYMBOL.getVariant(FontStyle.PLAIN).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.PLAIN).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.BOLD).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.ITALIC).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontStyle.BOLD_ITALIC).getName()))
-		.append(embedFontVariant(Font.ZAPF_DINGBATS.getVariant(FontStyle.PLAIN).getName()))
+		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.PLAIN).getName()))
+		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.BOLD).getName()))
+		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.ITALIC).getName()))
+		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC).getName()))
+		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.PLAIN).getName()))
+		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.BOLD).getName()))
+		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.ITALIC).getName()))
+		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.BOLD_ITALIC).getName()))
+		.append(embedFontVariant(Font.SYMBOL.getVariant(FontsVariant.PLAIN).getName()))
+		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN).getName()))
+		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD).getName()))
+		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.ITALIC).getName()))
+		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD_ITALIC).getName()))
+		.append(embedFontVariant(Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN).getName()))
 		.append(">>").append(LINE_SEPARATOR);
 		if(!images.isEmpty()) {
 			for(Image image : images) {
@@ -116,6 +117,12 @@ public class RootPageTree implements PdfObject, PageNode {
 		images.add(image);
 	}
 	
+	/**
+	 * Write the definition item of a font variant in PDF format to a String.
+	 * 
+	 * @param fontVariant The font variant to write as String.
+	 * @return A String representing a font definition item in PDF format.
+	 */
 	private String embedFontVariant(String fontVariant) {
 		return "/" + fontVariant + " <<" + LINE_SEPARATOR
 				+ "/Type /Font" + LINE_SEPARATOR

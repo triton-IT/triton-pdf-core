@@ -16,10 +16,20 @@ import com.web4enterprise.pdf.core.geometry.BoundingBox;
  *
  */
 public class AfmLoader {
+	/**
+	 * This should never be invoked for a utility class.
+	 */
 	private AfmLoader() {
 		throw new IllegalAccessError("Utility class");
 	}
 	
+	/**
+	 * Load a font variant in AFM format from the input stream.
+	 * 
+	 * @param stream THe stream to load font variant from.
+	 * @return The loaded font variant.
+	 * @throws IOException When font variant cannot be loaded.
+	 */
 	public static FontVariant load(InputStream stream) throws IOException {
 		Map<String, Byte> nameByteMapping = new HashMap<>();
 		

@@ -11,14 +11,28 @@ import com.web4enterprise.pdf.core.geometry.Point;
  * @author Régis Ramillien
  */
 public class StraightPath extends Path {
+	/**
+	 * The list points in the straight path.
+	 */
 	protected List<Point> points;
 	
+	/**
+	 * Creates a straight path from points.
+	 * 
+	 * @param startPoint The first point in path.
+	 * @param points The other points in path.
+	 */
 	public StraightPath(Point startPoint, Point... points) {
 		super(startPoint);
 		
 		this.points = Arrays.asList(points);
 	}
 
+	/**
+	 * Get the points of path.
+	 * 
+	 * @return The points.
+	 */
 	public List<Point> getPoints() {
 		return points;
 	}

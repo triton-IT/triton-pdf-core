@@ -14,10 +14,27 @@ import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
  * @author Régis Ramillien
  */
 public class PageTree extends RootPageTree {
+	/**
+	 * Identifier of the parent of this page tree.
+	 */
 	protected int parent;
+	/**
+	 * Width of this page tree.
+	 */
 	protected int width;
+	/**
+	 * Height of this page tree.
+	 */
 	protected int height;
 	
+	/**
+	 * Create a page tree in PDF.
+	 * 
+	 * @param parent The parent identifier of page tree object.
+	 * @param id The page tre object identifier.
+	 * @param width The width of the page tree.
+	 * @param height The height of page tree.
+	 */
 	public PageTree(int parent, int id, int width, int height) {
 		super(id);
 		this.parent = parent;

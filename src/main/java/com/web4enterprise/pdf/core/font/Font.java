@@ -12,12 +12,31 @@ import com.web4enterprise.pdf.core.exceptions.ConfigurationException;
  * 
  * @author Régis Ramillien
  */
-public class Font {	
+public class Font {
+	/**
+	 * The Courier font from base 14 AFM Fonts.
+	 */
 	public static final Font COURIER;
+	/**
+	 * The Helvetica font from base 14 AFM Fonts.
+	 */
 	public static final Font HELVTICA;
+	/**
+	 * The Symbol font from base 14 AFM Fonts.
+	 */
 	public static final Font SYMBOL;
+	/**
+	 * The Times-Roman font from base 14 AFM Fonts.
+	 */
 	public static final Font TIMES_ROMAN;
+	/**
+	 * The Zapf-Dingbats font from base 14 AFM Fonts.
+	 */
 	public static final Font ZAPF_DINGBATS;
+	
+	/**
+	 * Initializer for fonts.
+	 */
 	static {
 		try {
 			COURIER = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier.afm")), 
@@ -55,21 +74,52 @@ public class Font {
 		}
 	}
 	
+	/**
+	 * Map of loaded fonts by name.
+	 */
 	protected static Map<String, Font> fonts = new HashMap<>();
 	
 	static {
+		fonts.put("Courier", COURIER);
+		fonts.put("Helvetica", HELVTICA);
+		fonts.put("Symbol", SYMBOL);
 		fonts.put("Times-Roman", TIMES_ROMAN);
+		fonts.put("ZapfDingbats", ZAPF_DINGBATS);
 	}
 
+	/**
+	 * The "plain" variant for this font.
+	 */
 	protected FontVariant plain;
+	/**
+	 * The "bold" variant for this font.
+	 */
 	protected FontVariant bold;
+	/**
+	 * The "italic" variant for this font.
+	 */
 	protected FontVariant italic;
+	/**
+	 * The "bold and italic" variant for this font.
+	 */
 	protected FontVariant boldItalic;
 	
+	/**
+	 * Create a font with only the "plain" variant.
+	 * @param plain The plain variant of font.
+	 */
 	public Font(FontVariant plain) {
 		this.plain = plain;
 	}
 	
+	/**
+	 * Construct a font with all variants.
+	 * 
+	 * @param plain The plain variant of font.
+	 * @param bold The bold variant of font.
+	 * @param italic The italic variant of font.
+	 * @param boldItalic The bold and italic variant of font.
+	 */
 	public Font(FontVariant plain, FontVariant bold, FontVariant italic, FontVariant boldItalic) {
 		this.plain = plain;
 		this.bold = bold;
@@ -77,16 +127,44 @@ public class Font {
 		this.boldItalic = boldItalic;
 	}
 	
+	/**
+	 * Add a font to document.
+	 * 
+	 * @param font The font to add.
+	 */
+	public static void addFont(Font font) {
+		fonts.put(font.getVariant(FontsVariant.PLAIN).getName(), font);
+	}
+	
+	/**
+	 * Get font by name.
+	 * @param name The name of the font.
+	 * @return The font.
+	 */
 	public static Font getFont(String name) {
 		return fonts.get(name);
 	}
 	
-	public int getWidth(FontStyle style, Integer size, String string) {
-		return getVariant(style).getWidth(size, string);
+	/**
+	 * Get the width of a String with the given font, variant and size.
+	 * 
+	 * @param variant The variant to calculate width for.
+	 * @param size The size to calculate width for.
+	 * @param string The String to calculate width for.
+	 * @return The length of String.
+	 */
+	public int getWidth(FontsVariant variant, Integer size, String string) {
+		return getVariant(variant).getWidth(size, string);
 	}
 	
-	public FontVariant getVariant(FontStyle style) {
-		switch (style) {
+	/**
+	 * Get a variant of the font.
+	 * 
+	 * @param variant The variant to get.
+	 * @return The font variant found or null.
+	 */
+	public FontVariant getVariant(FontsVariant variant) {
+		switch (variant) {
 		case BOLD:			
 			return bold;
 		case ITALIC:
