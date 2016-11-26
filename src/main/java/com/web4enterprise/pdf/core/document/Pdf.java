@@ -144,12 +144,20 @@ public class Pdf{
 		return image;
 	}
 
-	private byte[] deflate(byte[] data) throws IOException {		
-		try(ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
-				DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream)) {
+	private byte[] deflate(byte[] data) throws IOException {
+		//Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
+		ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
+		DeflaterOutputStream deflaterOutputStream = null;
+		try {
+			deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream);
 			deflaterOutputStream.write(data, 0, data.length);
-			return compressedOutpuStream.toByteArray();
-		}		
+		} finally {
+			if(deflaterOutputStream != null) {
+				deflaterOutputStream.close();
+			}
+			compressedOutpuStream.close();
+		}
+		return compressedOutpuStream.toByteArray();
 	}
 	
 	/**
