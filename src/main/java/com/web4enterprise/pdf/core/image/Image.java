@@ -16,72 +16,198 @@ import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
  * @author Régis Ramillien
  */
 public class Image implements PdfObject {
+	/**
+	 * The identifier of image in PDF.
+	 */
 	protected int id;
+	/**
+	 * The X position of the rendered image in page.
+	 */
 	protected int x;
+	/**
+	 * The Y position of the rendered image in page.
+	 */
 	protected int y;
+	/**
+	 * The width of the definition of the image in PDF.
+	 */
 	protected int originalWidth;
+	/**
+	 * The height of the definition of the image in PDF.
+	 */
 	protected int originalHeight;
+	
+	/**
+	 * The width of the rendered image.
+	 */
 	protected int width;
+	/**
+	 * The height of the rendered image.
+	 */
 	protected int height;
+	/**
+	 * The skew on X axis of the rendered image.
+	 */
 	protected int skewX;
-	protected int skewY;	
+	/**
+	 * The skew on Y axis of the rendered image.
+	 */
+	protected int skewY;
+	/**
+	 * The content data of the image.
+	 */
 	protected byte[] data;
 	
+	/**
+	 * Creates an image with the given id.
+	 */
 	public Image(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Get the X position in page of the rendered image.
+	 * 
+	 * @return The X position.
+	 */
 	public int getX() {
 		return x;
 	}
+	/**
+	 * Set the X position in page of the rendered image.
+	 * 
+	 * @param x The X position.
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
+	/**
+	 * Get the Y position in page of the rendered image.
+	 * 
+	 * @return The Y position.
+	 */
 	public int getY() {
 		return y;
 	}
+	/**
+	 * Set the Y position in page of the rendered image.
+	 * 
+	 * @param y The Y position.
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
+	/**
+	 * Get the width of the definition of the image in PDF.
+	 * 
+	 * @return The width.
+	 */
 	public int getOriginalWidth() {
 		return originalWidth;
 	}
+	/**
+	 * Set the width of the definition of the image in PDF.
+	 * 
+	 * @param originalWidth the width.
+	 */
 	public void setOriginalWidth(int originalWidth) {
 		this.originalWidth = originalWidth;
 	}
+	/**
+	 * Get the height of the definition of the image in PDF.
+	 * 
+	 * @return The height.
+	 */
 	public int getOriginalHeight() {
 		return originalHeight;
 	}
+	/**
+	 * Set the height of the definition of the image in PDF.
+	 * 
+	 * @param originalHeight the height.
+	 */
 	public void setOriginalHeight(int originalHeight) {
 		this.originalHeight = originalHeight;
 	}
+	/**
+	 * Get the width of the rendered image.
+	 * 
+	 * @return The width of the rendered image.
+	 */
 	public int getWidth() {
 		return width;
 	}
+	/**
+	 * Set the width of the rendered image.
+	 * 
+	 * @param width The width of the rendered image.
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
+	/**
+	 * Get the height of the rendered image.
+	 * 
+	 * @return The height of the rendered image.
+	 */
 	public int getHeight() {
 		return height;
 	}
+	/**
+	 * Set the height of the rendered image.
+	 * 
+	 * @param height The height of the rendered image.
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	/**
+	 * Get the horizontal skew of the rendered image.
+	 * 
+	 * @return The horizontal skew of the rendered image.
+	 */
 	public int getSkewX() {
 		return skewX;
 	}
+	/**
+	 * Set the horizontal skew of the rendered image.
+	 * 
+	 * @param skewX The horizontal skew of the rendered image.
+	 */
 	public void setSkewX(int skewX) {
 		this.skewX = skewX;
 	}
+	/**
+	 * Get the vertical skew of the rendered image.
+	 * 
+	 * @return The vertical skew of the rendered image.
+	 */
 	public int getSkewY() {
 		return skewY;
 	}
+	/**
+	 * Set the vertical skew of the rendered image.
+	 * 
+	 * @param skewY The vertical skew of the rendered image.
+	 */
 	public void setSkewY(int skewY) {
 		this.skewY = skewY;
 	}
+	/**
+	 * Get the data of the definition of the image.
+	 * The data is represented as 3 bytes per pixel (RGB).
+	 * 
+	 * @return The data of the image.
+	 */
 	public byte[] getData() {
 		return data;
 	}
+	/**
+	 * Set the data of the definition of the image.
+	 * The data is represented as 3 bytes per pixel (RGB).
+	 * 
+	 * @param data The data of the image.
+	 */
 	public void setData(byte[] data) {
 		this.data = data;
 	}
@@ -131,6 +257,7 @@ public class Image implements PdfObject {
 	
 	/**
 	 * Clone the image parameters but not its content.
+	 * 
 	 * @return The image filled-in with parameters.
 	 */
 	public Image cloneReference() {

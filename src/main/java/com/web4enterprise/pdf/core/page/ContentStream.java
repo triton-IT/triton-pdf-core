@@ -22,13 +22,32 @@ import com.web4enterprise.pdf.core.text.Text;
  * @author Régis Ramillien
  */
 public class ContentStream implements PdfObject {
-	protected int id;
-	
+	/**
+	 * The identifier of this object in the document.
+	 */
+	protected int id;	
+	/**
+	 * The list of texts in the document.
+	 */
 	protected List<Text> texts = new ArrayList<>();
-	protected List<StraightPath> lines = new ArrayList<>();
-	protected List<BezierPath> bezierLines = new ArrayList<>();
+	/**
+	 * The list of straight paths in the document.
+	 */
+	protected List<StraightPath> straightPaths = new ArrayList<>();
+	/**
+	 * The list of Bezier paths in the document.
+	 */
+	protected List<BezierPath> bezierPaths = new ArrayList<>();
+	/**
+	 * The list of images in the document.
+	 */
 	protected List<Image> images = new ArrayList<>();
 	
+	/**
+	 * Creates a content stream with the given identifier.
+	 * 
+	 * @param id The identifier of content stream.
+	 */
 	public ContentStream(int id) {
 		this.id = id;
 	}
@@ -36,17 +55,17 @@ public class ContentStream implements PdfObject {
 	@Override
 	public int write(OutputStream stream) throws PdfGenerationException {
 		String textsValues = writeTexts();
-		String linesValues = writeStraightLines();
-		String bezierLinesValues = writeBezierLines();
+		String straightPathsValues = writeStraightPaths();
+		String bezierPathsValues = writeBezierPaths();
 		String imagesValues = writeImages();
 
 		String asString = id + " 0 obj <<" + LINE_SEPARATOR
-				+ "/Length " + (textsValues.length() + linesValues.length() + bezierLinesValues.length() + imagesValues.length()) + LINE_SEPARATOR
+				+ "/Length " + (textsValues.length() + straightPathsValues.length() + bezierPathsValues.length() + imagesValues.length()) + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR
 				+ "stream" + LINE_SEPARATOR
 				+ textsValues
-				+ linesValues
-				+ bezierLinesValues
+				+ straightPathsValues
+				+ bezierPathsValues
 				+ imagesValues
 				+ "endstream" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
@@ -60,6 +79,11 @@ public class ContentStream implements PdfObject {
 		return asString.length();
 	}
 
+	/**
+	 * Create a String representing the images in PDF format.
+	 * 
+	 * @return A String representing the images part of the PDF.
+	 */
 	private String writeImages() {
 		StringBuilder builder = new StringBuilder();
 		for(Image image : images) {
@@ -76,9 +100,50 @@ public class ContentStream implements PdfObject {
 		return builder.toString();
 	}
 
-	private String writeBezierLines() {
+	/**
+	 * Create a String representing the straight paths in PDF format.
+	 * 
+	 * @return A String representing the straight paths part of the PDF.
+	 */
+	private String writeStraightPaths() {
 		StringBuilder builder = new StringBuilder();
-		for(BezierPath path : bezierLines) {
+		for(StraightPath path : straightPaths) {
+			builder.append(path.getLineWidth()).append(" w ")
+			
+			.append(((float) path.getStrokeColor().getRed()) / 255.0f).append(" ")
+			.append(((float) path.getStrokeColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) path.getStrokeColor().getBlue()) / 255.0f).append(" ")
+			.append("RG ")
+			
+			.append(((float) path.getFillColor().getRed()) / 255.0f).append(" ")
+			.append(((float) path.getFillColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) path.getFillColor().getBlue()) / 255.0f).append(" ")
+			.append("rg ")
+			
+			.append(path.getStartPoint().getX()).append(" ").append(path.getStartPoint().getY()).append(" m ");
+			for(Point point : path.getPoints()) {
+				builder.append(point.getX()).append(" ").append(point.getY()).append(" l ");
+			}
+			if(path.isFilled() && path.isStroked()) {
+				builder.append("B");
+			} else if(path.isFilled()) {
+				builder.append("f");
+			} else if(path.isStroked()) {
+				builder.append(path.isClosed()?"s":"S");				
+			}
+			builder.append(LINE_SEPARATOR);
+		}
+		return builder.toString();
+	}
+
+	/**
+	 * Create a String representing the Bezier paths in PDF format.
+	 * 
+	 * @return A String representing the Bezier paths part of the PDF.
+	 */
+	private String writeBezierPaths() {
+		StringBuilder builder = new StringBuilder();
+		for(BezierPath path : bezierPaths) {
 			builder.append(path.getLineWidth()).append(" w ")
 			
 			.append(((float) path.getStrokeColor().getRed()) / 255.0f).append(" ")
@@ -110,37 +175,11 @@ public class ContentStream implements PdfObject {
 		return builder.toString();
 	}
 
-	private String writeStraightLines() {
-		StringBuilder builder = new StringBuilder();
-		for(StraightPath path : lines) {
-			builder.append(path.getLineWidth()).append(" w ")
-			
-			.append(((float) path.getStrokeColor().getRed()) / 255.0f).append(" ")
-			.append(((float) path.getStrokeColor().getGreen()) / 255.0f).append(" ")
-			.append(((float) path.getStrokeColor().getBlue()) / 255.0f).append(" ")
-			.append("RG ")
-			
-			.append(((float) path.getFillColor().getRed()) / 255.0f).append(" ")
-			.append(((float) path.getFillColor().getGreen()) / 255.0f).append(" ")
-			.append(((float) path.getFillColor().getBlue()) / 255.0f).append(" ")
-			.append("rg ")
-			
-			.append(path.getStartPoint().getX()).append(" ").append(path.getStartPoint().getY()).append(" m ");
-			for(Point point : path.getPoints()) {
-				builder.append(point.getX()).append(" ").append(point.getY()).append(" l ");
-			}
-			if(path.isFilled() && path.isStroked()) {
-				builder.append("B");
-			} else if(path.isFilled()) {
-				builder.append("f");
-			} else if(path.isStroked()) {
-				builder.append(path.isClosed()?"s":"S");				
-			}
-			builder.append(LINE_SEPARATOR);
-		}
-		return builder.toString();
-	}
-
+	/**
+	 * Create a String representing the texts in PDF format.
+	 * 
+	 * @return A String representing the texts part of the PDF.
+	 */
 	private String writeTexts() {
 		StringBuilder builder = new StringBuilder();
 		for(Text text : texts) {
@@ -163,18 +202,38 @@ public class ContentStream implements PdfObject {
 		return id;
 	}
 	
+	/**
+	 * Add text to content stream.
+	 * 
+	 * @param text The text to add.
+	 */
 	public void addText(Text text) {
 		texts.add(text);
 	}
 	
+	/**
+	 * Add straight path to content stream.
+	 * 
+	 * @param path The path to add.
+	 */
 	public void addPath(StraightPath path) {
-		lines.add(path);
+		straightPaths.add(path);
 	}
 	
+	/**
+	 * Add Bezier path to content stream.
+	 * 
+	 * @param path The path to add.
+	 */
 	public void addPath(BezierPath path) {
-		bezierLines.add(path);
+		bezierPaths.add(path);
 	}
 	
+	/**
+	 * Add image to content stream.
+	 * 
+	 * @param image The image to add.
+	 */	
 	public void addImage(Image image) {
 		images.add(image);
 	}

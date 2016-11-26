@@ -143,22 +143,6 @@ public class Pdf{
 		
 		return image;
 	}
-
-	@SuppressWarnings("squid:S2093") //Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
-	private byte[] deflate(byte[] data) throws IOException {
-		ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
-		DeflaterOutputStream deflaterOutputStream = null;
-		try {
-			deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream);
-			deflaterOutputStream.write(data, 0, data.length);
-		} finally {
-			if(deflaterOutputStream != null) {
-				deflaterOutputStream.close();
-			}
-			compressedOutpuStream.close();
-		}
-		return compressedOutpuStream.toByteArray();
-	}
 	
 	/**
 	 * Write the header of the PDF to output stream.
@@ -254,5 +238,28 @@ public class Pdf{
 				+ xRefPosition + LINE_SEPARATOR;
 		
 		stream.write(asString.getBytes());
+	}
+
+	/**
+	 * Deflate a byte array.
+	 * 
+	 * @param data The data to deflate.
+	 * @return The deflated data.
+	 * @throws IOException When deflation cannot occur.
+	 */
+	@SuppressWarnings("squid:S2093") //Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
+	private byte[] deflate(byte[] data) throws IOException {
+		ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
+		DeflaterOutputStream deflaterOutputStream = null;
+		try {
+			deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream);
+			deflaterOutputStream.write(data, 0, data.length);
+		} finally {
+			if(deflaterOutputStream != null) {
+				deflaterOutputStream.close();
+			}
+			compressedOutpuStream.close();
+		}
+		return compressedOutpuStream.toByteArray();
 	}
 }
