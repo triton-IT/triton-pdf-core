@@ -66,17 +66,12 @@ public abstract class Path {
 	}
 	
 	/**
-	 * Set the stroke state to true.
+	 * Set the stroke state.
+	 * 
+	 * @param stroked the state to set.
 	 */
-	public void stroke() {
-		stroked = true;
-	}
-	
-	/**
-	 * Set the stroke state to false.
-	 */
-	public void unstroke() {
-		stroked = false;
+	public void setStroked(boolean stroked) {
+		this.stroked = stroked;
 	}
 
 	/**
@@ -89,19 +84,14 @@ public abstract class Path {
 	}
 	
 	/**
-	 * Set the close stae to true.
+	 * Set the closed state.
+	 * 
+	 * @param closed the state to set.
 	 */
-	public void close() {
-		closed = true;
+	public void setClosed(boolean closed) {
+		this.closed = closed;
 	}
 	
-	/**
-	 * Set the close state to false.
-	 */
-	public void open() {
-		closed = false;
-	}
-
 	/**
 	 * Get the fill state of path.
 	 * 
@@ -112,17 +102,12 @@ public abstract class Path {
 	}
 	
 	/**
-	 * Set the fill state to true.
+	 * Set the fill state.
+	 * 
+	 * @param filled the state to set.
 	 */
-	public void fill() {
-		filled = true;
-	}
-	
-	/**
-	 * Set the fill state to false.
-	 */
-	public void unfill() {
-		filled = false;
+	public void setFilled(boolean filled) {
+		this.filled = filled;
 	}
 
 	/**

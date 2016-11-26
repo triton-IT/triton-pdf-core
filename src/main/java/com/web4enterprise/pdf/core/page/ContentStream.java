@@ -129,7 +129,7 @@ public class ContentStream implements PdfObject {
 			} else if(path.isFilled()) {
 				builder.append("f");
 			} else if(path.isStroked()) {
-				builder.append(path.isClosed()?"s":"S");				
+				builder.append(path.isClosed()?"s":"S");
 			}
 			builder.append(LINE_SEPARATOR);
 		}

@@ -66,15 +66,15 @@ public class PdfTest {
 			page1.addText(20, 220, 12, "An image is created with:");
 			page1.addText(20, 200, 8, "Image image = pdf.createImage(this.getClass().getResourceAsStream(\"/test.png\"));");
 			page1.addText(20, 180, 12, "An image is sized and positioned with:");
-			page1.addText(20, 180, 8, "image.setX(20);");
-			page1.addText(20, 160, 8, "image.setY(70);");
-			page1.addText(20, 140, 8, "image.setWidth(60);");
-			page1.addText(20, 120, 8, "image.setHeight(30);");
-			page1.addText(20, 100, 12, "An image is added with:");
-			page1.addText(20, 80, 8, "page1.addImage(image);");
+			page1.addText(20, 160, 8, "image.setX(20);");
+			page1.addText(20, 140, 8, "image.setY(70);");
+			page1.addText(20, 120, 8, "image.setWidth(60);");
+			page1.addText(20, 100, 8, "image.setHeight(30);");
+			page1.addText(20, 80, 12, "An image is added with:");
+			page1.addText(20, 60, 8, "page1.addImage(image);");
 			Image image = pdf.createImage(this.getClass().getResourceAsStream("/test.png"));
 			image.setX(20);
-			image.setY(70);
+			image.setY(20);
 			image.setWidth(60);
 			image.setHeight(30);
 			page1.addImage(image);
@@ -93,33 +93,42 @@ public class PdfTest {
 
 			page2.addText(20, 650, 12, "A straight line can be added with:");
 			page2.addText(20, 630, 8, "page2.addPath(new StraightPath(new Point(20, 640), new Point(150, 650)));");			
-			page2.addPath(new StraightPath(new Point(20, 600), new Point(150, 610)));
+			page2.addPath(new StraightPath(new Point(20, 600), new Point(30, 610)));
 
 			page2.addText(20, 580, 12, "A line can be added with more points using:");
 			page2.addText(20, 560, 8, "StraightPath straightPath = new StraightPath(new Point(20, 510), new Point(20, 500), new Point(150, 500));");
-			page2.addText(20, 540, 8, "straightPath.close();");
+			page2.addText(20, 540, 8, "straightPath.setClosed(true);");
 			page2.addText(20, 520, 8, "page2.addPath(straightPath);");
-			StraightPath straightPath = new StraightPath(new Point(20, 510), new Point(20, 500), new Point(150, 500));
-			straightPath.close();
+			StraightPath straightPath = new StraightPath(new Point(20, 500), new Point(30, 510), new Point(40, 500));
+			straightPath.setClosed(true);
 			page2.addPath(straightPath);
 
 			page2.addText(20, 480, 12, "A Bezier line can be added with:");
-			page2.addText(20, 460, 8, "page2.addPath(new BezierPath(new Point(20, 440), new BezierPoint(70, 440, 60, 400, 80, 470), new BezierPoint(140, 440))");
-			page2.addPath(new BezierPath(new Point(20, 440), new BezierPoint(70, 440, 60, 400, 80, 470), new BezierPoint(140, 440)));
+			page2.addText(20, 460, 8, "page2.addPath(new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432))");
+			BezierPath bezierPath = new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432));
+			page2.addPath(bezierPath);
 
-			page2.addText(20, 420, 12, "Straight and Bezier lines can be filled and/or stroked with:");
-			page2.addText(20, 400, 8, "BezierPath bezierPath2 = new BezierPath(new Point(20, 400), new BezierPoint(70, 400, 60, 360, 80, 430), new BezierPoint(140, 400));");
+			page2.addText(20, 420, 12, "Straight and Bezier lines can be filled/stroked/closed with:");
+			page2.addText(20, 400, 8, "BezierPath bezierPath2 = new BezierPath(new Point(20, 400), new BezierPoint(50, 440, 30, 432, 40, 432));");
 			page2.addText(20, 380, 8, "bezierPath2.setFillColor(new Color(80, 128, 128));");
-			page2.addText(20, 360, 8, "bezierPath2.fill();");
+			page2.addText(20, 360, 8, "bezierPath2.setFilled(true);");
 			page2.addText(20, 340, 8, "bezierPath2.setStrokeColor(new Color(128, 80, 128));");
 			page2.addText(20, 320, 8, "bezierPath2.setLineWidth(4.0f);");
-			page2.addText(20, 300, 8, "page2.addPath(bezierPath2);");
-			BezierPath bezierPath2 = new BezierPath(new Point(20, 280), new BezierPoint(70, 280, 60, 240, 80, 310), new BezierPoint(140, 280));
-			bezierPath2.setFillColor(new Color(80, 128, 128));
-			bezierPath2.fill();
-			bezierPath2.setStrokeColor(new Color(128, 80, 128));
-			bezierPath2.setLineWidth(4.0f);
+			page2.addText(20, 300, 8, "bezierPath2.setClosed(true);");
+			page2.addText(20, 280, 8, "page2.addPath(bezierPath2);");
+			BezierPath bezierPath2 = new BezierPath(new Point(20, 260), new BezierPoint(50, 260, 30, 252, 40, 252));
+			bezierPath2.setClosed(true);
 			page2.addPath(bezierPath2);
+			BezierPath bezierPath3 = new BezierPath(new Point(60, 260), new BezierPoint(90, 260, 70, 252, 80, 252));
+			bezierPath3.setFilled(true);
+			bezierPath3.setStroked(false);
+			page2.addPath(bezierPath3);
+			BezierPath bezierPath4 = new BezierPath(new Point(100, 260), new BezierPoint(130, 260, 110, 252, 120, 252));
+			bezierPath4.setFillColor(new Color(80, 128, 128));
+			bezierPath4.setFilled(true);
+			bezierPath4.setStrokeColor(new Color(128, 80, 128));
+			bezierPath4.setLineWidth(4.0f);
+			page2.addPath(bezierPath4);
 			
 			pdf.write(out);
 		}
