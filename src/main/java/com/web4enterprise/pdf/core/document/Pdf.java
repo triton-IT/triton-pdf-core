@@ -144,8 +144,8 @@ public class Pdf{
 		return image;
 	}
 
+	@SuppressWarnings("squid:S2093") //Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
 	private byte[] deflate(byte[] data) throws IOException {
-		//Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
 		ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
 		DeflaterOutputStream deflaterOutputStream = null;
 		try {
