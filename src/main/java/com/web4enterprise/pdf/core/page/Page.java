@@ -121,6 +121,22 @@ public class Page implements PdfObject, PageNode {
 	}
 	
 	/**
+	 * Add a text to the page.
+	 * 
+	 * @param x The X position of the text in the page.
+	 * @param y The Y position of the text in the page.
+	 * @param size The size of the text to add.
+	 * @param fontVariant The font variant of the text.
+	 * @param color The color of the text.
+	 * @param underlined The state of underline.
+	 * @param underlineColor The color of underline.
+	 * @param text The text to add.
+	 */
+	public void addText(int x, int y, int size, FontVariant fontVariant, Color color, boolean underlined, Color underlineColor, String text) {
+		contentStream.addText(new Text(x, y, size, fontVariant, color, underlined, underlineColor, text));
+	}
+	
+	/**
 	 * Add a path to page.
 	 * 
 	 * @param path The straight path to add.

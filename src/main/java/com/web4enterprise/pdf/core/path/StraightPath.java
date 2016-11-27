@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.styling.Color;
 
 /**
  * Class representing a straight path to render in a PDF document.
@@ -25,6 +26,20 @@ public class StraightPath extends Path {
 	public StraightPath(Point startPoint, Point... points) {
 		super(startPoint);
 		
+		this.points = Arrays.asList(points);
+	}
+	
+	/**
+	 * Creates a straight path from points.
+	 * 
+	 * @param startPoint The first point in path.
+	 * @param points The other points in path.
+	 */
+	public StraightPath(float lineWidth, Color strokeColor, Point startPoint, Point... points) {
+		super(startPoint);
+		
+		this.lineWidth = lineWidth;
+		this.strokeColor = strokeColor;
 		this.points = Arrays.asList(points);
 	}
 
