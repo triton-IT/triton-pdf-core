@@ -84,28 +84,6 @@ public class Text {
 		this.color = color;
 		this.value = value;
 	}
-	
-	/**
-	 * Creates a text.
-	 * @param x The X position of text in page.
-	 * @param y The X position of text in page.
-	 * @param size The size of text.
-	 * @param fontVariant The variant of font to use to render text.
-	 * @param color The color of the text.
-	 * @param underlined The underlined state of the text.
-	 * @param underlineColor The underlined color.
-	 * @param value The string to display.
-	 */
-	public Text(int x, int y, int size, FontVariant fontVariant, Color color, boolean underlined, Color underlineColor, String value) {
-		this.x = x;
-		this.y = y;
-		this.size = size;
-		this.fontVariant = fontVariant;
-		this.color = color;
-		this.underlined = underlined;
-		this.underlineColor = underlineColor;
-		this.value = value;
-	}
 
 	/**
 	 * Get the X position of text in the page.
@@ -221,11 +199,11 @@ public class Text {
 	 * @return The color of underline or the color of text if not set.
 	 */
 	public Color getUnderlineColor() {
-		Color color = underlineColor;
-		if(color == null) {
-			color = this.color;
+		Color returnedColor = underlineColor;
+		if(returnedColor == null) {
+			returnedColor = this.color;
 		}
-		return color;
+		return returnedColor;
 	}
 
 	/**

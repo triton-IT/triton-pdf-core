@@ -195,7 +195,7 @@ public class ContentStream implements PdfObject {
 			.append("ET").append(LINE_SEPARATOR); //End text
 			
 			if(text.isUnderlined()) {
-				int underlineY = text.getY() + text.getFontVariant().getUnderlinePosition(text.getSize());
+				int underlineY = (int) (text.getY() + text.getFontVariant().getUnderlinePosition(text.getSize()));
 				addPath(new StraightPath(text.getFontVariant().getUnderlineThickness(text.getSize()), text.getUnderlineColor(), 
 						new Point(text.getX(), underlineY), 
 						new Point(

@@ -27,11 +27,11 @@ public class FontVariant {
 	/**
 	 * The position of underline.
 	 */
-	protected int underlinePosition;
+	protected float underlinePosition;
 	/**
 	 * The thickness of underline.
 	 */
-	protected int underlineThickness;
+	protected float underlineThickness;
 	/**
 	 * The name of font variant.
 	 */
@@ -79,7 +79,7 @@ public class FontVariant {
 	 * @return The position.
 	 */
 	public int getUnderlinePosition() {
-		return underlinePosition;
+		return (int) underlinePosition;
 	}
 
 	/**
@@ -97,8 +97,8 @@ public class FontVariant {
 	 * @param size The size of the font to get position for.
 	 * @return The position.
 	 */
-	public int getUnderlinePosition(int size) {
-		return (int) (underlinePosition * size / 1000.0f);
+	public float getUnderlinePosition(int size) {
+		return underlinePosition * size / 1000.0f;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class FontVariant {
 	 * @param size The size of the font to set position for.
 	 * @param position The position of the underline.
 	 */
-	public void setUnderlinePosition(int size, int position) {
+	public void setUnderlinePosition(int size, float position) {
 		this.underlinePosition = (int) (position * 1000.f / size);
 	}
 
@@ -117,7 +117,7 @@ public class FontVariant {
 	 * @return The thickness.
 	 */
 	public int getUnderlineThickness() {
-		return underlineThickness;
+		return (int) underlineThickness;
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class FontVariant {
 	 * @param size The size of the font to get thickness for.
 	 * @return The thickness.
 	 */
-	public int getUnderlineThickness(int size) {
-		return (int) (underlineThickness * size / 1000.0f);
+	public float getUnderlineThickness(int size) {
+		return underlineThickness * size / 1000.0f;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class FontVariant {
 	 * @param size The size of the font to set thickness for.
 	 * @param thickness The thickness of the underline.
 	 */
-	public void setUnderlineThickness(int size, int thickness) {
+	public void setUnderlineThickness(int size, float thickness) {
 		this.underlineThickness = (int) (thickness * 1000.f / size);
 	}
 

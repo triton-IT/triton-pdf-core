@@ -17,6 +17,7 @@ import com.web4enterprise.pdf.core.path.BezierPath;
 import com.web4enterprise.pdf.core.path.BezierPoint;
 import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
+import com.web4enterprise.pdf.core.text.Text;
 
 public class PdfTest {
 	@Test
@@ -56,13 +57,19 @@ public class PdfTest {
 			page1.addText(20, 460, 18, Font.COURIER.getVariant(FontsVariant.PLAIN), "Courier");
 			page1.addText(20, 440, 12, Font.COURIER.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Courier Bold");
 			page1.addText(20, 420, 8, Font.COURIER.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Courier Italic");
-			page1.addText(20, 400, 6, Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), true, new Color(128, 80, 128), "Courier Bold Italic");
+			Text courierBolditalic = new Text(20, 400, 6, Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
+			courierBolditalic.setUnderlined(true);
+			courierBolditalic.setUnderlineColor(new Color(128, 80, 128));
+			page1.addText(courierBolditalic);
 			page1.addText(20, 380, 18, Font.HELVTICA.getVariant(FontsVariant.PLAIN), "Helvetica");
 			page1.addText(20, 360, 12, Font.HELVTICA.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Helvetica Bold");
 			page1.addText(20, 340, 8, Font.HELVTICA.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Helvetica Italic");
 			page1.addText(20, 320, 6, Font.HELVTICA.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Helvetica Bold Italic");
 			page1.addText(20, 300, 12, Font.SYMBOL.getVariant(FontsVariant.PLAIN), "Symbol");
-			page1.addText(20, 280, 12, Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN), new Color(128, 128, 80), true, new Color(80, 128, 128), "Zapf-Dingbats");
+			Text zapfDingbats = new Text(20, 280, 12, Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
+			zapfDingbats.setUnderlined(true);
+			zapfDingbats.setUnderlineColor(new Color(80, 128, 128));
+			page1.addText(zapfDingbats);
 
 			page1.addText(20, 220, 12, "An image is created with:");
 			page1.addText(20, 200, 8, "Image image = pdf.createImage(this.getClass().getResourceAsStream(\"/test.png\"));");
