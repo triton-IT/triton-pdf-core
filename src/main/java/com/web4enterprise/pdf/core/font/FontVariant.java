@@ -27,11 +27,11 @@ public class FontVariant {
 	/**
 	 * The position of underline.
 	 */
-	protected int underlinePosition;
+	protected float underlinePosition;
 	/**
 	 * The thickness of underline.
 	 */
-	protected int underlineThickness;
+	protected float underlineThickness;
 	/**
 	 * The name of font variant.
 	 */
@@ -79,7 +79,7 @@ public class FontVariant {
 	 * @return The position.
 	 */
 	public int getUnderlinePosition() {
-		return underlinePosition;
+		return (int) underlinePosition;
 	}
 
 	/**
@@ -92,12 +92,32 @@ public class FontVariant {
 	}
 
 	/**
+	 * Get the position of underline.
+	 * 
+	 * @param size The size of the font to get position for.
+	 * @return The position.
+	 */
+	public float getUnderlinePosition(int size) {
+		return underlinePosition * size / 1000.0f;
+	}
+
+	/**
+	 * Set the standard position of the underline.
+	 * 
+	 * @param size The size of the font to set position for.
+	 * @param position The position of the underline.
+	 */
+	public void setUnderlinePosition(int size, float position) {
+		this.underlinePosition = (int) (position * 1000.f / size);
+	}
+
+	/**
 	 * Get the thickness of the underline.
 	 * 
 	 * @return The thickness.
 	 */
 	public int getUnderlineThickness() {
-		return underlineThickness;
+		return (int) underlineThickness;
 	}
 
 	/**
@@ -107,6 +127,26 @@ public class FontVariant {
 	 */
 	public void setUnderlineThickness(int thickness) {
 		this.underlineThickness = thickness;
+	}
+
+	/**
+	 * Get the thickness of the underline.
+	 * 
+	 * @param size The size of the font to get thickness for.
+	 * @return The thickness.
+	 */
+	public float getUnderlineThickness(int size) {
+		return underlineThickness * size / 1000.0f;
+	}
+
+	/**
+	 * Set the standard thickness of the underline.
+	 * 
+	 * @param size The size of the font to set thickness for.
+	 * @param thickness The thickness of the underline.
+	 */
+	public void setUnderlineThickness(int size, float thickness) {
+		this.underlineThickness = (int) (thickness * 1000.f / size);
 	}
 
 	/**

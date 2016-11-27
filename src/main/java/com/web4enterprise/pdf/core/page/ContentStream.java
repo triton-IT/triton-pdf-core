@@ -193,6 +193,15 @@ public class ContentStream implements PdfObject {
 			//( and ) are interpreted by PDF readers, so we must escape them.
 			.append("(").append(text.getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
 			.append("ET").append(LINE_SEPARATOR); //End text
+			
+			if(text.isUnderlined()) {
+				int underlineY = (int) (text.getY() + text.getFontVariant().getUnderlinePosition(text.getSize()));
+				addPath(new StraightPath(text.getFontVariant().getUnderlineThickness(text.getSize()), text.getUnderlineColor(), 
+						new Point(text.getX(), underlineY), 
+						new Point(
+								text.getX() + text.getFontVariant().getWidth(text.getSize(), text.getValue()), 
+								underlineY)));
+			}
 		}
 		return builder.toString();
 	}

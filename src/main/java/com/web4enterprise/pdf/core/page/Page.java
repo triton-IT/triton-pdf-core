@@ -121,6 +121,15 @@ public class Page implements PdfObject, PageNode {
 	}
 	
 	/**
+	 * Add a text to the page.
+	 * 
+	 * @param text The text to add in the page.
+	 */
+	public void addText(Text text) {
+		contentStream.addText(text);
+	}
+	
+	/**
 	 * Add a path to page.
 	 * 
 	 * @param path The straight path to add.
