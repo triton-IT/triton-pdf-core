@@ -1,6 +1,6 @@
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
 env:
   global:
   #SONAR_TOKEN
@@ -10,8 +10,7 @@ env:
   #OSSRH_PASS
   - secure: AniTDjZiOb53nlfiUImjskSuQSw33xMVIBiIsOfuSJ0Hz9oOGB5biLwP/Wta/yJIfJVufSeYnzRTD98/VEUOLai5feimuFsw8AJCqgFrfyOXwdVVYNYRchARz0fnhA7dM/r23Lw+4rEJu0MxICFxpufQo3xcszzFvBF6np/jbyx8YUnVr55Ef5IS67qXRjaAOq/qrr0AKukOa8OgJ2WUKUP6HQFeMbYFF+TMiFgftrH4rQUPAD79M97bv3JSt1wB6UBaqta3WZOXloDngq2gkNt6tj8ngAWXz8lCfjYnpWQqYL2t/g27Ruo0507lxw1a+gBvwUIi+CyoCw5nfnOsMYESzfgWrQhIR/5vx/JMKflOWUX1Dktv5TBr2eqZY3kO4vlaqPidyeVqj1TU/7r7+kYeHrcC3+W9ubVaOvxbiSdJBHmP185WPCe/NejF/077wkmktScOKqyTsWZ0/BNcftvh33Yoerdd1teMS9D/TbDKZ3VGRvGJAXxOphCp+HAZ5fPxJfJRIEawotUmnyzlbg10IE0OaY6LtV77PQvVZBJX3BtikpzjMlw14IvddGUTWHXUzbj2a8g2Nab/zRtYeT+ayqOylvaMM0Z4uxly636ewGNTsC5netzgrUw0Mpn9eVYGUwGaxhstSer6Tcqe3fCA7HDFej+EptIDaYQnyXw=
 script:
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN
-  -Dsonar.host.url=https://sonarqube.com
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=https://sonarqube.com
 after_success:
   - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
   - mvn deploy --settings ~/settings.xml
