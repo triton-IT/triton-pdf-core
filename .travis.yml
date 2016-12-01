@@ -1,8 +1,6 @@
 language: java
-
 jdk:
   - oraclejdk8
-  
 env:
   global:
   #SONAR_TOKEN
@@ -15,12 +13,9 @@ env:
   - secure: yj3eIdO3SLvPl3JFGjS43N5pJM/wAwXaDFJ3noIsMjnNvHp/voCcI4hfh7xcJmSPriTychW/EawIGZuIYD93CG9Oym+ntNdryUPuOrRm9cY/rFe6cy81kCkTxA01jIsvNT71gz7eH9GJHnXca8MkSWnOEpUDgJPMq98cN8rIRUm66w/P4PpaSYeiEdPZT6KFUkdHc+omKUqE1hcDLKgjYMwGhfOnKbAuEc+WxagW/ljZLsjVeq8XCNWWvm51qJXp8ICRdTL6XP9Q1x9PV3cD4U/WGIGB7/DqIE2yOTWD9J+2wi8/iNgx+EYOBBpUSWgVEbJzodosdFsrkjxXiiQGhrrgLnL1mef4EaH/MmBCmJatDatzg9K8YFguPTdZhP1nexYxncwYxhv+ccncLv9TyfWToFgKw0aBGZJO5DDxOekvRmcjT8rn9BB71pcEiJmVXPniG0HdWwSAPEDnT+mgx5dGXwyp/64jQ5pZ6jdIrXJc7+G9bpysYsXRlMrOfSyLPjctwmHeHph6wRgDs9j8chmIWbfkJo/XBgJUrDYhDBDB8X4HTUoqsK3yQOJFP4MFh9JAGERd2hhAL5QGJPUy+uW5XG1Jjzev0g7s3MtKglbIYlBH1Z1w0UuP0gqgDBJaB7tIKs2elIwDzUtTBZvWBv2xE2RiwzvZ9mDuntiQzOE=
   #GPG_PASSPHRASE
   - secure: w4e6KXc7yaDFTiDnYYYVQRKyYLZY75NcsPE/rmUs1cYmIz4bSGS9jzVyqOnG/+2JkZQyOJcfhZww2NJ6XQm63YlBRjKTQyE1uxTVJTyHrRxljAnDfD+GHcSQa5ZIUTJ0E+IDiZJG+9ca19mnv2IxebSUnnPDHJXynz2yUYdPSg4c2WBnE5JtuY+WYYy7e0t00QX24W9gQhWIUFb4TE+/iaMuZaycXOPIaa1RPfJxmXc9Jad1M4gt4YCg5Ay6nqZHD+8NyL3ULz1WUC0RjTWg1a1ltrtWc6zsEHiB49jxJS+qixSl6X2VSDN1/wpyQUz2eHb+4i8wp8SZGmyXusqNnqkuLzQ9s03GREs4yKqpmJvY4PLBpvsbpIFkWdx1Si3QNXWFg42fWPYnyKoajBm26nt9Fhvbr87RJGlre5vrZSvx1DjGx6DPpGUPrDH5weZXRuHQkeHxkoJ8/WmSR0HAiagmRp2DiDnuQfTsNsXgIPe3LtyjReICDphL0rCe8tyc/xseIkbuJUZZl4jGRQZjrYqwTroWe4AndikIiJt0z13QT/vRAaZ8NS/RdJn2sgdvnWFYvknZIPSy1dM/cKAyQ2lZ01i3UUgO9pjFeUo92T5QM/58KS9HQM/gCaVcoHpPzaxbQIu0QW8Cp1LVoAw9NjXeH6RGUMrPAeoHEJkuGJk=
-
 before_install:
   - chmod +x ./.travis/deploy.sh
-  
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=https://sonarqube.com
-
-  after_success:
+after_success:
   - ./.travis/deploy.sh
