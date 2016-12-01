@@ -111,7 +111,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	/**
 	 * Attach a page node to this object.
 	 * 
-	 * @param pageNode The page node to attach.
+	 * @param image The image to attach.
 	 */
 	public void addImage(Image image) {
 		images.add(image);

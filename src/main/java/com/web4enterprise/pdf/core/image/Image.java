@@ -60,6 +60,8 @@ public class Image implements PdfObject {
 	
 	/**
 	 * Creates an image with the given id.
+	 * 
+	 * @param id The identifier in image.
 	 */
 	public Image(int id) {
 		this.id = id;

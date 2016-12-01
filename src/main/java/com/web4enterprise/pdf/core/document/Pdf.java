@@ -147,7 +147,7 @@ public class Pdf{
 	/**
 	 * Write the header of the PDF to output stream.
 	 * 
-	 * @param The stream to write header.
+	 * @param stream The stream to write header.
 	 * @return The header in PDF format.
 	 * @throws IOException When header cannot be encoded to UTF-8.
 	 */
@@ -166,6 +166,7 @@ public class Pdf{
 	 * 
 	 * @param stream The output stream where object will be rendered.
 	 * @param position The number of bytes written before the body in PDF.
+	 * @return The number of bytes written.
 	 * @throws PdfGenerationException When PDF cannot be generated.
 	 */
 	protected int writeBody(OutputStream stream, int position) throws PdfGenerationException {
