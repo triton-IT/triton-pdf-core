@@ -17,4 +17,4 @@ env:
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=https://sonarqube.com
 after_success:
-  - ./deployment/deploy.sh
+  - ./.travis/deploy.sh
