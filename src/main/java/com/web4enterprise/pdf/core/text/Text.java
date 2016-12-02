@@ -151,7 +151,7 @@ public class Text {
 	/**
 	 * Set the variant of font to use to render text.
 	 * 
-	 * @return The font variant.
+	 * @param fontVariant The font variant.
 	 */
 	public void setFontVariant(FontVariant fontVariant) {
 		this.fontVariant = fontVariant;
@@ -169,7 +169,7 @@ public class Text {
 	/**
 	 * Set the color of the text.
 	 * 
-	 * @return The color.
+	 * @param color The color.
 	 */
 	public void setColor(Color color) {
 		this.color = color;
@@ -187,7 +187,7 @@ public class Text {
 	/**
 	 * Set the underlined state of the text.	
 	 * 
-	 * @return The underlined state.
+	 * @param underlined The underlined state.
 	 */
 	public void setUnderlined(boolean underlined) {
 		this.underlined = underlined;
@@ -209,7 +209,7 @@ public class Text {
 	/**
 	 * Set the color of underline.
 	 * 
-	 * @return The color of underline.
+	 * @param underlineColor The color of underline.
 	 */
 	public void setUnderlineColor(Color underlineColor) {
 		this.underlineColor = underlineColor;
@@ -227,7 +227,7 @@ public class Text {
 	/**
 	 * Set the value of the text.
 	 * 
-	 * @return The character string.
+	 * @param value The character string.
 	 */
 	public void setValue(String value) {
 		this.value = value;

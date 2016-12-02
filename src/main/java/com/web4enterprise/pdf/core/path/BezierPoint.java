@@ -105,7 +105,7 @@ public class BezierPoint extends Point {
 	/**
 	 * Set the X position of second control point.
 	 * 
-	 * @param x1 The X coordinate of second control point.
+	 * @param x2 The X coordinate of second control point.
 	 */
 	public void setX2(int x2) {
 		this.x2 = x2;
@@ -123,7 +123,7 @@ public class BezierPoint extends Point {
 	/**
 	 * Set the Y position of second control point.
 	 * 
-	 * @param y1 The Y coordinate of second control point.
+	 * @param y2 The Y coordinate of second control point.
 	 */
 	public void setY2(int y2) {
 		this.y2 = y2;

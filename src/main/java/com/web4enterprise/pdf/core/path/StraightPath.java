@@ -32,6 +32,8 @@ public class StraightPath extends Path {
 	/**
 	 * Creates a straight path from points.
 	 * 
+	 * @param lineWidth The width of line to create.
+	 * @param strokeColor The stroke color of line.
 	 * @param startPoint The first point in path.
 	 * @param points The other points in path.
 	 */

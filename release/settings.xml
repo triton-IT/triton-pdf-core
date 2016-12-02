@@ -8,11 +8,8 @@
   </servers>
   <profiles>
     <profile>
-      <id>ossrh</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-     <properties>
+      <id>release</id>
+      <properties>
         <gpg.executable>gpg</gpg.executable>
         <gpg.keyname>${env.GPG_KEY_NAME}</gpg.keyname>
         <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
