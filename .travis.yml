@@ -14,7 +14,7 @@ env:
   #GPG_PASSPHRASE
   - secure: w4e6KXc7yaDFTiDnYYYVQRKyYLZY75NcsPE/rmUs1cYmIz4bSGS9jzVyqOnG/+2JkZQyOJcfhZww2NJ6XQm63YlBRjKTQyE1uxTVJTyHrRxljAnDfD+GHcSQa5ZIUTJ0E+IDiZJG+9ca19mnv2IxebSUnnPDHJXynz2yUYdPSg4c2WBnE5JtuY+WYYy7e0t00QX24W9gQhWIUFb4TE+/iaMuZaycXOPIaa1RPfJxmXc9Jad1M4gt4YCg5Ay6nqZHD+8NyL3ULz1WUC0RjTWg1a1ltrtWc6zsEHiB49jxJS+qixSl6X2VSDN1/wpyQUz2eHb+4i8wp8SZGmyXusqNnqkuLzQ9s03GREs4yKqpmJvY4PLBpvsbpIFkWdx1Si3QNXWFg42fWPYnyKoajBm26nt9Fhvbr87RJGlre5vrZSvx1DjGx6DPpGUPrDH5weZXRuHQkeHxkoJ8/WmSR0HAiagmRp2DiDnuQfTsNsXgIPe3LtyjReICDphL0rCe8tyc/xseIkbuJUZZl4jGRQZjrYqwTroWe4AndikIiJt0z13QT/vRAaZ8NS/RdJn2sgdvnWFYvknZIPSy1dM/cKAyQ2lZ01i3UUgO9pjFeUo92T5QM/58KS9HQM/gCaVcoHpPzaxbQIu0QW8Cp1LVoAw9NjXeH6RGUMrPAeoHEJkuGJk=
 before_install:
-  - chmod +x ./.travis/deploy.sh
+  - chmod +x release/deploy.sh
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=https://sonarqube.com
 after_success:
