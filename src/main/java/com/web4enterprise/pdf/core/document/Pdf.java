@@ -19,7 +19,7 @@ import com.web4enterprise.pdf.core.page.Page;
 import com.web4enterprise.pdf.core.page.PageTree;
 import com.web4enterprise.pdf.core.page.RootPageTree;
 
-public class Pdf{
+public class Pdf {
 	/**
 	 * The line separator that will be used in this PDF.
 	 */
