@@ -12,7 +12,7 @@ For layouting possibilities, use [simplypdf-layout](https://github.com/web4enter
 
 ### Why another PDF API ?
 There is already great "low level" PDF APIs in java, but all are difficult to use and provides more a "wrapper" for PDF format than a real API. In other terms, lot of them exposes all the complexity of raw PDF format.
-simplypdf-core is created to be still a low-level API but is intended to be simpler to use by creating a more abstract API.
+simplypdf-core is created to be still a low-level API but is intended to be simpler to use by creating a more abstracted API.
 
 Some other API have a "high level" design but simplypdf-core is not intended to compete with them.
 
@@ -20,13 +20,17 @@ If you're interested in a high level API, you can take a look at [simplypdf-layo
 
 ## What are the plans for simplypdf-core
 The goal of simplypdf-core is to abstract the more common PDF functionalities.
-* Create a PDF document.
+
+Today, simplypdf-core is capable of the following.
+* Create a valid PDF 1.7 document.
 * Adding pages.
-* Adding texts.
-* Adding images.
+* Adding texts in base 14 Adobe fonts.
+* Adding non transparent images.
 * Adding lines and curves.
 
-Other PDFs capabilities like adding 3d content, videos, etc. will not be implemented. Simplypdf-core goal is to be capable to draw anything that can be drawn on a paper page, no more.
+Future versions will permit to load custom fonts, handle transparent images and different PDF formats, particularly PDF-A.
+
+Other PDFs capabilities like adding 3d content, videos, etc. will not be implemented. Simplypdf-core goal is to be capable to draw anything that can be drawn on a paper page, no more, but not less.
 
 You can track advancement of project in a "kanban style" for any version [here](https://github.com/web4enterprise/simplypdf-core/projects).
 
@@ -36,7 +40,7 @@ This documentation is created by using this library and for a concrete example y
 
 You can also take a look at project [wiki](https://github.com/web4enterprise/simplypdf-core/wiki) for getting started information.
 
-## WHat about quality ?
+## What about quality ?
 I do my best to provide the better quality for design, code and documentation.
 Quality is super important for me, so if documentation is not clear, if design or code has a flaw, if my English writting is not good enough :blush:, if you find a bug or if you find anything else that can be improved, you can [create an issue](https://github.com/web4enterprise/simplypdf-core/issues).
 
