@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.web4enterprise</groupId>
   <artifactId>simplypdf-core</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>Simply PDF core</name>
   <description>Simple relatively low-level API to create a PDF.</description>
@@ -79,7 +79,7 @@
         <configuration>
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
         </configuration>
       </plugin>
       <plugin>
@@ -89,6 +89,19 @@
         <executions>
           <execution>
             <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+           <id>attach-sources</id>
             <goals>
               <goal>jar</goal>
             </goals>
