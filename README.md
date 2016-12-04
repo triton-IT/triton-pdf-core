@@ -18,6 +18,11 @@ Some other APIs have a "high level" design but simplypdf-core is not intended to
 
 If you're interested in a high level API, you can take a look at [simplypdf-layout](https://github.com/web4enterprise/simplypdf-layout).
 
+## What license is used for simplypdf-core
+Simplypdf-core is under Apache 2.0 license.
+This means that you can use simplypdf-core either in a non-commercial or commercial product and can modify it.
+Read the full license [here](http://www.apache.org/licenses/LICENSE-2.0).
+
 ## What are the plans for simplypdf-core
 The goal of simplypdf-core is to abstract the more common PDF functionalities.
 
