@@ -70,7 +70,8 @@ Binary, sources and javadoc is available on maven central.Just include the follo
     <groupId>com.web4enterprise</groupId>
     <artifactId>simplypdf-core</artifactId>
     <version>1.0.0</version>
-</dependency>```
+</dependency>
+```
 ### Using grails
     compile 'com.web4enterprise:simplypdf-core:1.0.0'
 ### Using another dependency manager
