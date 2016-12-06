@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/web4enterprise/simplypdf-core.svg?branch=master)](https://travis-ci.org/web4enterprise/simplypdf-core)
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.web4enterprise:simplypdf-core)](https://sonarqube.com/dashboard/index/com.web4enterprise:simplypdf-core)
+[![Javadocs](http://javadoc.io/badge/com.web4enterprise/simplypdf-core.svg)]
+(http://javadoc.io/doc/com.web4enterprise/simplypdf-core)
 
 ## What is simplypdf-core ?
 Simplypdf-core is a simple low-level API for creating PDFs.
@@ -33,7 +35,7 @@ Today, simplypdf-core is capable of the following.
 * Adding non transparent images.
 * Adding lines and curves.
 
-Future versions will permit to load custom fonts, handle transparent images and different PDF formats, particularly PDF-A.
+Future versions will permit to load custom fonts, handle transparent images, links, anchors and different PDF formats, particularly PDF-A.
 
 Other PDFs capabilities like adding 3d content, videos, etc. will not be implemented. Simplypdf-core goal is to be capable to draw anything that can be drawn on a paper page, no more, but not less.
 
@@ -49,6 +51,8 @@ This documentation is created by using this library and for a concrete example y
 
 You can also take a look at project [wiki](https://github.com/web4enterprise/simplypdf-core/wiki) for getting started information.
 
+Javadoc is available [here](http://javadoc.io/doc/com.web4enterprise/simplypdf-core/1.0.0).
+
 ## What about quality ?
 I do my best to provide the best quality for design, code and documentation.
 Quality is super important for me, so if documentation is not clear, if design or code has a flaw, if my English writting is not good enough :blush:, if you find a bug or if you find anything else that can be improved, you can [create an issue](https://github.com/web4enterprise/simplypdf-core/issues).
@@ -58,3 +62,16 @@ If documentation is not sufficient, just create an issue, I will reply to issue 
 
 For professional support and services, use the web site [web4enterprise.com](http://web4enterprise.com).
 
+## Gettting started
+Binary, sources and javadoc is available on maven central.Just include the following dependency.
+### Using maven
+```xml
+<dependency>
+    <groupId>com.web4enterprise</groupId>
+    <artifactId>simplypdf-core</artifactId>
+    <version>1.0.0</version>
+</dependency>```
+### Using grails
+    compile 'com.web4enterprise:simplypdf-core:1.0.0'
+### Using another dependency manager
+Please visit [Maven central](http://search.maven.org/#artifactdetails%7Ccom.web4enterprise%7Csimplypdf-core%7C1.0.0%7Cjar) to find the definition for your repository manager.
