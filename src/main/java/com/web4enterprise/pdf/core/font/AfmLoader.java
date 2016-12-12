@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.web4enterprise.pdf.core.geometry.BoundingBox;
+import com.web4enterprise.pdf.core.geometry.Rect;
 
 /**
  * Loader for AFM fonts.
@@ -77,10 +77,11 @@ public class AfmLoader {
 					nameByteMapping.put(name, c);
 					
 					//Add BoundingBox
-					fontVariant.addBox(c, new BoundingBox(Integer.parseInt(tokens[10]),  
+					fontVariant.addBox(c, new Rect(
+							Integer.parseInt(tokens[13]),
+							Integer.parseInt(tokens[10]),  
 							Integer.parseInt(tokens[11]),  
-							Integer.parseInt(tokens[12]),  
-							Integer.parseInt(tokens[13])));
+							Integer.parseInt(tokens[12])));
 				}
 			} else if (line.startsWith("KPX ")) {
 				String[] tokens = line.split(" ");

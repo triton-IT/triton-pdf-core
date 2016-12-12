@@ -18,7 +18,7 @@ package com.web4enterprise.pdf.core.font;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.web4enterprise.pdf.core.geometry.BoundingBox;
+import com.web4enterprise.pdf.core.geometry.Rect;
 
 /**
  * Class representing a font variant.
@@ -34,7 +34,7 @@ public class FontVariant {
 	/**
 	 * The bounding box of each byte described in the font.
 	 */
-	protected Map<Byte, BoundingBox> boxes = new HashMap<>();
+	protected Map<Byte, Rect> boxes = new HashMap<>();
 	/**
 	 * The kerning between two bytes.
 	 */
@@ -68,7 +68,7 @@ public class FontVariant {
 	 * @param character The byte to add the bounding box for.
 	 * @param box The bounding box of the byte.
 	 */
-	public void addBox(Byte character, BoundingBox box) {
+	public void addBox(Byte character, Rect box) {
 		this.boxes.put(character, box);
 	}
 

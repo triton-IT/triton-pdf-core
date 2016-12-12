@@ -20,7 +20,7 @@ package com.web4enterprise.pdf.core.geometry;
  * 
  * @author Régis Ramillien
  */
-public class BoundingBox {
+public class Rect {
 	/**
 	 * The left position of the box.
 	 */
@@ -41,15 +41,39 @@ public class BoundingBox {
 	/**
 	 * Create a bounding box.
 	 * 
+	 * @param top The top position of the box.
 	 * @param left The left position of the box.
 	 * @param bottom The bottom position of the box.
 	 * @param right The right position of the box.
-	 * @param top The top position of the box.
 	 */
-	public BoundingBox(int left, int bottom, int right,	int top) {
+	public Rect(int top, int left, int bottom, int right) {
+		this.top = top;
 		this.left = left;
 		this.bottom = bottom;
 		this.right = right;
-		this.top = top;
+	}
+	
+	public int getTop() {
+		return top;
+	}
+	
+	public int getLeft() {
+		return left;
+	}
+	
+	public int getBottom() {
+		return bottom;
+	}
+	
+	public int getRight() {
+		return right;
+	}
+	
+	public int getWidth() {
+		return right - left;
+	}
+	
+	public int getHeight() {
+		return top - bottom;
 	}
 }
