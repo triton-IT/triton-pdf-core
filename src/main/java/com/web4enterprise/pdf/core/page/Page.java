@@ -104,7 +104,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param size The size of the text to add.
 	 * @param text The text to add.
 	 */
-	public void addText(int x, int y, int size, String text) {
+	public void addText(float x, float y, int size, String text) {
 		contentStream.addText(new Text(x, y, size, text));
 	}
 	
@@ -117,7 +117,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param fontVariant The font variant of the text.
 	 * @param text The text to add.
 	 */
-	public void addText(int x, int y, int size, FontVariant fontVariant, String text) {
+	public void addText(float x, float y, int size, FontVariant fontVariant, String text) {
 		contentStream.addText(new Text(x, y, size, fontVariant, text));
 	}
 	
@@ -131,7 +131,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param color The color of the text.
 	 * @param text The text to add.
 	 */
-	public void addText(int x, int y, int size, FontVariant fontVariant, Color color, String text) {
+	public void addText(float x, float y, int size, FontVariant fontVariant, Color color, String text) {
 		contentStream.addText(new Text(x, y, size, fontVariant, color, text));
 	}
 	

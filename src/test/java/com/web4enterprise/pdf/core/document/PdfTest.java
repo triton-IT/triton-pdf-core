@@ -52,7 +52,7 @@ public class PdfTest {
 			page1.addText(20, 660, 8, "page1.addText(20, 700, 12, \"The text to display\");");
 			page1.addText(20, 640,  12, "A text width can be calculated with:");
 			page1.addText(20, 620, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
-			int textWidth = Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
+			float textWidth = Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
 			StraightPath startPath = new StraightPath(new Point(20, 628), new Point(20, 620));
 			startPath.setStrokeColor(new Color(128, 80, 128));
 			startPath.setLineWidth(0.6f);

@@ -29,11 +29,11 @@ public class Text {
 	/**
 	 * The X position of text in page.
 	 */
-	protected int x;
+	protected float x;
 	/**
 	 * The Y position of text in page.
 	 */
-	protected int y;
+	protected float y;
 	/**
 	 * The size of text.
 	 */
@@ -66,7 +66,7 @@ public class Text {
 	 * @param size The size of text.
 	 * @param value The string to display.
 	 */
-	public Text(int x, int y, int size, String value) {
+	public Text(float x, float y, int size, String value) {
 		this(x, y, size, Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN), Color.BLACK, value);
 	}
 	
@@ -78,7 +78,7 @@ public class Text {
 	 * @param fontVariant The variant of font to use to render text.
 	 * @param value The string to display.
 	 */
-	public Text(int x, int y, int size, FontVariant fontVariant, String value) {
+	public Text(float x, float y, int size, FontVariant fontVariant, String value) {
 		this(x, y, size, fontVariant, Color.BLACK, value);
 	}
 	
@@ -91,7 +91,7 @@ public class Text {
 	 * @param color The color of the text.
 	 * @param value The string to display.
 	 */
-	public Text(int x, int y, int size, FontVariant fontVariant, Color color, String value) {
+	public Text(float x, float y, int size, FontVariant fontVariant, Color color, String value) {
 		this.x = x;
 		this.y = y;
 		this.size = size;
@@ -105,7 +105,7 @@ public class Text {
 	 * 
 	 * @return The X coordinate.
 	 */
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	
@@ -114,7 +114,7 @@ public class Text {
 	 * 
 	 * @param x the X coordinate.
 	 */
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	
@@ -123,7 +123,7 @@ public class Text {
 	 * 
 	 * @return The Y coordinate.
 	 */
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
@@ -132,7 +132,7 @@ public class Text {
 	 * 
 	 * @param y The Y coordinate.
 	 */
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	

@@ -38,7 +38,7 @@ public class FontVariant {
 	/**
 	 * The kerning between two bytes.
 	 */
-	protected Map<Byte, Map<Byte, Integer>> kernings = new HashMap<>();
+	protected Map<Byte, Map<Byte, Float>> kernings = new HashMap<>();
 	/**
 	 * The position of underline.
 	 */
@@ -51,6 +51,10 @@ public class FontVariant {
 	 * The name of font variant.
 	 */
 	protected String name;
+	/**
+	 * The bounding box of the font
+	 */
+	protected Rect boundingBox;
 
 	/**
 	 * Add the width of the given byte.
@@ -79,8 +83,8 @@ public class FontVariant {
 	 * @param destination The "bound" byte.
 	 * @param kerning The kerning between the two bytes.
 	 */
-	public void addKerning(Byte source, Byte destination, Integer kerning) {
-		Map<Byte, Integer> kernMap = this.kernings.get(source);
+	public void addKerning(Byte source, Byte destination, Float kerning) {
+		Map<Byte, Float> kernMap = this.kernings.get(source);
 		if(kernMap == null) {
 			kernMap = new HashMap<>();
 			this.kernings.put(source, kernMap);
@@ -93,8 +97,8 @@ public class FontVariant {
 	 * 
 	 * @return The position.
 	 */
-	public int getUnderlinePosition() {
-		return (int) underlinePosition;
+	public float getUnderlinePosition() {
+		return underlinePosition;
 	}
 
 	/**
@@ -102,7 +106,7 @@ public class FontVariant {
 	 * 
 	 * @param position The position of the underline.
 	 */
-	public void setUnderlinePosition(int position) {
+	public void setUnderlinePosition(float position) {
 		this.underlinePosition = position;
 	}
 
@@ -112,7 +116,7 @@ public class FontVariant {
 	 * @param size The size of the font to get position for.
 	 * @return The position.
 	 */
-	public float getUnderlinePosition(int size) {
+	public float getUnderlinePosition(float size) {
 		return underlinePosition * size / 1000.0f;
 	}
 
@@ -123,7 +127,7 @@ public class FontVariant {
 	 * @param position The position of the underline.
 	 */
 	public void setUnderlinePosition(int size, float position) {
-		this.underlinePosition = (int) (position * 1000.f / size);
+		this.underlinePosition = position * 1000.f / size;
 	}
 
 	/**
@@ -131,8 +135,8 @@ public class FontVariant {
 	 * 
 	 * @return The thickness.
 	 */
-	public int getUnderlineThickness() {
-		return (int) underlineThickness;
+	public float getUnderlineThickness() {
+		return underlineThickness;
 	}
 
 	/**
@@ -140,7 +144,7 @@ public class FontVariant {
 	 * 
 	 * @param thickness The thickness of the underline.
 	 */
-	public void setUnderlineThickness(int thickness) {
+	public void setUnderlineThickness(float thickness) {
 		this.underlineThickness = thickness;
 	}
 
@@ -150,7 +154,7 @@ public class FontVariant {
 	 * @param size The size of the font to get thickness for.
 	 * @return The thickness.
 	 */
-	public float getUnderlineThickness(int size) {
+	public float getUnderlineThickness(float size) {
 		return underlineThickness * size / 1000.0f;
 	}
 
@@ -161,7 +165,7 @@ public class FontVariant {
 	 * @param thickness The thickness of the underline.
 	 */
 	public void setUnderlineThickness(int size, float thickness) {
-		this.underlineThickness = (int) (thickness * 1000.f / size);
+		this.underlineThickness = thickness * 1000.f / size;
 	}
 
 	/**
@@ -181,25 +185,73 @@ public class FontVariant {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Get bounding box of font.
+	 * 
+	 * @return The bounding box of the font.
+	 */
+	public Rect getBoundingBox() {
+		return boundingBox;
+	}
+
+	/**
+	 * Set the bounding box of font.
+	 * 
+	 * @param boundingBox the bounding box of font.
+	 */
+	public void setBoundingBox(Rect boundingBox) {
+		this.boundingBox = boundingBox;
+	}
+	
+	/**
+	 * Get distance to top of the top of bounding box. 
+	 * 
+	 * @param fontSize The size of font to calculate distance for.
+	 * @return The distance in PDF unit.
+	 */
+	public float getDistanceFromTop(int fontSize) {
+		return fontSize - (((1000.0f - boundingBox.getTop()) / 1000.0f) * fontSize);
+	}
+	
+	/**
+	 * Get distance to top of the top of bounding box. 
+	 * 
+	 * @param fontSize The size of font to calculate distance for.
+	 * @return The distance in PDF unit.
+	 */
+	public float getDistanceFromBottom(int fontSize) {
+		return (boundingBox.getBottom() / 1000.0f) * fontSize;
+	}
 
 	/**
 	 * Get the width of the String with the variant and the given size.
 	 * 
-	 * @param size The size to get the width for.
+	 * @param fontSize The size to get the width for.
 	 * @param string The String to get the width for.
 	 * @return The size of String.
 	 */
-	public int getWidth(Integer size, String string) {
-		int fullWidth = 0;
+	public float getWidth(Integer fontSize, String string) {
+		float fullWidth = 0;
 		Byte previousLetter = null;
 		for(byte letter : string.getBytes()) {
 			fullWidth += getWidth(letter);
 			fullWidth += getKerning(previousLetter, letter);
 			previousLetter = letter;
 		}
-		return Math.round(fullWidth * ((float) size) / 1000.0f);
+		return Math.round(fullWidth * ((float) fontSize) / 1000.0f);
 	}
 	
+	/**
+	 * Get the height of font variant for the specified font size.
+	 * 
+	 * @param fontSize The size of font.
+	 * @return The height of font based on its bounding box.
+	 */
+	public float getHeight(Integer fontSize) {
+		return getDistanceFromTop(fontSize) - getDistanceFromBottom(fontSize);
+	}
+
 	/**
 	 * Get the width of a byte.
 	 * 
@@ -224,13 +276,13 @@ public class FontVariant {
 	 * @param current The second character to get kerning from.
 	 * @return The kerning found or 0 if none.
 	 */
-	private int getKerning (Byte previous, Byte current) {
-		int kerning = 0;
+	private float getKerning (Byte previous, Byte current) {
+		float kerning = 0;
 		
 		if(previous != null) {
-			Map<Byte, Integer> kerns = kernings.get(previous);
+			Map<Byte, Float> kerns = kernings.get(previous);
 			if(kerns != null) {
-				Integer kern = kerns.get(current);
+				Float kern = kerns.get(current);
 				if(kern != null) {
 					kerning = kern;
 				}

@@ -58,12 +58,19 @@ public class AfmLoader {
 			if (line.startsWith("FontName ")) {
 				String[] tokens = line.split(" ");
 				fontVariant.setName(tokens[1]);
+			} else if(line.startsWith("FontBBox ")) {
+				String[] tokens = line.split(" ");
+				Rect boundingBox = new Rect(Integer.parseInt(tokens[4]), 
+						Integer.parseInt(tokens[1]), 
+						Integer.parseInt(tokens[2]), 
+						Integer.parseInt(tokens[3]));
+				fontVariant.setBoundingBox(boundingBox);
 			} else if (line.startsWith("UnderlinePosition ")) {
 				String[] tokens = line.split(" ");
-				fontVariant.setUnderlinePosition(Integer.parseInt(tokens[1]));
+				fontVariant.setUnderlinePosition(Float.parseFloat(tokens[1]));
 			} else if (line.startsWith("UnderlineThickness ")) {
 				String[] tokens = line.split(" ");
-				fontVariant.setUnderlineThickness(Integer.parseInt(tokens[1]));
+				fontVariant.setUnderlineThickness(Float.parseFloat(tokens[1]));
 			} else if (line.startsWith("C ")) {
 				String[] tokens = line.split(" ");
 				byte c = (byte) Integer.parseInt(tokens[1]);
@@ -78,17 +85,17 @@ public class AfmLoader {
 					
 					//Add BoundingBox
 					fontVariant.addBox(c, new Rect(
-							Integer.parseInt(tokens[13]),
-							Integer.parseInt(tokens[10]),  
-							Integer.parseInt(tokens[11]),  
-							Integer.parseInt(tokens[12])));
+							Float.parseFloat(tokens[13]),
+							Float.parseFloat(tokens[10]),  
+							Float.parseFloat(tokens[11]),  
+							Float.parseFloat(tokens[12])));
 				}
 			} else if (line.startsWith("KPX ")) {
 				String[] tokens = line.split(" ");
 				Byte source = nameByteMapping.get(tokens[1]);
 				Byte destination = nameByteMapping.get(tokens[2]);
 				if(source != null && destination != null) {
-					fontVariant.addKerning(source, destination, Integer.parseInt(tokens[3]));
+					fontVariant.addKerning(source, destination, Float.parseFloat(tokens[3]));
 				}
 			}
 

@@ -24,19 +24,19 @@ public class Rect {
 	/**
 	 * The left position of the box.
 	 */
-	protected int left;
+	protected float left;
 	/**
 	 * The bottom position of the box.
 	 */
-	protected int bottom;
+	protected float bottom;
 	/**
 	 * The right position of the box.
 	 */
-	protected int right;
+	protected float right;
 	/**
 	 * The top position of the box.
 	 */
-	protected int top;
+	protected float top;
 
 	/**
 	 * Create a bounding box.
@@ -46,34 +46,34 @@ public class Rect {
 	 * @param bottom The bottom position of the box.
 	 * @param right The right position of the box.
 	 */
-	public Rect(int top, int left, int bottom, int right) {
+	public Rect(float top, float left, float bottom, float right) {
 		this.top = top;
 		this.left = left;
 		this.bottom = bottom;
 		this.right = right;
 	}
 	
-	public int getTop() {
+	public float getTop() {
 		return top;
 	}
 	
-	public int getLeft() {
+	public float getLeft() {
 		return left;
 	}
 	
-	public int getBottom() {
+	public float getBottom() {
 		return bottom;
 	}
 	
-	public int getRight() {
+	public float getRight() {
 		return right;
 	}
 	
-	public int getWidth() {
+	public float getWidth() {
 		return right - left;
 	}
 	
-	public int getHeight() {
+	public float getHeight() {
 		return top - bottom;
 	}
 }

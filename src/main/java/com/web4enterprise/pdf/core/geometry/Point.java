@@ -24,11 +24,11 @@ public class Point {
 	/**
 	 * The X position of point.
 	 */
-	protected int x;
+	protected float x;
 	/**
 	 * The Y position of point.
 	 */
-	protected int y;
+	protected float y;
 	
 	/**
 	 * Create a Point with X and Y coordinates.
@@ -36,7 +36,7 @@ public class Point {
 	 * @param x The X position of point.
 	 * @param y The Y position of point.
 	 */
-	public Point(int x, int y) {
+	public Point(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -46,7 +46,7 @@ public class Point {
 	 * 
 	 * @return The X position.
 	 */
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -55,7 +55,7 @@ public class Point {
 	 * 
 	 * @param x The new position.
 	 */
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
@@ -64,7 +64,7 @@ public class Point {
 	 * 
 	 * @return The Y position.
 	 */
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
@@ -73,7 +73,7 @@ public class Point {
 	 * 
 	 * @param y The new position.
 	 */
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 }

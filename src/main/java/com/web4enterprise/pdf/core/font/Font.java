@@ -168,7 +168,7 @@ public class Font {
 	 * @param string The String to calculate width for.
 	 * @return The length of String.
 	 */
-	public int getWidth(FontsVariant variant, Integer size, String string) {
+	public float getWidth(FontsVariant variant, Integer size, String string) {
 		return getVariant(variant).getWidth(size, string);
 	}
 	

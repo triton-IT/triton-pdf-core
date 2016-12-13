@@ -38,11 +38,11 @@ public class Image implements PdfObject {
 	/**
 	 * The X position of the rendered image in page.
 	 */
-	protected int x;
+	protected float x;
 	/**
 	 * The Y position of the rendered image in page.
 	 */
-	protected int y;
+	protected float y;
 	/**
 	 * The width of the definition of the image in PDF.
 	 */
@@ -87,7 +87,7 @@ public class Image implements PdfObject {
 	 * 
 	 * @return The X position.
 	 */
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	/**
@@ -95,7 +95,7 @@ public class Image implements PdfObject {
 	 * 
 	 * @param x The X position.
 	 */
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	/**
@@ -103,7 +103,7 @@ public class Image implements PdfObject {
 	 * 
 	 * @return The Y position.
 	 */
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	/**
@@ -111,7 +111,7 @@ public class Image implements PdfObject {
 	 * 
 	 * @param y The Y position.
 	 */
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	/**

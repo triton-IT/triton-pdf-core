@@ -26,19 +26,19 @@ public class BezierPoint extends Point {
 	/**
 	 * The X position of first control point.
 	 */
-	protected int x1;
+	protected float x1;
 	/**
 	 * The Y position of first control point.
 	 */
-	protected int y1;
+	protected float y1;
 	/**
 	 * The X position of second control point.
 	 */
-	protected int x2;
+	protected float x2;
 	/**
 	 * The Y position of second control point.
 	 */
-	protected int y2;
+	protected float y2;
 	
 	/**
 	 * Create a Bezier point with control points over the main none.
@@ -46,7 +46,7 @@ public class BezierPoint extends Point {
 	 * @param x The X position of the point.
 	 * @param y The Y position of the point.
 	 */
-	public BezierPoint(int x, int y) {
+	public BezierPoint(float x, float y) {
 		super(x, y);
 		this.x1 = x;
 		this.y1 = y;
@@ -64,7 +64,7 @@ public class BezierPoint extends Point {
 	 * @param x2 The X position of the second control point.
 	 * @param y2 The Y position of the second control point.
 	 */
-	public BezierPoint(int x, int y, int x1, int y1, int x2, int y2) {
+	public BezierPoint(float x, float y, float x1, float y1, float x2, float y2) {
 		super(x, y);
 		this.x1 = x1;
 		this.y1 = y1;
@@ -77,7 +77,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @return The X coordinate of first control point.
 	 */
-	public int getX1() {
+	public float getX1() {
 		return x1;
 	}
 
@@ -86,7 +86,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @param x1 The X coordinate of first control point.
 	 */
-	public void setX1(int x1) {
+	public void setX1(float x1) {
 		this.x1 = x1;
 	}
 
@@ -95,7 +95,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @return The Y coordinate of first control point.
 	 */
-	public int getY1() {
+	public float getY1() {
 		return y1;
 	}
 
@@ -104,7 +104,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @param y1 The X coordinate of first control point.
 	 */
-	public void setY1(int y1) {
+	public void setY1(float y1) {
 		this.y1 = y1;
 	}
 
@@ -113,7 +113,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @return The X coordinate of second control point.
 	 */
-	public int getX2() {
+	public float getX2() {
 		return x2;
 	}
 
@@ -122,7 +122,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @param x2 The X coordinate of second control point.
 	 */
-	public void setX2(int x2) {
+	public void setX2(float x2) {
 		this.x2 = x2;
 	}
 
@@ -131,7 +131,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @return The Y coordinate of second control point.
 	 */
-	public int getY2() {
+	public float getY2() {
 		return y2;
 	}
 
@@ -140,7 +140,7 @@ public class BezierPoint extends Point {
 	 * 
 	 * @param y2 The Y coordinate of second control point.
 	 */
-	public void setY2(int y2) {
+	public void setY2(float y2) {
 		this.y2 = y2;
 	}
 }
