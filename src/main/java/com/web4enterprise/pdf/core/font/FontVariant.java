@@ -203,26 +203,6 @@ public class FontVariant {
 	public void setBoundingBox(Rect boundingBox) {
 		this.boundingBox = boundingBox;
 	}
-	
-	/**
-	 * Get distance to top of the top of bounding box. 
-	 * 
-	 * @param fontSize The size of font to calculate distance for.
-	 * @return The distance in PDF unit.
-	 */
-	public float getDistanceFromTop(int fontSize) {
-		return fontSize - (((1000.0f - boundingBox.getTop()) / 1000.0f) * fontSize);
-	}
-	
-	/**
-	 * Get distance to top of the top of bounding box. 
-	 * 
-	 * @param fontSize The size of font to calculate distance for.
-	 * @return The distance in PDF unit.
-	 */
-	public float getDistanceFromBottom(int fontSize) {
-		return (boundingBox.getBottom() / 1000.0f) * fontSize;
-	}
 
 	/**
 	 * Get the width of the String with the variant and the given size.
@@ -249,7 +229,27 @@ public class FontVariant {
 	 * @return The height of font based on its bounding box.
 	 */
 	public float getHeight(Integer fontSize) {
-		return getDistanceFromTop(fontSize) - getDistanceFromBottom(fontSize);
+		return getBaseLine(fontSize) - getDistanceFromBottom(fontSize);
+	}
+	
+	/**
+	 * Get baseline position.
+	 * 
+	 * @param fontSize The font size to calculate base line for.
+	 * @return The Y position of the baseline.
+	 */
+	public float getBaseLine(Integer fontSize) {
+		return fontSize - (((1000.0f - boundingBox.getTop()) / 1000.0f) * fontSize);
+	}
+	
+	/**
+	 * Get distance to top of the top of bounding box. 
+	 * 
+	 * @param fontSize The size of font to calculate distance for.
+	 * @return The distance in PDF unit.
+	 */
+	protected float getDistanceFromBottom(int fontSize) {
+		return (boundingBox.getBottom() / 1000.0f) * fontSize;
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class FontVariant {
 	 * @param character The character to get width for.
 	 * @return THe size of the byte.
 	 */
-	private int getWidth(Byte character) {
+	protected int getWidth(Byte character) {
 		int result = 0;
 		
 		Integer width = widths.get(character);
@@ -276,7 +276,7 @@ public class FontVariant {
 	 * @param current The second character to get kerning from.
 	 * @return The kerning found or 0 if none.
 	 */
-	private float getKerning (Byte previous, Byte current) {
+	protected float getKerning (Byte previous, Byte current) {
 		float kerning = 0;
 		
 		if(previous != null) {
