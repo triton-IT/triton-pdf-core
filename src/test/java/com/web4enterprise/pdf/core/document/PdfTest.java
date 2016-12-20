@@ -87,7 +87,7 @@ public class PdfTest {
 			page1.addText(zapfDingbats);
 
 			page1.addText(20, 220, 12, "An image is created with:");
-			page1.addText(20, 200, 8, "Image image = pdf.createImage(this.getClass().getResourceAsStream(\"/test.png\"));");
+			page1.addText(20, 200, 8, "Image image = pdf.createImage(this.getClass().getResourceAsStream(\"/logo.png\"));");
 			page1.addText(20, 180, 12, "An image is sized and positioned with:");
 			page1.addText(20, 160, 8, "image.setX(20);");
 			page1.addText(20, 140, 8, "image.setY(70);");
@@ -95,10 +95,10 @@ public class PdfTest {
 			page1.addText(20, 100, 8, "image.setHeight(30);");
 			page1.addText(20, 80, 12, "An image is added with:");
 			page1.addText(20, 60, 8, "page1.addImage(image);");
-			Image image = pdf.createImage(this.getClass().getResourceAsStream("/test.png"));
+			Image image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
 			image.setX(20);
 			image.setY(20);
-			image.setWidth(60);
+			image.setWidth(30);
 			image.setHeight(30);
 			page1.addImage(image);
 
@@ -110,7 +110,7 @@ public class PdfTest {
 			Image image2 = image.cloneReference();
 			image2.setX(20);
 			image2.setY(670);
-			image2.setWidth(140);
+			image2.setWidth(70);
 			image2.setHeight(70);
 			page2.addImage(image2);
 

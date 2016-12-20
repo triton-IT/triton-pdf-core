@@ -193,7 +193,6 @@ public class ContentStream implements PdfObject {
 	 * @param text The text to add.
 	 */
 	public void addText(Text text) {
-		//texts.add(text);
 		streamText(text);
 	}
 	
@@ -203,7 +202,6 @@ public class ContentStream implements PdfObject {
 	 * @param path The path to add.
 	 */
 	public void addPath(StraightPath path) {
-		//straightPaths.add(path);
 		streamStraightPath(path);
 	}
 	
@@ -213,7 +211,6 @@ public class ContentStream implements PdfObject {
 	 * @param path The path to add.
 	 */
 	public void addPath(BezierPath path) {
-		//bezierPaths.add(path);
 		streamBezierPath(path);
 	}
 	
@@ -223,7 +220,6 @@ public class ContentStream implements PdfObject {
 	 * @param image The image to add.
 	 */	
 	public void addImage(Image image) {
-		//images.add(image);
 		streamImage(image);
 	}
 }
