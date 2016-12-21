@@ -18,6 +18,7 @@ package com.web4enterprise.pdf.core.document;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -39,6 +40,16 @@ public class PdfTest {
 	public void testWrite() throws IOException, PdfGenerationException {
 		try(OutputStream out = new FileOutputStream("documentation.pdf")) {
 			Pdf pdf = new Pdf();
+			pdf.setAuthor("Régis Ramillien");
+			pdf.setModificationDate(new Date());
+			pdf.setProducer("web4enterprise");
+			pdf.setSubject("documentation for simplyPDF-core library");
+			pdf.setTitle("simplyPDF-core documentation");
+			pdf.addKeyword("http://web4enterprise.com");
+			pdf.addKeyword("simplyPDF-core");
+			pdf.addKeyword("Documentation");
+			pdf.addMetaData("Customer-specific", "meta-data");
+			
 			Page page1 = pdf.createPage(595, 842);
 			
 			page1.addText(20, 820, 12, "A PDF is created with:");

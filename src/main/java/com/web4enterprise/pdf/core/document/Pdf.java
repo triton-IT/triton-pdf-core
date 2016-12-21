@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.DeflaterOutputStream;
 
@@ -55,9 +56,14 @@ public class Pdf {
 	protected Catalog catalog = new Catalog();
 	
 	/**
+	 * The meta-data of document.
+	 */
+	protected DocumentMetaData documentMetaData;
+	
+	/**
 	 * The root of pages tree.
 	 */
-	protected RootPageTree rootPageTree;
+	protected RootPageTree rootPageTree;	
 	
 	/**
 	 * Instantiate a new empty PDF.
@@ -66,6 +72,90 @@ public class Pdf {
 		indirectsObjects.add(catalog);
 		rootPageTree = new RootPageTree(indirectsObjects.size() + 1);
 		indirectsObjects.add(rootPageTree);
+		documentMetaData = new DocumentMetaData(indirectsObjects.size() + 1);
+		indirectsObjects.add(documentMetaData);
+	}
+	
+	/**
+	 * Set the title of document.
+	 * 
+	 * @param title The title of document meta-data.
+	 */
+	public void setTitle(String title) {
+		documentMetaData.title = title;
+	}
+	
+	/**
+	 * Set the author of document.
+	 * 
+	 * @param author The author of document meta-data.
+	 */
+	public void setAuthor(String author) {
+		documentMetaData.author = author;
+	}
+	
+	/**
+	 * Set the subject of document.
+	 * 
+	 * @param subject The subject of document meta-data.
+	 */
+	public void setSubject(String subject) {
+		documentMetaData.subject = subject;
+	}
+	
+	/**
+	 * Add a keyword to document.
+	 * 
+	 * @param keyword The keyword to add to document meta-data.
+	 */
+	public void addKeyword(String keyword) {
+		documentMetaData.keywords.add(keyword);
+	}
+
+	/**
+	 * Set the creator of document.
+	 * 
+	 * @param creator The creator of document meta-data.
+	 */
+	public void setCreator(String creator) {
+		documentMetaData.creator = creator;
+	}
+
+	/**
+	 * Set the producer of document.
+	 * 
+	 * @param producer The producer of document meta-data.
+	 */
+	public void setProducer(String producer) {
+		documentMetaData.producer = producer;
+	}
+
+	/**
+	 * Add a keyword to document.
+	 * 
+	 * @param keyword The keyword to add to document meta-data.
+	 */
+	public void setCreationDate(Date creationDate) {
+		documentMetaData.creationDate = creationDate;
+	}
+
+	/**
+	 * Set the modification date of document.
+	 * 
+	 * @param modificationDate The modification date of document meta-data.
+	 */
+	public void setModificationDate(Date modificationDate) {
+		documentMetaData.modificationDate = modificationDate;
+	}
+	
+	/**
+	 * Add a custom meta-data to document.
+	 * 
+	 * @param key The key of custom meta-data to add to document.
+	 * @param value The value of custom meta-data to add to document.
+	 */
+	public void addMetaData(String key, String value) {
+		documentMetaData.customs.add(new MetaData(key, value));
 	}
 	
 	/**
@@ -163,7 +253,7 @@ public class Pdf {
 	 * Write the header of the PDF to output stream.
 	 * 
 	 * @param stream The stream to write header.
-	 * @return The header in PDF format.
+	 * @return The number of bytes written.
 	 * @throws IOException When header cannot be encoded to UTF-8.
 	 */
 	protected int writeHeader(OutputStream stream) throws IOException {
@@ -174,6 +264,21 @@ public class Pdf {
 		stream.write(bytes);
 		
 		return bytes.length;
+	}
+	
+	/**
+	 * Write the meta-data section in PDF format to stream.
+	 * 
+	 * @param stream The stream to write trailer to.
+	 * @return The number of bytes written.
+	 * @throws IOException When trailer cannot be written to stream.
+	 */
+	protected void writeMetaData(OutputStream stream) throws IOException {
+		StringBuilder builder = new StringBuilder();
+
+		String asString = builder.toString();
+		
+		stream.write(asString.getBytes());
 	}
 	
 	/**
@@ -236,6 +341,7 @@ public class Pdf {
 				//Catalog is always at 1, so let it hard-coded.
 				+ "/Root 1 0 R" + LINE_SEPARATOR
 				+ "/Size " + (indirectsObjects.size() + 1) + LINE_SEPARATOR
+				+ "/Info " + documentMetaData.getId() + " 0 R" + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR;
 		
 		stream.write(asString.getBytes());

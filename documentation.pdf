@@ -8,8 +8,8 @@ endobj
 2 0 obj <<
 /Type /Pages
 /Kids [
-3 0 R
-7 0 R
+4 0 R
+8 0 R
 ]
 /Count 2
 /MediaBox [0 0 595 842]
@@ -87,22 +87,34 @@ endobj
 >>
 >>
 /XObject <<
-/image6 6 0 R
+/image7 7 0 R
 >>
 >>
 >>
 endobj
 3 0 obj <<
+/Title (simplyPDF-core documentation)
+/Author (RÃ©gis Ramillien)
+/Subject (documentation for simplyPDF-core library)
+/Keywords (http://web4enterprise.com simplyPDF-core Documentation)
+/Creator (http://simplypdf-core.web4enterprise.com)
+/Producer (web4enterprise)
+/CreationDate (D:20161221021729+01'00')
+/ModDate (D:20161221021729+01'00')
+/Customer-specific (meta-data)
+>>
+endobj
+4 0 obj <<
 /Type /Pages
 /Parent 2 0 R
 /Kids [
-5 0 R
+6 0 R
 ]
 /Count 1
 /MediaBox [0 0 595 842]
 >>
 endobj
-4 0 obj <<
+5 0 obj <<
 /Length 3751
 >>
 stream
@@ -328,17 +340,17 @@ BT
 ET
 q
 30 0 0 30 20.0 20.0 cm
-/image6 Do
+/image7 Do
 Q
 endstream
 endobj
-5 0 obj <<
+6 0 obj <<
 /Type /Page
-/Parent 3 0 R
-/Contents 4 0 R
+/Parent 4 0 R
+/Contents 5 0 R
 >>
 endobj
-6 0 obj <<
+7 0 obj <<
 /Length 632
 /Type /XObject
 /Subtype /Image
@@ -358,17 +370,17 @@ V#VZ«+­‚Õˆ•VÁjÄJ«`5b¥U°±Ò*XXi¬F¬´
 V£¿§ýyÜ{÷Ü{TsïÝsïQÍ½wÏ½G5÷Þ=÷ÕÜ{÷Ü{TsïÝ›çÙ=IVÖ½woÛ6÷*uZY÷Þ½ã8ÖuuS¡Õ¼êGÊ§µTû¾/Ë2M“{¤ñZ©V­¼Íñ#"""""""""nÍŽéýÆ
 endstream
 endobj
-7 0 obj <<
+8 0 obj <<
 /Type /Pages
 /Parent 2 0 R
 /Kids [
-9 0 R
+10 0 R
 ]
 /Count 1
 /MediaBox [0 0 595 842]
 >>
 endobj
-8 0 obj <<
+9 0 obj <<
 /Length 2830
 >>
 stream
@@ -398,7 +410,7 @@ BT
 ET
 q
 70 0 0 70 20.0 670.0 cm
-/image6 Do
+/image7 Do
 Q
 BT
 /Times-Roman 12 Tf
@@ -504,28 +516,30 @@ ET
 4.0 w 0.5019608 0.3137255 0.5019608 RG 0.3137255 0.5019608 0.5019608 rg 100.0 260.0 m 110.0 252.0 120.0 252.0 130.0 260.0 c B
 endstream
 endobj
-9 0 obj <<
+10 0 obj <<
 /Type /Page
-/Parent 7 0 R
-/Contents 8 0 R
+/Parent 8 0 R
+/Contents 9 0 R
 >>
 endobj
 xref
-0 10
+0 11
 0000000000 65535 f
 0000000022 00000 n
 0000000071 00000 n
 0000001252 00000 n
-0000001349 00000 n
-0000005151 00000 n
-0000005214 00000 n
-0000006015 00000 n
-0000006112 00000 n
-0000008993 00000 n
+0000001641 00000 n
+0000001738 00000 n
+0000005540 00000 n
+0000005603 00000 n
+0000006404 00000 n
+0000006502 00000 n
+0000009383 00000 n
 trailer <<
 /Root 1 0 R
-/Size 10
+/Size 11
+/Info 3 0 R
 >>
 startxref
-9056
+9447
 %%EOF
