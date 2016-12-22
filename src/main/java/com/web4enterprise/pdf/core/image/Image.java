@@ -22,6 +22,8 @@ import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+import com.web4enterprise.pdf.core.link.Anchor;
+import com.web4enterprise.pdf.core.link.Linkable;
 
 /**
  * Class representing an image that must be embeded and rendered into a PDF document.
@@ -30,7 +32,7 @@ import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
  * 
  * @author Régis Ramillien
  */
-public class Image implements PdfObject {
+public class Image implements PdfObject, Anchor, Linkable {
 	/**
 	 * The identifier of image in PDF.
 	 */
@@ -72,6 +74,14 @@ public class Image implements PdfObject {
 	 * The content data of the image.
 	 */
 	protected byte[] data;
+	/**
+	 * The identifier of the page where this image is contained to.
+	 */
+	protected int pageId;
+	/**
+	 * The {@link Linkable} where this text is bound to.
+	 */
+	protected Linkable linkable;
 	
 	/**
 	 * Creates an image with the given id.
@@ -288,5 +298,35 @@ public class Image implements PdfObject {
 		clone.skewY = this.skewY;
 		
 		return clone;
+	}
+	
+	@Override
+	public void setLink(Linkable destination) {
+		this.linkable = destination;
+	}
+	
+	@Override
+	public Linkable getLink() {
+		return linkable;
+	}
+	
+	@Override
+	public void setPage(int pageId) {
+		this.pageId = pageId;
+	}
+	
+	@Override
+	public int getPage() {
+		return pageId;
+	}
+	
+	@Override
+	public float getLinkX() {
+		return getX();
+	}
+	
+	@Override
+	public float getLinkY() {
+		return getY() + getHeight();
 	}
 }

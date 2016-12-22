@@ -40,7 +40,7 @@ public class PdfTest {
 	public void testWrite() throws IOException, PdfGenerationException {
 		try(OutputStream out = new FileOutputStream("documentation.pdf")) {
 			Pdf pdf = new Pdf();
-			pdf.setAuthor("Régis Ramillien");
+			pdf.setAuthor("Regis Ramillien");
 			pdf.setModificationDate(new Date());
 			pdf.setProducer("web4enterprise");
 			pdf.setSubject("documentation for simplyPDF-core library");
@@ -163,6 +163,12 @@ public class PdfTest {
 			bezierPath4.setStrokeColor(new Color(128, 80, 128));
 			bezierPath4.setLineWidth(4.0f);
 			page2.addPath(bezierPath4);
+			
+			Text linkedText = new Text(20, 200, 12, "A link to a linkable object.");
+			linkedText.setLink(image);
+			page2.addText(linkedText);
+			image.setLink(linkedText);
+			
 			
 			pdf.write(out);
 		}

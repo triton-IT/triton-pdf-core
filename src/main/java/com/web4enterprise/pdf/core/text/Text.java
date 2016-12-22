@@ -16,8 +16,10 @@
 package com.web4enterprise.pdf.core.text;
 
 import com.web4enterprise.pdf.core.font.Font;
-import com.web4enterprise.pdf.core.font.FontsVariant;
 import com.web4enterprise.pdf.core.font.FontVariant;
+import com.web4enterprise.pdf.core.font.FontsVariant;
+import com.web4enterprise.pdf.core.link.Anchor;
+import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
 
 /**
@@ -25,7 +27,7 @@ import com.web4enterprise.pdf.core.styling.Color;
  * 
  * @author Régis Ramillien
  */
-public class Text {
+public class Text implements Anchor, Linkable {
 	/**
 	 * The X position of text in page.
 	 */
@@ -58,6 +60,14 @@ public class Text {
 	 * The string to display.
 	 */
 	protected String value;
+	/**
+	 * The identifier of the page where this text is contained to.
+	 */
+	protected int pageId;
+	/**
+	 * The {@link Linkable} where this text is bound to.
+	 */
+	protected Linkable linkable;
 	
 	/**
 	 * Creates a text.
@@ -246,5 +256,35 @@ public class Text {
 	 */
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	@Override
+	public void setLink(Linkable destination) {
+		this.linkable = destination;
+	}
+	
+	@Override
+	public Linkable getLink() {
+		return linkable;
+	}
+	
+	@Override
+	public void setPage(int pageId) {
+		this.pageId = pageId;
+	}
+	
+	@Override
+	public int getPage() {
+		return pageId;
+	}
+	
+	@Override
+	public float getLinkX() {
+		return getX();
+	}
+	
+	@Override
+	public float getLinkY() {
+		return getY() + getFontVariant().getHeight(getSize());
 	}
 }

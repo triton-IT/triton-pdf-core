@@ -19,11 +19,15 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
+import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.image.Image;
+import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.path.BezierPath;
 import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
@@ -55,6 +59,7 @@ public class Page implements PdfObject, PageNode {
 	 * The height of the page.
 	 */
 	protected int height;
+	protected List<LinkAnnotation> links = new ArrayList<>();
 	
 	/**
 	 * Create a page in PDF.
@@ -75,13 +80,31 @@ public class Page implements PdfObject, PageNode {
 	
 	@Override
 	public int write(OutputStream stream) throws PdfGenerationException {
-		String asString = id + " 0 obj <<" + LINE_SEPARATOR
-				+ "/Type /Page" + LINE_SEPARATOR
-				+ "/Parent " + parentId + " 0 R" + LINE_SEPARATOR
-			    + "/Contents " + contentStream.getId() + " 0 R" + LINE_SEPARATOR
-				+ ">>" + LINE_SEPARATOR
-				+ "endobj" + LINE_SEPARATOR;
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(id).append(" 0 obj <<").append(LINE_SEPARATOR)
+				.append("/Type /Page").append(LINE_SEPARATOR)
+				.append("/Parent " + parentId + " 0 R" + LINE_SEPARATOR)
+				.append("/Contents ").append(contentStream.getId()).append(" 0 R").append(LINE_SEPARATOR)
+				.append("/Annots [").append(LINE_SEPARATOR);
+		for(LinkAnnotation link : links) {
+			stringBuilder.append("<<")
+				.append("/Type /Annot")
+			    .append("/Subtype /Link")
+				.append("/Rect [").append(link.getSourceRect().getLeft()).append(" ")
+				.append(link.getSourceRect().getTop()).append(" ")
+				.append(link.getSourceRect().getRight()).append(" ")
+				.append(link.getSourceRect().getBottom()).append("]")
+				.append("/A [").append(link.getDestinationPage()).append(" 0 R /XYZ ")
+				.append(link.getDestinationX()).append(" ")
+				.append(link.getDestinationY()).append(" ")
+				.append(link.getDestinationZ()).append("]")
+				.append(">>");
+		}
+		stringBuilder.append("]")
+				.append(">>").append(LINE_SEPARATOR)
+			    .append("endobj").append(LINE_SEPARATOR);
 		
+		String asString = stringBuilder.toString();
 		try {
 			stream.write(asString.getBytes());
 		} catch (IOException e) {
@@ -105,7 +128,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param text The text to add.
 	 */
 	public void addText(float x, float y, int size, String text) {
-		contentStream.addText(new Text(x, y, size, text));
+		addText(new Text(x, y, size, text));
 	}
 	
 	/**
@@ -118,7 +141,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param text The text to add.
 	 */
 	public void addText(float x, float y, int size, FontVariant fontVariant, String text) {
-		contentStream.addText(new Text(x, y, size, fontVariant, text));
+		addText(new Text(x, y, size, fontVariant, text));
 	}
 	
 	/**
@@ -132,7 +155,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param text The text to add.
 	 */
 	public void addText(float x, float y, int size, FontVariant fontVariant, Color color, String text) {
-		contentStream.addText(new Text(x, y, size, fontVariant, color, text));
+		addText(new Text(x, y, size, fontVariant, color, text));
 	}
 	
 	/**
@@ -142,6 +165,15 @@ public class Page implements PdfObject, PageNode {
 	 */
 	public void addText(Text text) {
 		contentStream.addText(text);
+		text.setPage(getId());
+		Linkable linkable = text.getLink();
+		if(linkable != null) {
+			Rect textRect = new Rect(text.getY() + text.getSize(),
+					text.getX(), 
+					text.getY() - text.getFontVariant().getBaseLine(text.getSize()), 
+					text.getX() + text.getFontVariant().getWidth(text.getSize(), text.getValue()));
+			links.add(new LinkAnnotation(linkable.getPage(), linkable.getLinkX(), linkable.getLinkY(), linkable.getLinkZ(), textRect));
+		}
 	}
 	
 	/**
@@ -169,6 +201,15 @@ public class Page implements PdfObject, PageNode {
 	 */
 	public void addImage(Image image) {
 		contentStream.addImage(image);
+		image.setPage(getId());
+		Linkable linkable = image.getLink();
+		if(linkable != null) {
+			Rect textRect = new Rect(image.getY() + image.getHeight(),
+					image.getX(), 
+					image.getY(), 
+					image.getX() + image.getWidth());
+			links.add(new LinkAnnotation(linkable.getPage(), linkable.getLinkX(), linkable.getLinkY(), linkable.getLinkZ(), textRect));
+		}
 	}
 
 	/**
