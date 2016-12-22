@@ -15,10 +15,13 @@
  */
 package com.web4enterprise.pdf.core.path;
 
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
+
 import java.util.Arrays;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.geometry.Rect;
 
 /**
  * class representing a Bezier curve to render in a PDF document.
@@ -30,16 +33,42 @@ public class BezierPath extends Path {
 	 * The list points in the Bezier path.
 	 */
 	protected List<BezierPoint> bezierPoints;
+	/**
+	 * The bounding box of path.
+	 */
+	protected Rect boundingBox;
 	
 	/**
 	 * Creates a Bezier path from points.
 	 * @param startPoint The first point in path.
 	 * @param bezierPoints The other points in path.
 	 */
-	public BezierPath(Point startPoint, BezierPoint... bezierPoints) {
+	public BezierPath(Point startPoint, BezierPoint... points) {
 		super(startPoint);
 		
-		this.bezierPoints = Arrays.asList(bezierPoints);
+		this.bezierPoints = Arrays.asList(points);
+
+		float top = startPoint.getY();
+		float left = startPoint.getX();
+		float bottom = startPoint.getY();
+		float right = startPoint.getX();
+		
+		for(Point point : points) {
+			if(point.getY() > top) {
+				top = point.getY();
+			}
+			if(point.getX() < left) {
+				left = point.getX();
+			}
+			if(point.getY() < bottom) {
+				bottom = point.getY();
+			}
+			if(point.getX() > right) {
+				right = point.getX();
+			}
+		}
+		
+		boundingBox = new Rect(top, left, bottom, right);
 	}
 
 	/**
@@ -49,5 +78,50 @@ public class BezierPath extends Path {
 	 */
 	public List<BezierPoint> getBezierPoints() {
 		return bezierPoints;
+	}
+	
+	@Override
+	public void render(StringBuilder builder) {
+		builder.append(getLineWidth()).append(" w ")			
+			.append(((float) getStrokeColor().getRed()) / 255.0f).append(" ")
+			.append(((float) getStrokeColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) getStrokeColor().getBlue()) / 255.0f).append(" ")
+			.append("RG ")
+			
+			.append(((float) getFillColor().getRed()) / 255.0f).append(" ")
+			.append(((float) getFillColor().getGreen()) / 255.0f).append(" ")
+			.append(((float) getFillColor().getBlue()) / 255.0f).append(" ")
+			.append("rg ")
+			
+			.append(getStartPoint().getX()).append(" ").append(getStartPoint().getY()).append(" m ");
+		for(BezierPoint point : getBezierPoints()) {
+			builder.append(point.getX1()).append(" ").append(point.getY1()).append(" ")
+				.append(point.getX2()).append(" ").append(point.getY2()).append(" ")
+				.append(point.getX()).append(" ").append(point.getY())
+				.append(" c ");
+		}
+		if(isFilled() && isStroked()) {
+			builder.append("B");
+		} else if(isFilled()) {
+			builder.append("f");
+		} else if(isStroked()) {
+			builder.append(isClosed()?"s":"S");				
+		}
+		builder.append(LINE_SEPARATOR);
+	}
+	
+	@Override
+	public float getLinkX() {
+		return boundingBox.getLeft();
+	}
+	
+	@Override
+	public float getLinkY() {
+		return boundingBox.getTop();
+	}
+	
+	@Override
+	public Rect getBoundingBox() {
+		return boundingBox;
 	}
 }

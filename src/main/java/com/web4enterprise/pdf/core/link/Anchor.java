@@ -15,6 +15,8 @@
  */
 package com.web4enterprise.pdf.core.link;
 
+import com.web4enterprise.pdf.core.Renderable;
+
 /**
  * This interface is used internally.
  * Do not use. 
@@ -23,11 +25,11 @@ package com.web4enterprise.pdf.core.link;
  */
 public interface Anchor {
 	/**
-	 * Add an anchor to a Linkable object.
+	 * Add an anchor to a Renderable object.
 	 * 
-	 * @param destination The Linkable object to point link to.
+	 * @param destination The Renderable object to point link to.
 	 */
-	void setLink(Linkable destination);
+	void setLink(Renderable destination);
 	
-	Linkable getLink();
+	Renderable getLink();
 }

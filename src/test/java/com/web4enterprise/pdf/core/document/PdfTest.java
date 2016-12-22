@@ -70,8 +70,8 @@ public class PdfTest {
 			StraightPath endPath = new StraightPath(new Point(22 + textWidth, 628), new Point(22 + textWidth, 620));
 			endPath.setStrokeColor(new Color(128, 80, 128));
 			endPath.setLineWidth(0.6f);
-			page1.addPath(startPath);
-			page1.addPath(endPath);
+			page1.add(startPath);
+			page1.add(endPath);
 			
 			page1.addText(20, 600, 12, "A text with another font is added with:");
 			page1.addText(20, 580, 8, "page1.addText(20, 700, 12, Font.COURIER.getVariant(FontStyle.BOLD), \"The text to display\");");
@@ -86,7 +86,7 @@ public class PdfTest {
 			Text courierBolditalic = new Text(20, 400, 6, Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
 			courierBolditalic.setUnderlined(true);
 			courierBolditalic.setUnderlineColor(new Color(128, 80, 128));
-			page1.addText(courierBolditalic);
+			page1.add(courierBolditalic);
 			page1.addText(20, 380, 18, Font.HELVTICA.getVariant(FontsVariant.PLAIN), "Helvetica");
 			page1.addText(20, 360, 12, Font.HELVTICA.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Helvetica Bold");
 			page1.addText(20, 340, 8, Font.HELVTICA.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Helvetica Italic");
@@ -95,7 +95,7 @@ public class PdfTest {
 			Text zapfDingbats = new Text(20, 280, 12, Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
 			zapfDingbats.setUnderlined(true);
 			zapfDingbats.setUnderlineColor(new Color(80, 128, 128));
-			page1.addText(zapfDingbats);
+			page1.add(zapfDingbats);
 
 			page1.addText(20, 220, 12, "An image is created with:");
 			page1.addText(20, 200, 8, "Image image = pdf.createImage(this.getClass().getResourceAsStream(\"/logo.png\"));");
@@ -111,7 +111,7 @@ public class PdfTest {
 			image.setY(20);
 			image.setWidth(30);
 			image.setHeight(30);
-			page1.addImage(image);
+			page1.add(image);
 
 			Page page2 = pdf.createPage(595, 842);
 			page2.addText(20, 820, 12, "When an image is used multiple times, no need to re-create its data.");
@@ -123,11 +123,11 @@ public class PdfTest {
 			image2.setY(670);
 			image2.setWidth(70);
 			image2.setHeight(70);
-			page2.addImage(image2);
+			page2.add(image2);
 
 			page2.addText(20, 650, 12, "A straight line can be added with:");
 			page2.addText(20, 630, 8, "page2.addPath(new StraightPath(new Point(20, 640), new Point(150, 650)));");			
-			page2.addPath(new StraightPath(new Point(20, 600), new Point(30, 610)));
+			page2.add(new StraightPath(new Point(20, 600), new Point(30, 610)));
 
 			page2.addText(20, 580, 12, "A line can be added with more points using:");
 			page2.addText(20, 560, 8, "StraightPath straightPath = new StraightPath(new Point(20, 510), new Point(20, 500), new Point(150, 500));");
@@ -135,12 +135,12 @@ public class PdfTest {
 			page2.addText(20, 520, 8, "page2.addPath(straightPath);");
 			StraightPath straightPath = new StraightPath(new Point(20, 500), new Point(30, 510), new Point(40, 500));
 			straightPath.setClosed(true);
-			page2.addPath(straightPath);
+			page2.add(straightPath);
 
 			page2.addText(20, 480, 12, "A Bezier line can be added with:");
 			page2.addText(20, 460, 8, "page2.addPath(new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432))");
 			BezierPath bezierPath = new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432));
-			page2.addPath(bezierPath);
+			page2.add(bezierPath);
 
 			page2.addText(20, 420, 12, "Straight and Bezier lines can be filled/stroked/closed with:");
 			page2.addText(20, 400, 8, "BezierPath bezierPath2 = new BezierPath(new Point(20, 400), new BezierPoint(50, 440, 30, 432, 40, 432));");
@@ -152,21 +152,21 @@ public class PdfTest {
 			page2.addText(20, 280, 8, "page2.addPath(bezierPath2);");
 			BezierPath bezierPath2 = new BezierPath(new Point(20, 260), new BezierPoint(50, 260, 30, 252, 40, 252));
 			bezierPath2.setClosed(true);
-			page2.addPath(bezierPath2);
+			page2.add(bezierPath2);
 			BezierPath bezierPath3 = new BezierPath(new Point(60, 260), new BezierPoint(90, 260, 70, 252, 80, 252));
 			bezierPath3.setFilled(true);
 			bezierPath3.setStroked(false);
-			page2.addPath(bezierPath3);
+			page2.add(bezierPath3);
 			BezierPath bezierPath4 = new BezierPath(new Point(100, 260), new BezierPoint(130, 260, 110, 252, 120, 252));
 			bezierPath4.setFillColor(new Color(80, 128, 128));
 			bezierPath4.setFilled(true);
 			bezierPath4.setStrokeColor(new Color(128, 80, 128));
 			bezierPath4.setLineWidth(4.0f);
-			page2.addPath(bezierPath4);
+			page2.add(bezierPath4);
 			
 			Text linkedText = new Text(20, 200, 12, "A link to a linkable object.");
 			linkedText.setLink(image);
-			page2.addText(linkedText);
+			page2.add(linkedText);
 			image.setLink(linkedText);
 			
 			

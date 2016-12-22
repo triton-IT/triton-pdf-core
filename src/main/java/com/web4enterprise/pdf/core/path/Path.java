@@ -15,6 +15,7 @@
  */
 package com.web4enterprise.pdf.core.path;
 
+import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.styling.Color;
 
@@ -23,7 +24,7 @@ import com.web4enterprise.pdf.core.styling.Color;
  * 
  * @author Régis Ramillien
  */
-public abstract class Path {
+public abstract class Path implements Renderable {
 	/**
 	 * The first point of path.
 	 */
@@ -52,6 +53,14 @@ public abstract class Path {
 	 * The fill color (default is black).
 	 */
 	protected Color fillColor = Color.BLACK;
+	/**
+	 * The identifier of the page where this text is contained to.
+	 */
+	protected int pageId;
+	/**
+	 * The {@link Renderable} where this renderable is bound to.
+	 */
+	protected Renderable link;
 	
 	/**
 	 * Creates a path.
@@ -177,5 +186,25 @@ public abstract class Path {
 	 */
 	public void setFillColor(Color fillColor) {
 		this.fillColor = fillColor;
+	}
+	
+	@Override
+	public void setLink(Renderable destination) {
+		this.link = destination;
+	}
+	
+	@Override
+	public Renderable getLink() {
+		return link;
+	}
+	
+	@Override
+	public void setPage(int pageId) {
+		this.pageId = pageId;
+	}
+	
+	@Override
+	public int getPage() {
+		return pageId;
 	}
 }

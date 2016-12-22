@@ -185,14 +185,17 @@ public class Pdf {
 	 * @return The page reference.
 	 */
 	public Page createPage(int width, int height) {
-		PageTree pageTree = new PageTree(rootPageTree.getId(), indirectsObjects.size() + 1, width, height);
+		int pageTreeId = indirectsObjects.size() + 1;
+		int pageId = pageTreeId + 1;
+		int contentStreamId = pageId + 1;
+		
+		PageTree pageTree = new PageTree(rootPageTree.getId(), pageTreeId, width, height);
+		ContentStream contentStream = new ContentStream(contentStreamId);		
+		Page page = new Page(pageTree.getId(), pageId, contentStream, width, height);
+		
 		indirectsObjects.add(pageTree);
-		
-		ContentStream contentStream = new ContentStream(indirectsObjects.size() + 1);
-		indirectsObjects.add(contentStream);
-		
-		Page page = new Page(pageTree.getId(), indirectsObjects.size() + 1, contentStream, width, height);
 		indirectsObjects.add(page);
+		indirectsObjects.add(contentStream);
 		
 		pageTree.addPageNode(page);
 		rootPageTree.addPageNode(pageTree);
@@ -293,10 +296,9 @@ public class Pdf {
 		int length = 0;
 		
 		int newPosition = position;
-		for(int i = 0; i < indirectsObjects.size(); i++) {
+		for(PdfObject indirectObject : indirectsObjects) {
 			indirectsPositions.add(newPosition);
-			//Identifiers start at 1 and not 0.
-			length += indirectsObjects.get(i).write(stream);
+			length += indirectObject.write(stream);
 			newPosition = length + position;
 		}
 		

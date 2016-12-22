@@ -243,13 +243,23 @@ public class FontVariant {
 	}
 	
 	/**
-	 * Get distance to top of the top of bounding box. 
+	 * Get distance from bottom of the bounding box to text.
 	 * 
 	 * @param fontSize The size of font to calculate distance for.
 	 * @return The distance in PDF unit.
 	 */
-	protected float getDistanceFromBottom(int fontSize) {
+	public float getDistanceFromBottom(int fontSize) {
 		return (boundingBox.getBottom() / 1000.0f) * fontSize;
+	}
+	
+	/**
+	 * Get distance from top of the bounding box to text.
+	 * 
+	 * @param fontSize The size of font to calculate distance for.
+	 * @return The distance in PDF unit.
+	 */
+	public float getDistanceFromTop(int fontSize) {
+		return (boundingBox.getTop() / 1000.0f) * fontSize;
 	}
 
 	/**

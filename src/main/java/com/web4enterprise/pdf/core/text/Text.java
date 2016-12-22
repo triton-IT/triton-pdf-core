@@ -15,11 +15,16 @@
  */
 package com.web4enterprise.pdf.core.text;
 
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
+
+import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontVariant;
 import com.web4enterprise.pdf.core.font.FontsVariant;
+import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
-import com.web4enterprise.pdf.core.link.Linkable;
+import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
 
 /**
@@ -27,7 +32,7 @@ import com.web4enterprise.pdf.core.styling.Color;
  * 
  * @author Régis Ramillien
  */
-public class Text implements Anchor, Linkable {
+public class Text implements Anchor, Renderable {
 	/**
 	 * The X position of text in page.
 	 */
@@ -65,9 +70,9 @@ public class Text implements Anchor, Linkable {
 	 */
 	protected int pageId;
 	/**
-	 * The {@link Linkable} where this text is bound to.
+	 * The {@link Renderable} where this renderable is bound to.
 	 */
-	protected Linkable linkable;
+	protected Renderable link;
 	
 	/**
 	 * Creates a text.
@@ -259,13 +264,13 @@ public class Text implements Anchor, Linkable {
 	}
 	
 	@Override
-	public void setLink(Linkable destination) {
-		this.linkable = destination;
+	public void setLink(Renderable destination) {
+		this.link = destination;
 	}
 	
 	@Override
-	public Linkable getLink() {
-		return linkable;
+	public Renderable getLink() {
+		return link;
 	}
 	
 	@Override
@@ -286,5 +291,35 @@ public class Text implements Anchor, Linkable {
 	@Override
 	public float getLinkY() {
 		return getY() + getFontVariant().getHeight(getSize());
+	}
+	
+	@Override
+	public void render(StringBuilder builder) {
+		builder.append("BT").append(LINE_SEPARATOR) //Begin text
+			.append("/").append(getFontVariant().getName()).append(" ").append(getSize()).append(" Tf").append(LINE_SEPARATOR) //Use font named "F1"
+			.append(getX()).append(" ").append(getY()).append(" Td").append(LINE_SEPARATOR) //Start text as 0, 0
+			.append(getColor().getRed() / 255.0f).append(" ")
+			.append(getColor().getGreen() / 255.0f).append(" ")
+			.append(getColor().getBlue() / 255.0f).append(" ")
+			.append("rg").append(LINE_SEPARATOR)
+			//'(' and ')' are interpreted by PDF readers, so we must escape them.
+			.append("(").append(getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
+			.append("ET").append(LINE_SEPARATOR); //End text
+		
+		if(isUnderlined()) {
+			int underlineY = (int) (getY() + getFontVariant().getUnderlinePosition(getSize()));
+			new StraightPath(getFontVariant().getUnderlineThickness(getSize()), getUnderlineColor(), 
+					new Point(getX(), underlineY), 
+					new Point(getX() + getFontVariant().getWidth(getSize(), getValue()), 
+							underlineY)).render(builder);
+		}
+	}
+	
+	@Override
+	public Rect getBoundingBox() {
+		return new Rect(getY() + (getSize() - (getFontVariant().getHeight(getSize()) - getFontVariant().getBaseLine(getSize()))),
+			getX(), 
+			getY() + getFontVariant().getDistanceFromBottom(getSize()), 
+			getX() + getFontVariant().getWidth(getSize(), getValue()));
 	}
 }

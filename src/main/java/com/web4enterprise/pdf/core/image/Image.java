@@ -20,10 +20,11 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
-import com.web4enterprise.pdf.core.link.Linkable;
 
 /**
  * Class representing an image that must be embeded and rendered into a PDF document.
@@ -32,7 +33,7 @@ import com.web4enterprise.pdf.core.link.Linkable;
  * 
  * @author Régis Ramillien
  */
-public class Image implements PdfObject, Anchor, Linkable {
+public class Image implements PdfObject, Anchor, Renderable {
 	/**
 	 * The identifier of image in PDF.
 	 */
@@ -79,9 +80,9 @@ public class Image implements PdfObject, Anchor, Linkable {
 	 */
 	protected int pageId;
 	/**
-	 * The {@link Linkable} where this text is bound to.
+	 * The {@link Renderable} where this renderable is bound to.
 	 */
-	protected Linkable linkable;
+	protected Renderable link;
 	
 	/**
 	 * Creates an image with the given id.
@@ -301,13 +302,13 @@ public class Image implements PdfObject, Anchor, Linkable {
 	}
 	
 	@Override
-	public void setLink(Linkable destination) {
-		this.linkable = destination;
+	public void setLink(Renderable destination) {
+		this.link = destination;
 	}
 	
 	@Override
-	public Linkable getLink() {
-		return linkable;
+	public Renderable getLink() {
+		return link;
 	}
 	
 	@Override
@@ -328,5 +329,26 @@ public class Image implements PdfObject, Anchor, Linkable {
 	@Override
 	public float getLinkY() {
 		return getY() + getHeight();
+	}
+	
+	@Override
+	public void render(StringBuilder builder) {
+		builder.append("q").append(LINE_SEPARATOR)
+			.append(getWidth()).append(" ")
+			.append(getSkewY()).append(" ")
+			.append(getSkewX()).append(" ")
+			.append(getHeight()).append(" ")
+			.append(getX()).append(" ")
+			.append(getY()).append(" cm").append(LINE_SEPARATOR)
+			.append("/image").append(getId()).append(" Do").append(LINE_SEPARATOR)
+			.append("Q").append(LINE_SEPARATOR);
+	}
+	
+	@Override
+	public Rect getBoundingBox() {
+		return new Rect(getY() + getHeight(),
+				getX(), 
+				getY(), 
+				getX() + getWidth());
 	}
 }

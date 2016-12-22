@@ -13,15 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.web4enterprise.pdf.core.link;
+package com.web4enterprise.pdf.core;
 
-/**
- * This interface is used internally.
- * Do not use. 
- * 
- * @author Régis Ramillien
- */
-public interface Linkable {
+import com.web4enterprise.pdf.core.geometry.Rect;
+
+
+public interface Renderable {
+	/**
+	 * Set link to another Renderable.
+	 * 
+	 * @param link The Renderable to link to.
+	 */
+	void setLink(Renderable link);
+	
+	/**
+	 * Get link to another Renderable.
+	 * 
+	 * @return The linked Renderable.
+	 */
+	Renderable getLink();
+	
 	/**
 	 * Set the page where this Linkable is positioned to.
 	 */
@@ -41,6 +52,7 @@ public interface Linkable {
 	 * @return The X position.
 	 */
 	float getLinkX();
+	
 	/**
 	 * Get Y position of this linkable.
 	 * 0.0f means no change in current position.
@@ -48,6 +60,7 @@ public interface Linkable {
 	 * @return The Y position.
 	 */
 	float getLinkY();
+	
 	/**
 	 * Get zoom of this linkable.
 	 * 0.0f means no change in current zoom.
@@ -57,4 +70,16 @@ public interface Linkable {
 	default float getLinkZ() {
 		return 0.0f;
 	}
+	
+	/**
+	 * Get the bounding box of renderable.
+	 * 
+	 * @return The bounding box.
+	 */
+	Rect getBoundingBox();
+	
+	/**
+	 * Render object in PDF format. 
+	 */
+	void render(StringBuilder builder);
 }
