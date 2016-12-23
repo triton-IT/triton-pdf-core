@@ -31,5 +31,10 @@ public interface Anchor {
 	 */
 	void setLink(Renderable destination);
 	
+	/**
+	 * Get the link to renderable object.
+	 * 
+	 * @return the linked renderable.
+	 */
 	Renderable getLink();
 }

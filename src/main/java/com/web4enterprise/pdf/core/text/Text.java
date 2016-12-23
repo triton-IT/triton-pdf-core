@@ -44,7 +44,7 @@ public class Text implements Anchor, Renderable {
 	/**
 	 * The size of text.
 	 */
-	protected int size;
+	protected float size;
 	/**
 	 * The variant of font to use to render text.
 	 */
@@ -61,6 +61,10 @@ public class Text implements Anchor, Renderable {
 	 * The color of the underline.
 	 */
 	protected Color underlineColor;
+	/**
+	 * The type of script.
+	 */
+	protected TextScript script = TextScript.NORMAL;
 	/**
 	 * The string to display.
 	 */
@@ -81,7 +85,7 @@ public class Text implements Anchor, Renderable {
 	 * @param size The size of text.
 	 * @param value The string to display.
 	 */
-	public Text(float x, float y, int size, String value) {
+	public Text(float x, float y, float size, String value) {
 		this(x, y, size, Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN), Color.BLACK, value);
 	}
 	
@@ -93,7 +97,7 @@ public class Text implements Anchor, Renderable {
 	 * @param fontVariant The variant of font to use to render text.
 	 * @param value The string to display.
 	 */
-	public Text(float x, float y, int size, FontVariant fontVariant, String value) {
+	public Text(float x, float y, float size, FontVariant fontVariant, String value) {
 		this(x, y, size, fontVariant, Color.BLACK, value);
 	}
 	
@@ -106,7 +110,7 @@ public class Text implements Anchor, Renderable {
 	 * @param color The color of the text.
 	 * @param value The string to display.
 	 */
-	public Text(float x, float y, int size, FontVariant fontVariant, Color color, String value) {
+	public Text(float x, float y, float size, FontVariant fontVariant, Color color, String value) {
 		this.x = x;
 		this.y = y;
 		this.size = size;
@@ -156,7 +160,7 @@ public class Text implements Anchor, Renderable {
 	 * 
 	 * @return The size of text.
 	 */
-	public int getSize() {
+	public float getSize() {
 		return size;
 	}
 
@@ -165,7 +169,7 @@ public class Text implements Anchor, Renderable {
 	 * 
 	 * @param size The size of text.
 	 */
-	public void setSize(int size) {
+	public void setSize(float size) {
 		this.size = size;
 	}
 	
@@ -255,12 +259,44 @@ public class Text implements Anchor, Renderable {
 	}
 
 	/**
+	 * Get the text script.
+	 * 
+	 * @return The text script.
+	 */
+	public TextScript getScript() {
+		return script;
+	}
+
+	/**
+	 * Set the text script.
+	 * 
+	 * @param script The text script.
+	 */
+	public void setScript(TextScript script) {
+		this.script = script;
+	}
+
+	/**
 	 * Set the value of the text.
 	 * 
 	 * @param value The character string.
 	 */
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public float getWidth() {
+		float width;
+		switch(script) {
+		case SUPER:
+		case SUB:
+			width = getFontVariant().getWidth(getSize() / 2.0f, getValue());
+			break;
+		default:
+			width = getFontVariant().getWidth(getSize(), getValue());
+			break;
+		}
+		return width;
 	}
 	
 	@Override
@@ -296,14 +332,40 @@ public class Text implements Anchor, Renderable {
 	@Override
 	public void render(StringBuilder builder) {
 		builder.append("BT").append(LINE_SEPARATOR) //Begin text
-			.append("/").append(getFontVariant().getName()).append(" ").append(getSize()).append(" Tf").append(LINE_SEPARATOR) //Use font named "F1"
+			.append("/").append(getFontVariant().getName()).append(" ");
+		
+		switch(script) {
+		case SUPER:
+		case SUB:
+			builder.append(getSize() / 2);
+			break;
+		default:
+			builder.append(getSize());
+			break;
+		}
+			
+		builder.append(" Tf").append(LINE_SEPARATOR) //Use font named "F1"
 			.append(getX()).append(" ").append(getY()).append(" Td").append(LINE_SEPARATOR) //Start text as 0, 0
 			.append(getColor().getRed() / 255.0f).append(" ")
 			.append(getColor().getGreen() / 255.0f).append(" ")
 			.append(getColor().getBlue() / 255.0f).append(" ")
-			.append("rg").append(LINE_SEPARATOR)
-			//'(' and ')' are interpreted by PDF readers, so we must escape them.
-			.append("(").append(getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
+			.append("rg").append(LINE_SEPARATOR);
+
+		switch(script) {
+		case SUPER:
+			builder.append(getFontVariant().getDistanceFromTop(getSize()) - getFontVariant().getBaseLine(getSize() / 2));
+			break;
+		case SUB:
+			builder.append(getFontVariant().getDistanceFromBottom(getSize()) + (getFontVariant().getHeight(getSize() / 2) - getFontVariant().getBaseLine(getSize() / 2)));
+			break;
+		default:
+			builder.append(0);
+			break;
+		}
+		builder.append(" Ts").append(LINE_SEPARATOR);
+		
+		//'(' and ')' are interpreted by PDF readers, so we must escape them.
+		builder.append("(").append(getValue().replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")).append(") Tj").append(LINE_SEPARATOR)
 			.append("ET").append(LINE_SEPARATOR); //End text
 		
 		if(isUnderlined()) {
@@ -320,6 +382,6 @@ public class Text implements Anchor, Renderable {
 		return new Rect(getY() + (getSize() - (getFontVariant().getHeight(getSize()) - getFontVariant().getBaseLine(getSize()))),
 			getX(), 
 			getY() + getFontVariant().getDistanceFromBottom(getSize()), 
-			getX() + getFontVariant().getWidth(getSize(), getValue()));
+			getX() + getWidth());
 	}
 }

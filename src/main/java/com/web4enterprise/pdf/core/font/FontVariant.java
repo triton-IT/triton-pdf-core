@@ -126,7 +126,7 @@ public class FontVariant {
 	 * @param size The size of the font to set position for.
 	 * @param position The position of the underline.
 	 */
-	public void setUnderlinePosition(int size, float position) {
+	public void setUnderlinePosition(float size, float position) {
 		this.underlinePosition = position * 1000.f / size;
 	}
 
@@ -164,7 +164,7 @@ public class FontVariant {
 	 * @param size The size of the font to set thickness for.
 	 * @param thickness The thickness of the underline.
 	 */
-	public void setUnderlineThickness(int size, float thickness) {
+	public void setUnderlineThickness(float size, float thickness) {
 		this.underlineThickness = thickness * 1000.f / size;
 	}
 
@@ -211,7 +211,7 @@ public class FontVariant {
 	 * @param string The String to get the width for.
 	 * @return The size of String.
 	 */
-	public float getWidth(Integer fontSize, String string) {
+	public float getWidth(Float fontSize, String string) {
 		float fullWidth = 0;
 		Byte previousLetter = null;
 		for(byte letter : string.getBytes()) {
@@ -228,7 +228,7 @@ public class FontVariant {
 	 * @param fontSize The size of font.
 	 * @return The height of font based on its bounding box.
 	 */
-	public float getHeight(Integer fontSize) {
+	public float getHeight(Float fontSize) {
 		return getBaseLine(fontSize) - getDistanceFromBottom(fontSize);
 	}
 	
@@ -238,7 +238,7 @@ public class FontVariant {
 	 * @param fontSize The font size to calculate base line for.
 	 * @return The Y position of the baseline.
 	 */
-	public float getBaseLine(Integer fontSize) {
+	public float getBaseLine(Float fontSize) {
 		return fontSize - (((1000.0f - boundingBox.getTop()) / 1000.0f) * fontSize);
 	}
 	
@@ -248,7 +248,7 @@ public class FontVariant {
 	 * @param fontSize The size of font to calculate distance for.
 	 * @return The distance in PDF unit.
 	 */
-	public float getDistanceFromBottom(int fontSize) {
+	public float getDistanceFromBottom(float fontSize) {
 		return (boundingBox.getBottom() / 1000.0f) * fontSize;
 	}
 	
@@ -258,7 +258,7 @@ public class FontVariant {
 	 * @param fontSize The size of font to calculate distance for.
 	 * @return The distance in PDF unit.
 	 */
-	public float getDistanceFromTop(int fontSize) {
+	public float getDistanceFromTop(float fontSize) {
 		return (boundingBox.getTop() / 1000.0f) * fontSize;
 	}
 
@@ -266,7 +266,7 @@ public class FontVariant {
 	 * Get the width of a byte.
 	 * 
 	 * @param character The character to get width for.
-	 * @return THe size of the byte.
+	 * @return The size of the byte.
 	 */
 	protected int getWidth(Byte character) {
 		int result = 0;

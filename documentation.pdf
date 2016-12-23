@@ -99,8 +99,8 @@ endobj
 /Keywords (http://web4enterprise.com simplyPDF-core Documentation)
 /Creator (http://simplypdf-core.web4enterprise.com)
 /Producer (web4enterprise)
-/CreationDate (D:20161222142942+01'00')
-/ModDate (D:20161222142942+01'00')
+/CreationDate (D:20161223013408+01'00')
+/ModDate (D:20161223013408+01'00')
 /Customer-specific (meta-data)
 >>
 endobj
@@ -129,65 +129,65 @@ endobj
 ]>>
 endobj
 6 0 obj <<
-/Length 3751
+/Length 3823
 >>
 stream
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 820.0 Td
 0.0 0.0 0.0 rg
 (A PDF is created with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 800.0 Td
 0.0 0.0 0.0 rg
 (Pdf pdf = new Pdf\(\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 780.0 Td
 0.0 0.0 0.0 rg
 (A PDF is written with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 760.0 Td
 0.0 0.0 0.0 rg
 (pdf.write\(out\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 720.0 Td
 0.0 0.0 0.0 rg
 (A page is created with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 700.0 Td
 0.0 0.0 0.0 rg
 (Page page1 = pdf.createPage\(595, 842\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 680.0 Td
 0.0 0.0 0.0 rg
 (A text with font times-roman is added with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 660.0 Td
 0.0 0.0 0.0 rg
 (page1.addText\(20, 700, 12, "The text to display"\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 640.0 Td
 0.0 0.0 0.0 rg
 (A text width can be calculated with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 620.0 Td
 0.0 0.0 0.0 rg
 (Font.TIMES_ROMAN.getWidth\(FontsVariant.PLAIN, 12, "The text to search width for."\);) Tj
@@ -195,159 +195,159 @@ ET
 0.6 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 20.0 628.0 m 20.0 620.0 l S
 0.6 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 314.0 628.0 m 314.0 620.0 l S
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 600.0 Td
 0.0 0.0 0.0 rg
 (A text with another font is added with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 580.0 Td
 0.0 0.0 0.0 rg
 (page1.addText\(20, 700, 12, Font.COURIER.getVariant\(FontStyle.BOLD\), "The text to display"\);) Tj
 ET
 BT
-/Times-Roman 18 Tf
+/Times-Roman 18.0 Tf
 20.0 560.0 Td
 0.0 0.0 0.0 rg
 (Below are texts with different fonts, colors, sizes and underlines:) Tj
 ET
 BT
-/Times-Roman 18 Tf
+/Times-Roman 18.0 Tf
 20.0 540.0 Td
 0.0 0.0 0.0 rg
 (Times-Roman) Tj
 ET
 BT
-/Times-Bold 12 Tf
+/Times-Bold 12.0 Tf
 20.0 520.0 Td
 0.5019608 0.5019608 0.3137255 rg
 (Times-Roman Bold) Tj
 ET
 BT
-/Times-Italic 8 Tf
+/Times-Italic 8.0 Tf
 20.0 500.0 Td
 0.3137255 0.5019608 0.5019608 rg
 (Times-Roman Italic) Tj
 ET
 BT
-/Times-BoldItalic 6 Tf
+/Times-BoldItalic 6.0 Tf
 20.0 480.0 Td
 0.5019608 0.3137255 0.5019608 rg
 (Times-Roman Bold Italic) Tj
 ET
 BT
-/Courier 18 Tf
+/Courier 18.0 Tf
 20.0 460.0 Td
 0.0 0.0 0.0 rg
 (Courier) Tj
 ET
 BT
-/Courier-Bold 12 Tf
+/Courier-Bold 12.0 Tf
 20.0 440.0 Td
 0.5019608 0.5019608 0.3137255 rg
 (Courier Bold) Tj
 ET
 BT
-/Courier-Oblique 8 Tf
+/Courier-Oblique 8.0 Tf
 20.0 420.0 Td
 0.3137255 0.5019608 0.5019608 rg
 (Courier Italic) Tj
 ET
 BT
-/Courier-BoldOblique 6 Tf
+/Courier-BoldOblique 6.0 Tf
 20.0 400.0 Td
 0.5019608 0.3137255 0.5019608 rg
 (Courier Bold Italic) Tj
 ET
 0.3 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 20.0 399.0 m 88.0 399.0 l S
 BT
-/Helvetica 18 Tf
+/Helvetica 18.0 Tf
 20.0 380.0 Td
 0.0 0.0 0.0 rg
 (Helvetica) Tj
 ET
 BT
-/Helvetica-Bold 12 Tf
+/Helvetica-Bold 12.0 Tf
 20.0 360.0 Td
 0.5019608 0.5019608 0.3137255 rg
 (Helvetica Bold) Tj
 ET
 BT
-/Helvetica-Oblique 8 Tf
+/Helvetica-Oblique 8.0 Tf
 20.0 340.0 Td
 0.3137255 0.5019608 0.5019608 rg
 (Helvetica Italic) Tj
 ET
 BT
-/Helvetica-BoldOblique 6 Tf
+/Helvetica-BoldOblique 6.0 Tf
 20.0 320.0 Td
 0.5019608 0.3137255 0.5019608 rg
 (Helvetica Bold Italic) Tj
 ET
 BT
-/Symbol 12 Tf
+/Symbol 12.0 Tf
 20.0 300.0 Td
 0.0 0.0 0.0 rg
 (Symbol) Tj
 ET
 BT
-/ZapfDingbats 12 Tf
+/ZapfDingbats 12.0 Tf
 20.0 280.0 Td
 0.5019608 0.5019608 0.3137255 rg
 (Zapf-Dingbats) Tj
 ET
 0.6 w 0.3137255 0.5019608 0.5019608 RG 0.0 0.0 0.0 rg 20.0 278.0 m 143.0 278.0 l S
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 220.0 Td
 0.0 0.0 0.0 rg
 (An image is created with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 200.0 Td
 0.0 0.0 0.0 rg
 (Image image = pdf.createImage\(this.getClass\(\).getResourceAsStream\("/logo.png"\)\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 180.0 Td
 0.0 0.0 0.0 rg
 (An image is sized and positioned with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 160.0 Td
 0.0 0.0 0.0 rg
 (image.setX\(20\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 140.0 Td
 0.0 0.0 0.0 rg
 (image.setY\(70\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 120.0 Td
 0.0 0.0 0.0 rg
 (image.setWidth\(60\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 100.0 Td
 0.0 0.0 0.0 rg
 (image.setHeight\(30\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 80.0 Td
 0.0 0.0 0.0 rg
 (An image is added with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 60.0 Td
 0.0 0.0 0.0 rg
 (page1.addImage\(image\);) Tj
@@ -403,29 +403,29 @@ endobj
 ]>>
 endobj
 10 0 obj <<
-/Length 2918
+/Length 2960
 >>
 stream
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 820.0 Td
 0.0 0.0 0.0 rg
 (When an image is used multiple times, no need to re-create its data.) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 800.0 Td
 0.0 0.0 0.0 rg
 (Just save space in PDF by cloning it's references using:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 780.0 Td
 0.0 0.0 0.0 rg
 (Image image2 = image.cloneReference\(\);) Tj
 ET
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 760.0 Td
 0.0 0.0 0.0 rg
 (Change its size, position, etc and draw it again.) Tj
@@ -435,100 +435,100 @@ q
 /image7 Do
 Q
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 650.0 Td
 0.0 0.0 0.0 rg
 (A straight line can be added with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 630.0 Td
 0.0 0.0 0.0 rg
 (page2.addPath\(new StraightPath\(new Point\(20, 640\), new Point\(150, 650\)\)\);) Tj
 ET
 1.0 w 0.0 0.0 0.0 RG 0.0 0.0 0.0 rg 20.0 600.0 m 30.0 610.0 l S
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 580.0 Td
 0.0 0.0 0.0 rg
 (A line can be added with more points using:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 560.0 Td
 0.0 0.0 0.0 rg
 (StraightPath straightPath = new StraightPath\(new Point\(20, 510\), new Point\(20, 500\), new Point\(150, 500\)\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 540.0 Td
 0.0 0.0 0.0 rg
 (straightPath.setClosed\(true\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 520.0 Td
 0.0 0.0 0.0 rg
 (page2.addPath\(straightPath\);) Tj
 ET
 1.0 w 0.0 0.0 0.0 RG 0.0 0.0 0.0 rg 20.0 500.0 m 30.0 510.0 l 40.0 500.0 l s
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 480.0 Td
 0.0 0.0 0.0 rg
 (A Bezier line can be added with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 460.0 Td
 0.0 0.0 0.0 rg
 (page2.addPath\(new BezierPath\(new Point\(20, 440\), new BezierPoint\(50, 440, 30, 432, 40, 432\)\)) Tj
 ET
 1.0 w 0.0 0.0 0.0 RG 0.0 0.0 0.0 rg 20.0 440.0 m 30.0 432.0 40.0 432.0 50.0 440.0 c S
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 420.0 Td
 0.0 0.0 0.0 rg
 (Straight and Bezier lines can be filled/stroked/closed with:) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 400.0 Td
 0.0 0.0 0.0 rg
 (BezierPath bezierPath2 = new BezierPath\(new Point\(20, 400\), new BezierPoint\(50, 440, 30, 432, 40, 432\)\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 380.0 Td
 0.0 0.0 0.0 rg
 (bezierPath2.setFillColor\(new Color\(80, 128, 128\)\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 360.0 Td
 0.0 0.0 0.0 rg
 (bezierPath2.setFilled\(true\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 340.0 Td
 0.0 0.0 0.0 rg
 (bezierPath2.setStrokeColor\(new Color\(128, 80, 128\)\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 320.0 Td
 0.0 0.0 0.0 rg
 (bezierPath2.setLineWidth\(4.0f\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 300.0 Td
 0.0 0.0 0.0 rg
 (bezierPath2.setClosed\(true\);) Tj
 ET
 BT
-/Times-Roman 8 Tf
+/Times-Roman 8.0 Tf
 20.0 280.0 Td
 0.0 0.0 0.0 rg
 (page2.addPath\(bezierPath2\);) Tj
@@ -537,7 +537,7 @@ ET
 1.0 w 0.0 0.0 0.0 RG 0.0 0.0 0.0 rg 60.0 260.0 m 70.0 252.0 80.0 252.0 90.0 260.0 c f
 4.0 w 0.5019608 0.3137255 0.5019608 RG 0.3137255 0.5019608 0.5019608 rg 100.0 260.0 m 110.0 252.0 120.0 252.0 130.0 260.0 c B
 BT
-/Times-Roman 12 Tf
+/Times-Roman 12.0 Tf
 20.0 200.0 Td
 0.0 0.0 0.0 rg
 (A link to a linkable object.) Tj
@@ -553,15 +553,15 @@ xref
 0000001641 00000 n
 0000001738 00000 n
 0000001923 00000 n
-0000005725 00000 n
-0000006526 00000 n
-0000006623 00000 n
-0000006813 00000 n
+0000005797 00000 n
+0000006598 00000 n
+0000006695 00000 n
+0000006885 00000 n
 trailer <<
 /Root 1 0 R
 /Size 11
 /Info 3 0 R
 >>
 startxref
-9783
+9897
 %%EOF

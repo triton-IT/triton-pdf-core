@@ -28,7 +28,7 @@ public class FontVariantTest {
 	
 	@Test
 	public void testGetWidthForSingleCharacter() {
-		float actual = Font.TIMES_ROMAN.plain.getWidth(12, "a");
+		float actual = Font.TIMES_ROMAN.plain.getWidth(12.0f, "a");
 		//Gotten from Times-Roman.afm, the width of letter 'a' should be (444 / 1000) * font size.
 		float expected = (int) ((444.0f / 1000.0f) * 12.0f);
 		
@@ -37,7 +37,7 @@ public class FontVariantTest {
 	
 	@Test
 	public void testGetWidthForMultipleCharacters() {
-		float actual = Font.TIMES_ROMAN.plain.getWidth(12, "ab");
+		float actual = Font.TIMES_ROMAN.plain.getWidth(12.0f, "ab");
 		//Gotten from Times-Roman.afm, the width of letters 'ab' should be ((444 + 500) / 1000) * font size.
 		float expected = (int) (((444.0f + 500.0f) / 1000.0f) * 12.0f);
 		
@@ -46,7 +46,7 @@ public class FontVariantTest {
 	
 	@Test
 	public void testGetWidthForMultipleCharactersWithKerning() {
-		float actual = Font.TIMES_ROMAN.plain.getWidth(12, "V,");
+		float actual = Font.TIMES_ROMAN.plain.getWidth(12.0f, "V,");
 		//Gotten from Times-Roman.afm, the width of letters 'V,' should be ((444 + 500 - 129) / 1000) * font size.
 		float expected = Math.round(((444.0f + 500.0f - 129.0f) / 1000.0f) * 12.0f);
 		
