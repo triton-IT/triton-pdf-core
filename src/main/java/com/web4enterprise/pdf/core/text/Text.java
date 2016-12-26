@@ -24,6 +24,7 @@ import com.web4enterprise.pdf.core.font.FontsVariant;
 import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
+import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
 
@@ -76,7 +77,7 @@ public class Text implements Anchor, Renderable {
 	/**
 	 * The {@link Renderable} where this renderable is bound to.
 	 */
-	protected Renderable link;
+	protected Linkable link;
 	
 	/**
 	 * Creates a text.
@@ -300,12 +301,12 @@ public class Text implements Anchor, Renderable {
 	}
 	
 	@Override
-	public void setLink(Renderable destination) {
+	public void setLink(Linkable destination) {
 		this.link = destination;
 	}
 	
 	@Override
-	public Renderable getLink() {
+	public Linkable getLink() {
 		return link;
 	}
 	

@@ -26,6 +26,7 @@ import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
+import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
 import com.web4enterprise.pdf.core.text.Text;
 
@@ -83,7 +84,7 @@ public class Page implements PdfObject, PageNode {
 		for(Renderable renderable : renderables) {
 			contentStream.add(renderable);
 			
-			Renderable destination = renderable.getLink();
+			Linkable destination = renderable.getLink();
 			if(destination != null) {
 				links.add(new LinkAnnotation(destination.getPage(), destination.getLinkX(), destination.getLinkY(), destination.getLinkZ(), renderable.getBoundingBox()));
 			}

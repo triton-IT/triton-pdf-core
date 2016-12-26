@@ -16,61 +16,15 @@
 package com.web4enterprise.pdf.core;
 
 import com.web4enterprise.pdf.core.geometry.Rect;
+import com.web4enterprise.pdf.core.link.Anchor;
+import com.web4enterprise.pdf.core.link.Linkable;
 
 
-public interface Renderable {
+public interface Renderable extends Anchor, Linkable {		
 	/**
-	 * Set link to another Renderable.
-	 * 
-	 * @param link The Renderable to link to.
-	 */
-	void setLink(Renderable link);
-	
-	/**
-	 * Get link to another Renderable.
-	 * 
-	 * @return The linked Renderable.
-	 */
-	Renderable getLink();
-	
-	/**
-	 * Set the page where this Linkable is positioned to.
+	 * Set the page where this Renderable is positioned to.
 	 */
 	void setPage(int pageId);
-	
-	/**
-	 * Get the page where this Linkable is positioned to.
-	 * 
-	 * @return The page id.
-	 */
-	int getPage();
-	
-	/**
-	 * Get X position of this linkable.
-	 * 0.0f means no change in current position.
-	 * 
-	 * @return The X position.
-	 */
-	float getLinkX();
-	
-	/**
-	 * Get Y position of this linkable.
-	 * 0.0f means no change in current position.
-	 * 
-	 * @return The Y position.
-	 */
-	float getLinkY();
-	
-	/**
-	 * Get zoom of this linkable.
-	 * 0.0f means no change in current zoom.
-	 * 
-	 * @return The zoom.
-	 */
-	default float getLinkZ() {
-		return 0.0f;
-	}
-	
 	/**
 	 * Get the bounding box of renderable.
 	 * 

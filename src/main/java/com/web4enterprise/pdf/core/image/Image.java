@@ -25,6 +25,7 @@ import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
+import com.web4enterprise.pdf.core.link.Linkable;
 
 /**
  * Class representing an image that must be embeded and rendered into a PDF document.
@@ -80,9 +81,9 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 */
 	protected int pageId;
 	/**
-	 * The {@link Renderable} where this renderable is bound to.
+	 * The {@link Linkable} where this Linkable is bound to.
 	 */
-	protected Renderable link;
+	protected Linkable link;
 	
 	/**
 	 * Creates an image with the given id.
@@ -302,12 +303,12 @@ public class Image implements PdfObject, Anchor, Renderable {
 	}
 	
 	@Override
-	public void setLink(Renderable destination) {
+	public void setLink(Linkable destination) {
 		this.link = destination;
 	}
 	
 	@Override
-	public Renderable getLink() {
+	public Linkable getLink() {
 		return link;
 	}
 	

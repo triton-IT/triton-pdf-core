@@ -15,25 +15,42 @@
  */
 package com.web4enterprise.pdf.core.link;
 
-
 /**
- * This interface is used internally.
- * Do not use. 
+ * Defines a link destination.
  * 
  * @author Régis Ramillien
  */
-public interface Anchor {
+public interface Linkable {	
 	/**
-	 * Add an anchor to a Linkable object.
+	 * Get the page where this Linkable is positioned to.
 	 * 
-	 * @param destination The Linkable object to point link to.
+	 * @return The page id.
 	 */
-	void setLink(Linkable destination);
+	int getPage();
 	
 	/**
-	 * Get the link to Linkable object.
+	 * Get X position of this linkable.
+	 * 0.0f means no change in current position.
 	 * 
-	 * @return the linked Linkable.
+	 * @return The X position.
 	 */
-	Linkable getLink();
+	float getLinkX();
+	
+	/**
+	 * Get Y position of this linkable.
+	 * 0.0f means no change in current position.
+	 * 
+	 * @return The Y position.
+	 */
+	float getLinkY();
+	
+	/**
+	 * Get zoom of this linkable.
+	 * 0.0f means no change in current zoom.
+	 * 
+	 * @return The zoom.
+	 */
+	default float getLinkZ() {
+		return 0.0f;
+	}
 }

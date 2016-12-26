@@ -17,6 +17,7 @@ package com.web4enterprise.pdf.core.path;
 
 import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
 
 /**
@@ -58,9 +59,9 @@ public abstract class Path implements Renderable {
 	 */
 	protected int pageId;
 	/**
-	 * The {@link Renderable} where this renderable is bound to.
+	 * The {@link Linkable} where this Linkable is bound to.
 	 */
-	protected Renderable link;
+	protected Linkable link;
 	
 	/**
 	 * Creates a path.
@@ -189,12 +190,12 @@ public abstract class Path implements Renderable {
 	}
 	
 	@Override
-	public void setLink(Renderable destination) {
+	public void setLink(Linkable destination) {
 		this.link = destination;
 	}
 	
 	@Override
-	public Renderable getLink() {
+	public Linkable getLink() {
 		return link;
 	}
 	
