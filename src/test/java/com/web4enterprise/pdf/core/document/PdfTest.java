@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 web4enterprise.
+ * Copyright 2017 web4enterprise.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,20 @@
  */
 package com.web4enterprise.pdf.core.document;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.web4enterprise.pdf.core.document.Pdf;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontsVariant;
@@ -34,6 +40,7 @@ import com.web4enterprise.pdf.core.path.BezierPoint;
 import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
 import com.web4enterprise.pdf.core.text.Text;
+import com.web4enterprise.pdf.core.text.TextScript;
 
 public class PdfTest {
 	@Test
@@ -163,14 +170,130 @@ public class PdfTest {
 			bezierPath4.setStrokeColor(new Color(128, 80, 128));
 			bezierPath4.setLineWidth(4.0f);
 			page2.add(bezierPath4);
-			
-			Text linkedText = new Text(20, 200, 12, "A link to a linkable object.");
+
+			Text linkedText = new Text(20, 220, 12, "click on this text to see internal link in action.");
 			linkedText.setLink(image);
 			page2.add(linkedText);
+			page2.addText(20, 200, 8, "Text linkedText = new Text(20, 200, 12, \"click on this text to see internal link in action.\");");
+			page2.addText(20, 180, 8, "linkedText.setLink(image);");
 			image.setLink(linkedText);
-			
+
+			Text superScriptedText = new Text(20, 140, 12, "Super");
+			superScriptedText.setScript(TextScript.SUPER);
+			page2.add(superScriptedText);
+			page2.addText(40, 140, 12, "and");
+			Text subScriptedText = new Text(60, 140, 12, "sub");
+			subScriptedText.setScript(TextScript.SUB);
+			page2.add(subScriptedText);
+			page2.addText(70, 140, 12, "-scriptedtext");
+			page2.add(superScriptedText);
+			page2.addText(20, 120, 8, "text.setScript(TextScript.SUPER);");
+			page2.addText(20, 100, 8, "text.setScript(TextScript.SUB);");
 			
 			pdf.write(out);
+		}
+	}
+	
+	@Test
+	public void testSetAttributes() throws IOException, PdfGenerationException, ParseException {
+		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			Pdf pdf = new Pdf();
+			
+			pdf.write(out);
+			String actual = out.toString();
+			
+			Assert.assertThat(actual, containsString("/Creator (http://simplypdf-core.web4enterprise.com)"));
+			Assert.assertThat(actual, containsString("/CreationDate (D:"));
+		}
+		
+		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			Pdf pdf = new Pdf();
+			pdf.setTitle("simplyPDF-core documentation");
+			pdf.setAuthor("Regis Ramillien");
+			pdf.setSubject("documentation for simplyPDF-core library");
+			pdf.setCreator("http://simplypdf-core.web4enterprise.com - tests");
+			pdf.setProducer("web4enterprise");
+			DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.ENGLISH);
+			pdf.setCreationDate(dateFormat.parse("Monday, December 25, 2016 10:39:45 PM CET"));
+			pdf.setModificationDate(dateFormat.parse("Monday, December 26, 2016 10:39:46 PM CET"));
+			
+			pdf.write(out);
+			String actual = out.toString();
+			
+			Assert.assertThat(actual, containsString("/Title (simplyPDF-core documentation)"));
+			Assert.assertThat(actual, containsString("/Author (Regis Ramillien)"));
+			Assert.assertThat(actual, containsString("/Subject (documentation for simplyPDF-core library)"));
+			Assert.assertThat(actual, containsString("/Creator (http://simplypdf-core.web4enterprise.com - tests)"));
+			Assert.assertThat(actual, containsString("/Producer (web4enterprise)"));
+			Assert.assertThat(actual, containsString("/CreationDate (D:20161225"));
+			Assert.assertThat(actual, containsString("/ModDate (D:20161226"));
+		}
+	}
+	
+	@Test
+	public void testAddKeyword() throws IOException, PdfGenerationException {
+		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			Pdf pdf = new Pdf();
+
+			pdf.addKeyword("http://web4enterprise.com");
+			pdf.addKeyword("simplyPDF-core");
+			pdf.addKeyword("Documentation");
+			
+			pdf.write(out);
+			String actual = out.toString();
+
+			Assert.assertThat(actual, containsString("/Keywords (http://web4enterprise.com simplyPDF-core Documentation)"));
+		}
+	}
+	
+	@Test
+	public void testAddMetadata() throws IOException, PdfGenerationException {
+		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			Pdf pdf = new Pdf();
+
+			pdf.addMetaData("Customer-specific", "meta-data");
+			
+			pdf.write(out);
+			String actual = out.toString();
+
+			Assert.assertThat(actual, containsString("/Customer-specific (meta-data)"));
+		}
+	}
+	
+	@Test
+	public void testCreatePage() throws IOException, PdfGenerationException {
+		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			Pdf pdf = new Pdf();
+			pdf.createPage(100, 80);
+			pdf.createPage(180, 120);
+			
+			pdf.write(out);
+			String actual = out.toString();
+
+			Assert.assertThat(actual, containsString("/MediaBox [0 0 100 80]"));
+			Assert.assertThat(actual, containsString("/MediaBox [0 0 180 120]"));
+			Assert.assertThat(actual, containsString("/Type /Page"));
+		}
+	}
+	
+	@Test
+	public void testCreateImage() throws IOException, PdfGenerationException {
+		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			Pdf pdf = new Pdf();
+			pdf.createPage(100, 80);
+			pdf.createImage(getClass().getResourceAsStream("/logo.png"));
+			
+			pdf.write(out);
+			String actual = out.toString();
+
+			Assert.assertThat(actual, containsString("/Length 632"));
+			Assert.assertThat(actual, containsString("/Type /XObject"));
+			Assert.assertThat(actual, containsString("/Subtype /Image"));
+			Assert.assertThat(actual, containsString("/Filter /FlateDecode"));
+			Assert.assertThat(actual, containsString("/BitsPerComponent 8"));
+			Assert.assertThat(actual, containsString("/Width 128"));
+			Assert.assertThat(actual, containsString("/Height 128"));
+			Assert.assertThat(actual, containsString("/ColorSpace /DeviceRGB"));
 		}
 	}
 }

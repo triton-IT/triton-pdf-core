@@ -9,7 +9,7 @@
 Simplypdf-core is a simple low-level API for creating PDFs.
 It is named "simplypdf" because it is simply a PDF library and that the design is made to be very simple to use.
 
-Simpypdf-core use absolute positionning, no line wrapping is calculated, new pages are not created automatically it only renders a PDF. In short, layouting is not in the scope of simplypdf-core.
+Simpypdf-core use absolute positionning, no line wrapping is calculated, new pages are not created automatically it only renders a PDF. In short, to lay out is not in the scope of simplypdf-core.
 For layouting possibilities, use [simplypdf-layout](https://github.com/web4enterprise/simplypdf-layout).
 
 ### Why another PDF API ?
@@ -30,14 +30,17 @@ The goal of simplypdf-core is to abstract the more common PDF functionalities.
 
 Today, simplypdf-core is capable of the following.
 * Create a valid PDF 1.7 document.
+* Adding document meta-data.
 * Adding pages.
 * Adding texts with base 14 Adobe fonts.
+* Adding super or sub-scripted texts.
 * Adding non transparent images.
 * Adding lines and curves.
+* Adding internal links.
 
-Future versions will permit to load custom fonts, handle transparent images, links, anchors and different PDF formats, particularly PDF-A.
+Future versions will permit to load custom fonts, handle transparent images, external links and different PDF formats, particularly PDF-A.
 
-Other PDFs capabilities like adding 3d content, videos, etc. will not be implemented. Simplypdf-core goal is to be capable to draw anything that can be drawn on a paper page, no more, but not less.
+Other PDFs capabilities like adding 3d content, videos, scripts, etc. will not be implemented. Simplypdf-core goal is to be capable to draw static content like the one that can be drawn on a paper page, not less, but not much more.
 
 You can track advancement of project in a "kanban style" for any version [here](https://github.com/web4enterprise/simplypdf-core/projects).
 
@@ -62,7 +65,7 @@ If documentation is not sufficient, just create an issue, I will reply to issue 
 
 For professional support and services, use the web site [web4enterprise.com](http://web4enterprise.com).
 
-## Gettting started
+## Getting started
 Binary, sources and javadoc is available on maven central.Just include the following dependency.
 ### Using maven
 ```xml

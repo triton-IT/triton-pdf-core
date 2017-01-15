@@ -99,8 +99,8 @@ endobj
 /Keywords (http://web4enterprise.com simplyPDF-core Documentation)
 /Creator (http://simplypdf-core.web4enterprise.com)
 /Producer (web4enterprise)
-/CreationDate (D:20161226021725+01'00')
-/ModDate (D:20161226021725+01'00')
+/CreationDate (D:20170115231113+01'00')
+/ModDate (D:20170115231113+01'00')
 /Customer-specific (meta-data)
 >>
 endobj
@@ -124,12 +124,12 @@ endobj
 /Subtype /Link
 /Border [0 0 0]
 /Rect [20.0 50.0 50.0 20.0]
-/A [9 0 R /XYZ 20.0 213.392 0.0]
+/A [9 0 R /XYZ 20.0 233.392 0.0]
 >>
 ]>>
 endobj
 6 0 obj <<
-/Length 4003
+/Length 4009
 >>
 stream
 BT
@@ -203,7 +203,7 @@ BT
 (Font.TIMES_ROMAN.getWidth\(FontsVariant.PLAIN, 12, "The text to search width for."\);) Tj
 ET
 0.6 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 20.0 628.0 m 20.0 620.0 l S
-0.6 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 314.0 628.0 m 314.0 620.0 l S
+0.6 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 313.952 628.0 m 313.952 620.0 l S
 BT
 /Times-Roman 12.0 Tf
 20.0 600.0 Td
@@ -281,7 +281,7 @@ BT
 0 Ts
 (Courier Bold Italic) Tj
 ET
-0.3 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 20.0 399.0 m 88.0 399.0 l S
+0.3 w 0.5019608 0.3137255 0.5019608 RG 0.0 0.0 0.0 rg 20.0 399.0 m 88.4 399.0 l S
 BT
 /Helvetica 18.0 Tf
 20.0 380.0 Td
@@ -324,7 +324,7 @@ BT
 0 Ts
 (Zapf-Dingbats) Tj
 ET
-0.6 w 0.3137255 0.5019608 0.5019608 RG 0.0 0.0 0.0 rg 20.0 278.0 m 143.0 278.0 l S
+0.6 w 0.3137255 0.5019608 0.5019608 RG 0.0 0.0 0.0 rg 20.0 278.0 m 143.168 278.0 l S
 BT
 /Times-Roman 12.0 Tf
 20.0 220.0 Td
@@ -433,13 +433,13 @@ endobj
 /Type /Annot
 /Subtype /Link
 /Border [0 0 0]
-/Rect [20.0 209.384 148.0 197.384]
+/Rect [20.0 229.384 239.144 217.384]
 /A [5 0 R /XYZ 20.0 50.0 0.0]
 >>
 ]>>
 endobj
 10 0 obj <<
-/Length 3065
+/Length 3921
 >>
 stream
 BT
@@ -594,10 +594,73 @@ ET
 4.0 w 0.5019608 0.3137255 0.5019608 RG 0.3137255 0.5019608 0.5019608 rg 100.0 260.0 m 110.0 252.0 120.0 252.0 130.0 260.0 c B
 BT
 /Times-Roman 12.0 Tf
+20.0 220.0 Td
+0.0 0.0 0.0 rg
+0 Ts
+(click on this text to see internal link in action.) Tj
+ET
+BT
+/Times-Roman 8.0 Tf
 20.0 200.0 Td
 0.0 0.0 0.0 rg
 0 Ts
-(A link to a linkable object.) Tj
+(Text linkedText = new Text\(20, 200, 12, "click on this text to see internal link in action."\);) Tj
+ET
+BT
+/Times-Roman 8.0 Tf
+20.0 180.0 Td
+0.0 0.0 0.0 rg
+0 Ts
+(linkedText.setLink\(image\);) Tj
+ET
+BT
+/Times-Roman 6.0 Tf
+20.0 140.0 Td
+0.0 0.0 0.0 rg
+5.388 Ts
+(Super) Tj
+ET
+BT
+/Times-Roman 12.0 Tf
+40.0 140.0 Td
+0.0 0.0 0.0 rg
+0 Ts
+(and) Tj
+ET
+BT
+/Times-Roman 6.0 Tf
+60.0 140.0 Td
+0.0 0.0 0.0 rg
+-1.3079998 Ts
+(sub) Tj
+ET
+BT
+/Times-Roman 12.0 Tf
+70.0 140.0 Td
+0.0 0.0 0.0 rg
+0 Ts
+(-scriptedtext) Tj
+ET
+BT
+/Times-Roman 6.0 Tf
+20.0 140.0 Td
+0.0 0.0 0.0 rg
+5.388 Ts
+(Super) Tj
+ET
+BT
+/Times-Roman 8.0 Tf
+20.0 120.0 Td
+0.0 0.0 0.0 rg
+0 Ts
+(text.setScript\(TextScript.SUPER\);) Tj
+ET
+BT
+/Times-Roman 8.0 Tf
+20.0 100.0 Td
+0.0 0.0 0.0 rg
+0 Ts
+(text.setScript\(TextScript.SUB\);) Tj
 ET
 endstream
 endobj
@@ -610,15 +673,15 @@ xref
 0000001641 00000 n
 0000001738 00000 n
 0000001923 00000 n
-0000005977 00000 n
-0000006778 00000 n
-0000006875 00000 n
-0000007065 00000 n
+0000005983 00000 n
+0000006784 00000 n
+0000006881 00000 n
+0000007073 00000 n
 trailer <<
 /Root 1 0 R
 /Size 11
 /Info 3 0 R
 >>
 startxref
-10182
+11046
 %%EOF
