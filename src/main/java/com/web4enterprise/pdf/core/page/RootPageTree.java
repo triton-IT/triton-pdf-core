@@ -133,6 +133,13 @@ public class RootPageTree implements PdfObject, PageNode {
 	}
 	
 	/**
+	 * Remove all pages from this object.
+	 */
+	public void clearPages() {
+		pageNodes.clear();
+	}
+	
+	/**
 	 * Write the definition item of a font variant in PDF format to a String.
 	 * 
 	 * @param fontVariant The font variant to write as String.

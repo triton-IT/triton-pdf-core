@@ -125,12 +125,12 @@ public class StraightPath extends Path {
 	}
 	
 	@Override
-	public float getLinkX() {
+	public Float getLinkX() {
 		return boundingBox.getLeft();
 	}
 	
 	@Override
-	public float getLinkY() {
+	public Float getLinkY() {
 		return boundingBox.getTop();
 	}
 	

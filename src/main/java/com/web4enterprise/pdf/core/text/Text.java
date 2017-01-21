@@ -316,17 +316,17 @@ public class Text implements Anchor, Renderable {
 	}
 	
 	@Override
-	public int getPage() {
+	public Integer getPage() {
 		return pageId;
 	}
 	
 	@Override
-	public float getLinkX() {
+	public Float getLinkX() {
 		return getX();
 	}
 	
 	@Override
-	public float getLinkY() {
+	public Float getLinkY() {
 		return getY() + getFontVariant().getHeight(getSize());
 	}
 	

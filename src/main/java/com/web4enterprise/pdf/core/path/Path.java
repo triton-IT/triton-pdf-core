@@ -205,7 +205,7 @@ public abstract class Path implements Renderable {
 	}
 	
 	@Override
-	public int getPage() {
+	public Integer getPage() {
 		return pageId;
 	}
 }

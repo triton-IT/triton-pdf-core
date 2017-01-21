@@ -202,6 +202,13 @@ public class Pdf {
 		
 		return page;
 	}
+	
+	/**
+	 * Remove all pages from document and keep other data.
+	 */
+	public void clearPages() {
+		rootPageTree.clearPages();
+	}
 
 	/**
 	 * Create an image.

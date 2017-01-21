@@ -26,7 +26,7 @@ public interface Linkable {
 	 * 
 	 * @return The page id.
 	 */
-	int getPage();
+	Integer getPage();
 	
 	/**
 	 * Get X position of this linkable.
@@ -34,7 +34,7 @@ public interface Linkable {
 	 * 
 	 * @return The X position.
 	 */
-	float getLinkX();
+	Float getLinkX();
 	
 	/**
 	 * Get Y position of this linkable.
@@ -42,7 +42,7 @@ public interface Linkable {
 	 * 
 	 * @return The Y position.
 	 */
-	float getLinkY();
+	Float getLinkY();
 	
 	/**
 	 * Get zoom of this linkable.
