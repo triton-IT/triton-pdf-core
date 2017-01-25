@@ -93,6 +93,15 @@ public class Image implements PdfObject, Anchor, Renderable {
 	public Image(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Set the identifier of this image.
+	 * 
+	 * @param id The new identifier of image.
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * Get the X position in page of the rendered image.

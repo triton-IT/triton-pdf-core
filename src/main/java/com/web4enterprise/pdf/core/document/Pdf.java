@@ -206,8 +206,14 @@ public class Pdf {
 	/**
 	 * Remove all pages from document and keep other data.
 	 */
-	public void clearPages() {
+	public void clear() {
+		indirectsObjects.clear();
+		indirectsPositions.clear();
+
+		indirectsObjects.add(catalog);
 		rootPageTree.clearPages();
+		indirectsObjects.add(rootPageTree);
+		indirectsObjects.add(documentMetaData);
 	}
 
 	/**
@@ -257,6 +263,18 @@ public class Pdf {
 		}
 		
 		return image;
+	}
+	
+	/**
+	 * Use an existing image and rebind it to PDF.
+	 * The image gets a new identifier and is put again in document.
+	 * 
+	 * @param image The image to set new valid identifier to.
+	 */
+	public void rebindImage(Image image) {
+		image.setId(indirectsObjects.size() + 1);
+		indirectsObjects.add(image);
+		rootPageTree.addImage(image);
 	}
 	
 	/**
