@@ -116,8 +116,8 @@ public class PdfTest {
 			Image image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
 			image.setX(20);
 			image.setY(20);
-			image.setWidth(30);
-			image.setHeight(30);
+			image.setWidth(19);
+			image.setHeight(26);
 			page1.add(image);
 
 			Page page2 = pdf.createPage(595, 842);
@@ -127,9 +127,9 @@ public class PdfTest {
 			page2.addText(20, 760, 12, "Change its size, position, etc and draw it again.");
 			Image image2 = image.cloneReference();
 			image2.setX(20);
-			image2.setY(670);
-			image2.setWidth(70);
-			image2.setHeight(70);
+			image2.setY(690);
+			image2.setWidth(37);
+			image2.setHeight(53);
 			page2.add(image2);
 
 			page2.addText(20, 650, 12, "A straight line can be added with:");
@@ -286,13 +286,13 @@ public class PdfTest {
 			pdf.write(out);
 			String actual = out.toString();
 
-			Assert.assertThat(actual, containsString("/Length 632"));
+			Assert.assertThat(actual, containsString("/Length 9737"));
 			Assert.assertThat(actual, containsString("/Type /XObject"));
 			Assert.assertThat(actual, containsString("/Subtype /Image"));
 			Assert.assertThat(actual, containsString("/Filter /FlateDecode"));
 			Assert.assertThat(actual, containsString("/BitsPerComponent 8"));
-			Assert.assertThat(actual, containsString("/Width 128"));
-			Assert.assertThat(actual, containsString("/Height 128"));
+			Assert.assertThat(actual, containsString("/Width 744"));
+			Assert.assertThat(actual, containsString("/Height 1052"));
 			Assert.assertThat(actual, containsString("/ColorSpace /DeviceRGB"));
 		}
 	}
