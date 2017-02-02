@@ -23,6 +23,8 @@ import com.web4enterprise.pdf.core.link.Linkable;
 public interface Renderable extends Anchor, Linkable {		
 	/**
 	 * Set the page where this Renderable is positioned to.
+	 * 
+	 * @param pageId The id of the page to set to this element.
 	 */
 	void setPage(int pageId);
 	/**
@@ -34,6 +36,8 @@ public interface Renderable extends Anchor, Linkable {
 	
 	/**
 	 * Render object in PDF format. 
+	 * 
+	 * @param builder The String builder to render element to.
 	 */
 	void render(StringBuilder builder);
 }

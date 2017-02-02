@@ -211,7 +211,7 @@ public class FontVariant {
 	 * @param string The String to get the width for.
 	 * @return The size of String.
 	 */
-	public float getWidth(Float fontSize, String string) {
+	public float getWidth(float fontSize, String string) {
 		float fullWidth = 0;
 		Byte previousLetter = null;
 		for(byte letter : string.getBytes()) {
@@ -219,7 +219,7 @@ public class FontVariant {
 			fullWidth += getKerning(previousLetter, letter);
 			previousLetter = letter;
 		}
-		return (fullWidth * ((float) fontSize)) / 1000.0f;
+		return (fullWidth * fontSize) / 1000.0f;
 	}
 	
 	/**
@@ -228,7 +228,7 @@ public class FontVariant {
 	 * @param fontSize The size of font.
 	 * @return The height of font based on its bounding box.
 	 */
-	public float getHeight(Float fontSize) {
+	public float getHeight(float fontSize) {
 		return getBaseLine(fontSize) - getDistanceFromBottom(fontSize);
 	}
 	
@@ -238,7 +238,7 @@ public class FontVariant {
 	 * @param fontSize The font size to calculate base line for.
 	 * @return The Y position of the baseline.
 	 */
-	public float getBaseLine(Float fontSize) {
+	public float getBaseLine(float fontSize) {
 		return fontSize - (((1000.0f - boundingBox.getTop()) / 1000.0f) * fontSize);
 	}
 	

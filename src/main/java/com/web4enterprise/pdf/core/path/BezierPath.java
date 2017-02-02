@@ -41,7 +41,7 @@ public class BezierPath extends Path {
 	/**
 	 * Creates a Bezier path from points.
 	 * @param startPoint The first point in path.
-	 * @param bezierPoints The other points in path.
+	 * @param points The other points in path.
 	 */
 	public BezierPath(Point startPoint, BezierPoint... points) {
 		super(startPoint);

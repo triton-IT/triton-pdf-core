@@ -104,7 +104,7 @@ public class Pdf {
 	}
 	
 	/**
-	 * Add a keyword to document.
+	 * Add a keyword to document meta-data.
 	 * 
 	 * @param keyword The keyword to add to document meta-data.
 	 */
@@ -124,16 +124,16 @@ public class Pdf {
 	/**
 	 * Set the producer of document.
 	 * 
-	 * @param producer The producer of document meta-data.
+	 * @param producer The producer of this document to set to meta-data.
 	 */
 	public void setProducer(String producer) {
 		documentMetaData.producer = producer;
 	}
 
 	/**
-	 * Add a keyword to document.
+	 * Set the create date of document.
 	 * 
-	 * @param keyword The keyword to add to document meta-data.
+	 * @param creationDate The date of creation of this document to set to meta-data.
 	 */
 	public void setCreationDate(Date creationDate) {
 		documentMetaData.creationDate = creationDate;
@@ -142,7 +142,7 @@ public class Pdf {
 	/**
 	 * Set the modification date of document.
 	 * 
-	 * @param modificationDate The modification date of document meta-data.
+	 * @param modificationDate The date of modification of this document to set to meta-data.
 	 */
 	public void setModificationDate(Date modificationDate) {
 		documentMetaData.modificationDate = modificationDate;
@@ -298,7 +298,6 @@ public class Pdf {
 	 * Write the meta-data section in PDF format to stream.
 	 * 
 	 * @param stream The stream to write trailer to.
-	 * @return The number of bytes written.
 	 * @throws IOException When trailer cannot be written to stream.
 	 */
 	protected void writeMetaData(OutputStream stream) throws IOException {
