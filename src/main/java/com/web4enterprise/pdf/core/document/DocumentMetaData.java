@@ -68,7 +68,7 @@ public class DocumentMetaData implements PdfObject {
 	/**
 	 * The date format in PDF document.
 	 */
-	protected DateFormat dateFormat = new SimpleDateFormat("'(D':YYYYMMddHHmmssZ')'");
+	protected DateFormat dateFormat = new SimpleDateFormat("'D':YYYYMMddHHmmssZ");
 	
 	/**
 	 * The identifier of the object.
@@ -89,17 +89,12 @@ public class DocumentMetaData implements PdfObject {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append(id).append(" 0 obj <<").append(LINE_SEPARATOR);
+
+		writeMetadata(builder, "Title", title);
+		writeMetadata(builder, "Author", author);
+		writeMetadata(builder, "Subject", subject);
 		
-		if(title != null) {
-			builder.append("/Title (").append(title).append(")").append(LINE_SEPARATOR);
-		}
-		if(author != null) {
-			builder.append("/Author (").append(author).append(")").append(LINE_SEPARATOR);
-		}
-		if(subject != null) {
-			builder.append("/Subject (").append(subject).append(")").append(LINE_SEPARATOR);
-		}
-		if(keywords.size() > 0) {
+		if(!keywords.isEmpty()) {
 			builder.append("/Keywords (");
 			for(String keyword : keywords) {
 				builder.append(keyword + " ");
@@ -108,33 +103,33 @@ public class DocumentMetaData implements PdfObject {
 			builder.append(")");
 			builder.append(LINE_SEPARATOR);
 		}
-		if(creator != null) {
-			builder.append("/Creator (").append(creator).append(")").append(LINE_SEPARATOR);
-		}
-		if(producer != null) {
-			builder.append("/Producer (").append(producer).append(")").append(LINE_SEPARATOR);
-		}
+
+		writeMetadata(builder, "Creator", creator);
+		writeMetadata(builder, "Producer", producer);
+
 		if(creationDate != null) {
 			String date = dateFormat.format(creationDate);
 			if(!date.endsWith("Z")) {
 				//Correct format
-				date = date.substring(0, 20) + "'" + date.substring(20, date.length());
-				date = date.substring(0, 23) + "'" + date.substring(23, date.length());
+				date = date.substring(0, 19) + "'" + date.substring(19, date.length());
+				date = date.substring(0, 22) + "'" + date.substring(22, date.length());
 			}
-			builder.append("/CreationDate ").append(date).append(LINE_SEPARATOR);
+			writeMetadata(builder, "CreationDate", date);
 		}
+		
 		if(modificationDate != null) {
 			String date = dateFormat.format(modificationDate);
 			if(!date.endsWith("Z")) {
-				//Correct format
-				date = date.substring(0, 20) + "'" + date.substring(20, date.length());
-				date = date.substring(0, 23) + "'" + date.substring(23, date.length());
+				//Correct format.
+				date = date.substring(0, 19) + "'" + date.substring(19, date.length());
+				date = date.substring(0, 22) + "'" + date.substring(22, date.length());
 			}
-			builder.append("/ModDate ").append(date).append(LINE_SEPARATOR);
+			writeMetadata(builder, "ModDate", date);
 		}
-		if(customs.size() > 0) {
+		
+		if(!customs.isEmpty()) {
 			for(MetaData metaData : customs) {
-				builder.append("/").append(metaData.key).append(" (").append(metaData.value).append(")").append(LINE_SEPARATOR);
+				writeMetadata(builder, metaData.key, metaData.value);
 			}
 		}
 		
@@ -154,5 +149,18 @@ public class DocumentMetaData implements PdfObject {
 	@Override
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * Append a meta-date to builder.
+	 * 
+	 * @param builder The builder to add meta-data to.
+	 * @param name The name of meta-data.
+	 * @param value The value of meta-data.
+	 */
+	protected void writeMetadata(StringBuilder builder, String name, String value) {
+		if(value != null) {
+			builder.append("/").append(name).append(" (").append(value).append(")").append(LINE_SEPARATOR);
+		}
 	}
 }

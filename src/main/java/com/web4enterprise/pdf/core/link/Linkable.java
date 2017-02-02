@@ -43,14 +43,4 @@ public interface Linkable {
 	 * @return The Y position.
 	 */
 	Float getLinkY();
-	
-	/**
-	 * Get zoom of this linkable.
-	 * 0.0f means no change in current zoom.
-	 * 
-	 * @return The zoom.
-	 */
-	default float getLinkZ() {
-		return 0.0f;
-	}
 }

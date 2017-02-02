@@ -35,7 +35,12 @@ import com.web4enterprise.pdf.core.text.Text;
  * 
  * @author Régis Ramillien
  */
-public class Page implements PdfObject, PageNode {	
+public class Page implements PdfObject, PageNode {
+	/**
+	 * The no zoom factor.
+	 */
+	private static final float NO_ZOOM = 0.0f;
+	
 	/**
 	 * The content stream needed for PDF format.
 	 */
@@ -86,7 +91,7 @@ public class Page implements PdfObject, PageNode {
 			
 			Linkable destination = renderable.getLink();
 			if(destination != null) {
-				links.add(new LinkAnnotation(destination.getPage(), destination.getLinkX(), destination.getLinkY(), destination.getLinkZ(), renderable.getBoundingBox()));
+				links.add(new LinkAnnotation(destination.getPage(), destination.getLinkX(), destination.getLinkY(), NO_ZOOM, renderable.getBoundingBox()));
 			}
 		}
 		

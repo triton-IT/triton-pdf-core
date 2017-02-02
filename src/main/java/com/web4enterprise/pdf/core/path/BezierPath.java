@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.geometry.Point;
-import com.web4enterprise.pdf.core.geometry.Rect;
 
 /**
  * class representing a Bezier curve to render in a PDF document.
@@ -33,10 +32,6 @@ public class BezierPath extends Path {
 	 * The list points in the Bezier path.
 	 */
 	protected List<BezierPoint> bezierPoints;
-	/**
-	 * The bounding box of path.
-	 */
-	protected Rect boundingBox;
 	
 	/**
 	 * Creates a Bezier path from points.
@@ -44,31 +39,9 @@ public class BezierPath extends Path {
 	 * @param points The other points in path.
 	 */
 	public BezierPath(Point startPoint, BezierPoint... points) {
-		super(startPoint);
+		super(startPoint, points);
 		
 		this.bezierPoints = Arrays.asList(points);
-
-		float top = startPoint.getY();
-		float left = startPoint.getX();
-		float bottom = startPoint.getY();
-		float right = startPoint.getX();
-		
-		for(Point point : points) {
-			if(point.getY() > top) {
-				top = point.getY();
-			}
-			if(point.getX() < left) {
-				left = point.getX();
-			}
-			if(point.getY() < bottom) {
-				bottom = point.getY();
-			}
-			if(point.getX() > right) {
-				right = point.getX();
-			}
-		}
-		
-		boundingBox = new Rect(top, left, bottom, right);
 	}
 
 	/**
@@ -108,20 +81,5 @@ public class BezierPath extends Path {
 			builder.append(isClosed()?"s":"S");				
 		}
 		builder.append(LINE_SEPARATOR);
-	}
-	
-	@Override
-	public Float getLinkX() {
-		return boundingBox.getLeft();
-	}
-	
-	@Override
-	public Float getLinkY() {
-		return boundingBox.getTop();
-	}
-	
-	@Override
-	public Rect getBoundingBox() {
-		return boundingBox;
 	}
 }

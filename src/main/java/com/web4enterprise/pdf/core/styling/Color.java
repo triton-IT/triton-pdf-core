@@ -22,19 +22,6 @@ package com.web4enterprise.pdf.core.styling;
  */
 public class Color {
 	/**
-	 * The red component of the color from to 255.
-	 */
-	protected int red;
-	/**
-	 * The green component of the color from to 255.
-	 */
-	protected int green;
-	/**
-	 * The blue component of the color from to 255.
-	 */
-	protected int blue;
-
-	/**
 	 * The constant representing a black color.
 	 */
 	public static final Color BLACK = new Color(0, 0, 0);
@@ -60,6 +47,19 @@ public class Color {
 	public static final Color WHITE = new Color(255, 255, 255);
 	
 	/**
+	 * The red component of the color from to 255.
+	 */
+	protected int redValue;
+	/**
+	 * The green component of the color from to 255.
+	 */
+	protected int greenValue;
+	/**
+	 * The blue component of the color from to 255.
+	 */
+	protected int blueValue;
+	
+	/**
 	 * Constructs a color from RGB components.
 	 * 
 	 * @param red The red component of the color from to 255.
@@ -67,9 +67,9 @@ public class Color {
 	 * @param blue The blue component of the color from to 255.
 	 */
 	public Color(int red, int green, int blue) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
+		this.redValue = red;
+		this.greenValue = green;
+		this.blueValue = blue;
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public class Color {
 	 * @return The red component.
 	 */
 	public int getRed() {
-		return red;
+		return redValue;
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class Color {
 	 * @param red The red component.
 	 */
 	public void setRed(int red) {
-		this.red = red;
+		this.redValue = red;
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class Color {
 	 * @return The green component.
 	 */
 	public int getGreen() {
-		return green;
+		return greenValue;
 	}
 	
 	/**
@@ -109,7 +109,7 @@ public class Color {
 	 * @param green The green component.
 	 */
 	public void setGreen(int green) {
-		this.green = green;
+		this.greenValue = green;
 	}
 	
 	/**
@@ -119,7 +119,7 @@ public class Color {
 	 * @return The blue component.
 	 */
 	public int getBlue() {
-		return blue;
+		return blueValue;
 	}
 	
 	/**
@@ -129,6 +129,6 @@ public class Color {
 	 * @param blue The blue component.
 	 */
 	public void setBlue(int blue) {
-		this.blue = blue;
+		this.blueValue = blue;
 	}
 }

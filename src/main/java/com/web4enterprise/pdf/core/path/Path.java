@@ -17,6 +17,7 @@ package com.web4enterprise.pdf.core.path;
 
 import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
 
@@ -62,14 +63,41 @@ public abstract class Path implements Renderable {
 	 * The {@link Linkable} where this Linkable is bound to.
 	 */
 	protected Linkable link;
+	/**
+	 * The bounding box of path.
+	 */
+	protected Rect boundingBox;
 	
 	/**
 	 * Creates a path.
 	 * 
 	 * @param startPoint The first point of path.
+	 * @param points The other points in path.
 	 */
-	public Path(Point startPoint) {
+	public Path(Point startPoint, Point... points) {
 		this.startPoint = startPoint;
+
+		float top = startPoint.getY();
+		float left = startPoint.getX();
+		float bottom = startPoint.getY();
+		float right = startPoint.getX();
+		
+		for(Point point : points) {
+			if(point.getY() > top) {
+				top = point.getY();
+			}
+			if(point.getX() < left) {
+				left = point.getX();
+			}
+			if(point.getY() < bottom) {
+				bottom = point.getY();
+			}
+			if(point.getX() > right) {
+				right = point.getX();
+			}
+		}
+		
+		boundingBox = new Rect(top, left, bottom, right);
 	}
 
 	/**
@@ -207,5 +235,20 @@ public abstract class Path implements Renderable {
 	@Override
 	public Integer getPage() {
 		return pageId;
+	}
+	
+	@Override
+	public Float getLinkX() {
+		return boundingBox.getLeft();
+	}
+	
+	@Override
+	public Float getLinkY() {
+		return boundingBox.getTop();
+	}
+	
+	@Override
+	public Rect getBoundingBox() {
+		return boundingBox;
 	}
 }

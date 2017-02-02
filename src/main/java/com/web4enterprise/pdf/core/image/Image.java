@@ -28,7 +28,7 @@ import com.web4enterprise.pdf.core.link.Anchor;
 import com.web4enterprise.pdf.core.link.Linkable;
 
 /**
- * Class representing an image that must be embeded and rendered into a PDF document.
+ * Class representing an image that must be embedded and rendered into a PDF document.
  * The same class is used to both represent the image data and image positioning (position, size, skew, etc).
  * The image data must be added only once to PDF to save space while it can be positioned many times without adding its data.
  * 
