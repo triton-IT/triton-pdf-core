@@ -20,12 +20,11 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.document.PdfObject;
+import com.web4enterprise.pdf.core.document.Renderable;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
-import com.web4enterprise.pdf.core.link.Linkable;
 
 /**
  * Class representing an image that must be embedded and rendered into a PDF document.
@@ -34,19 +33,11 @@ import com.web4enterprise.pdf.core.link.Linkable;
  * 
  * @author Régis Ramillien
  */
-public class Image implements PdfObject, Anchor, Renderable {
+public class Image extends Renderable implements PdfObject, Anchor {
 	/**
 	 * The identifier of image in PDF.
 	 */
 	protected int id;
-	/**
-	 * The X position of the rendered image in page.
-	 */
-	protected float x;
-	/**
-	 * The Y position of the rendered image in page.
-	 */
-	protected float y;
 	/**
 	 * The width of the definition of the image in PDF.
 	 */
@@ -55,15 +46,6 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * The height of the definition of the image in PDF.
 	 */
 	protected int originalHeight;
-	
-	/**
-	 * The width of the rendered image.
-	 */
-	protected int width;
-	/**
-	 * The height of the rendered image.
-	 */
-	protected int height;
 	/**
 	 * The skew on X axis of the rendered image.
 	 */
@@ -76,14 +58,6 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * The content data of the image.
 	 */
 	protected byte[] data;
-	/**
-	 * The identifier of the page where this image is contained to.
-	 */
-	protected int pageId;
-	/**
-	 * The {@link Linkable} where this Linkable is bound to.
-	 */
-	protected Linkable link;
 	
 	/**
 	 * Creates an image with the given id.
@@ -109,7 +83,7 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * @return The X position.
 	 */
 	public float getX() {
-		return x;
+		return boundingBox.getLeft();
 	}
 	/**
 	 * Set the X position in page of the rendered image.
@@ -117,7 +91,7 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * @param x The X position.
 	 */
 	public void setX(float x) {
-		this.x = x;
+		boundingBox.setLeft(x, true);
 	}
 	/**
 	 * Get the Y position in page of the rendered image.
@@ -125,7 +99,7 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * @return The Y position.
 	 */
 	public float getY() {
-		return y;
+		return boundingBox.getTop();
 	}
 	/**
 	 * Set the Y position in page of the rendered image.
@@ -133,7 +107,7 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * @param y The Y position.
 	 */
 	public void setY(float y) {
-		this.y = y;
+		boundingBox.setTop(y, true);
 	}
 	/**
 	 * Get the width of the definition of the image in PDF.
@@ -172,32 +146,32 @@ public class Image implements PdfObject, Anchor, Renderable {
 	 * 
 	 * @return The width of the rendered image.
 	 */
-	public int getWidth() {
-		return width;
+	public float getWidth() {
+		return boundingBox.getWidth();
 	}
 	/**
 	 * Set the width of the rendered image.
 	 * 
 	 * @param width The width of the rendered image.
 	 */
-	public void setWidth(int width) {
-		this.width = width;
+	public void setWidth(float width) {
+		boundingBox.setWidth(width);
 	}
 	/**
 	 * Get the height of the rendered image.
 	 * 
 	 * @return The height of the rendered image.
 	 */
-	public int getHeight() {
-		return height;
+	public float getHeight() {
+		return boundingBox.getHeight();
 	}
 	/**
 	 * Set the height of the rendered image.
 	 * 
 	 * @param height The height of the rendered image.
 	 */
-	public void setHeight(int height) {
-		this.height = height;
+	public void setHeight(float height) {
+		boundingBox.setHeight(height);
 	}
 	/**
 	 * Get the horizontal skew of the rendered image.
@@ -293,54 +267,6 @@ public class Image implements PdfObject, Anchor, Renderable {
 		return id;
 	}
 	
-	/**
-	 * Clone the image parameters but not its content.
-	 * 
-	 * @return The image filled-in with parameters.
-	 */
-	public Image cloneReference() {
-		Image clone = new Image(this.id);
-		
-		clone.x = this.x;
-		clone.y = this.y;
-		clone.width = this.width;
-		clone.height = this.height;
-		clone.skewX = this.skewX;
-		clone.skewY = this.skewY;
-		
-		return clone;
-	}
-	
-	@Override
-	public void setLink(Linkable destination) {
-		this.link = destination;
-	}
-	
-	@Override
-	public Linkable getLink() {
-		return link;
-	}
-	
-	@Override
-	public void setPage(int pageId) {
-		this.pageId = pageId;
-	}
-	
-	@Override
-	public Integer getPage() {
-		return pageId;
-	}
-	
-	@Override
-	public Float getLinkX() {
-		return getX();
-	}
-	
-	@Override
-	public Float getLinkY() {
-		return getY() + getHeight();
-	}
-	
 	@Override
 	public void render(StringBuilder builder) {
 		builder.append("q").append(LINE_SEPARATOR)
@@ -354,11 +280,18 @@ public class Image implements PdfObject, Anchor, Renderable {
 			.append("Q").append(LINE_SEPARATOR);
 	}
 	
-	@Override
-	public Rect getBoundingBox() {
-		return new Rect(getY() + getHeight(),
-				getX(), 
-				getY(), 
-				getX() + getWidth());
+	/**
+	 * Clone the image parameters but not its content.
+	 * 
+	 * @return The image filled-in with parameters.
+	 */
+	public Image cloneReference() {
+		Image clone = new Image(this.id);
+		
+		clone.boundingBox = new Rect(boundingBox);
+		clone.skewX = this.skewX;
+		clone.skewY = this.skewY;
+		
+		return clone;
 	}
 }

@@ -20,8 +20,8 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.document.PdfObject;
+import com.web4enterprise.pdf.core.document.Renderable;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
 /**
@@ -37,7 +37,7 @@ public class ContentStream implements PdfObject {
 	/**
 	 * The stream to output to PDF.
 	 */
-	StringBuilder streamBuilder = new StringBuilder();
+	protected StringBuilder streamBuilder = new StringBuilder();
 	
 	/**
 	 * Creates a content stream with the given identifier.

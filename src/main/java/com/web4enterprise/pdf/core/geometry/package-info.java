@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing geometry related classes.
+ * Contains geometry related classes.
  * 
  * @author Régis Ramillien
  */

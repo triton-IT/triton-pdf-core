@@ -22,6 +22,12 @@ import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
+/**
+ * Defines the list of PDF objects.
+ * 
+ * 
+ * @author Régis Ramillien
+ */
 public class Catalog implements PdfObject {
 	@Override
 	public int write(OutputStream stream) throws PdfGenerationException {

@@ -16,7 +16,7 @@
 package com.web4enterprise.pdf.core.document;
 
 /**
- * Represent a metadata of a document.
+ * Represent a single metadata of a document.
  * 
  * @author Régis Ramillien
  */

@@ -23,13 +23,38 @@ import com.web4enterprise.pdf.core.geometry.Rect;
  * @author Régis Ramillien
  */
 public class LinkAnnotation {
+	/**
+	 * The target page of this link.
+	 */
 	protected int destinationPage;
+	/**
+	 * The target X coordinate of this link.
+	 */
 	protected float destinationX;
+	/**
+	 * The target Y coordinate of this link.
+	 */
 	protected float destinationY;
+	/**
+	 * The zoom factor of this link.
+	 */
 	protected float destinationZ;
-	
+	/**
+	 * The source rectangle of this linK.
+	 * This is generally the bounding-box of linked element.
+	 */
 	protected Rect sourceRect;
 	
+	/**
+	 * Consntruct a link with required values.
+	 * 
+	 * @param destinationPage The target page of this link.
+	 * @param destinationX The target X coordinate of this link.
+	 * @param destinationY The target Y coordinate of this link.
+	 * @param destinationZ The zoom factor of this link.
+	 * @param sourceRect The source rectangle of this linK.
+	 *  This is generally the bounding-box of linked element.
+	 */
 	public LinkAnnotation(int destinationPage, float destinationX, float destinationY, float destinationZ, Rect sourceRect) {
 		this.destinationPage = destinationPage;
 		this.destinationX = destinationX;
@@ -38,22 +63,48 @@ public class LinkAnnotation {
 		this.sourceRect = sourceRect;
 	}
 
+	/**
+	 * Get the target page of this link.
+	 * 
+	 * @return The target page.
+	 */
 	public int getDestinationPage() {
 		return destinationPage;
 	}
 
+	/**
+	 * Get the X coordinate of target.
+	 * 
+	 * @return The X coordinate of target.
+	 */
 	public float getDestinationX() {
 		return destinationX;
 	}
 
+	/**
+	 * Get the Y coordinate of target.
+	 * 
+	 * @return The Y coordinate of target.
+	 */
 	public float getDestinationY() {
 		return destinationY;
 	}
 
+	/**
+	 * Get the Z coordinate of target.
+	 * 
+	 * @return The Z coordinate of target.
+	 */
 	public float getDestinationZ() {
 		return destinationZ;
 	}
 
+	/**
+	 * The source rectangle of this linK.
+	 *  This is generally the bounding-box of linked element.
+	 * 
+	 * @return The bounding-box of link.
+	 */
 	public Rect getSourceRect() {
 		return sourceRect;
 	}

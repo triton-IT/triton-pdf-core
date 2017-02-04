@@ -17,14 +17,12 @@ package com.web4enterprise.pdf.core.text;
 
 import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
-import com.web4enterprise.pdf.core.Renderable;
+import com.web4enterprise.pdf.core.document.Renderable;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontVariant;
 import com.web4enterprise.pdf.core.font.FontsVariant;
 import com.web4enterprise.pdf.core.geometry.Point;
-import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
-import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
 
@@ -33,7 +31,7 @@ import com.web4enterprise.pdf.core.styling.Color;
  * 
  * @author Régis Ramillien
  */
-public class Text implements Anchor, Renderable {
+public class Text extends Renderable implements Anchor {
 	/**
 	 * The X position of text in page.
 	 */
@@ -70,14 +68,6 @@ public class Text implements Anchor, Renderable {
 	 * The string to display.
 	 */
 	protected String value;
-	/**
-	 * The identifier of the page where this text is contained to.
-	 */
-	protected int pageId;
-	/**
-	 * The {@link Renderable} where this renderable is bound to.
-	 */
-	protected Linkable link;
 	
 	/**
 	 * Creates a text.
@@ -118,6 +108,7 @@ public class Text implements Anchor, Renderable {
 		this.fontVariant = fontVariant;
 		this.color = color;
 		this.value = value;
+		computeBoundingBox();
 	}
 
 	/**
@@ -136,6 +127,7 @@ public class Text implements Anchor, Renderable {
 	 */
 	public void setX(float x) {
 		this.x = x;
+		computeBoundingBox();
 	}
 	
 	/**
@@ -154,6 +146,7 @@ public class Text implements Anchor, Renderable {
 	 */
 	public void setY(float y) {
 		this.y = y;
+		computeBoundingBox();
 	}
 	
 	/**
@@ -172,6 +165,7 @@ public class Text implements Anchor, Renderable {
 	 */
 	public void setSize(float size) {
 		this.size = size;
+		computeBoundingBox();
 	}
 	
 	/**
@@ -190,6 +184,7 @@ public class Text implements Anchor, Renderable {
 	 */
 	public void setFontVariant(FontVariant fontVariant) {
 		this.fontVariant = fontVariant;
+		computeBoundingBox();
 	}
 
 	/**
@@ -260,6 +255,16 @@ public class Text implements Anchor, Renderable {
 	}
 
 	/**
+	 * Set the value of the text.
+	 * 
+	 * @param value The character string.
+	 */
+	public void setValue(String value) {
+		this.value = value;
+		computeBoundingBox();
+	}
+
+	/**
 	 * Get the text script.
 	 * 
 	 * @return The text script.
@@ -275,59 +280,6 @@ public class Text implements Anchor, Renderable {
 	 */
 	public void setScript(TextScript script) {
 		this.script = script;
-	}
-
-	/**
-	 * Set the value of the text.
-	 * 
-	 * @param value The character string.
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	public float getWidth() {
-		float width;
-		switch(script) {
-		case SUPER:
-		case SUB:
-			width = getFontVariant().getWidth(getSize() / 2.0f, getValue());
-			break;
-		default:
-			width = getFontVariant().getWidth(getSize(), getValue());
-			break;
-		}
-		return width;
-	}
-	
-	@Override
-	public void setLink(Linkable destination) {
-		this.link = destination;
-	}
-	
-	@Override
-	public Linkable getLink() {
-		return link;
-	}
-	
-	@Override
-	public void setPage(int pageId) {
-		this.pageId = pageId;
-	}
-	
-	@Override
-	public Integer getPage() {
-		return pageId;
-	}
-	
-	@Override
-	public Float getLinkX() {
-		return getX();
-	}
-	
-	@Override
-	public Float getLinkY() {
-		return getY() + getFontVariant().getHeight(getSize());
 	}
 	
 	@Override
@@ -378,11 +330,24 @@ public class Text implements Anchor, Renderable {
 		}
 	}
 	
-	@Override
-	public Rect getBoundingBox() {
-		return new Rect(getY() + (getSize() - (getFontVariant().getHeight(getSize()) - getFontVariant().getBaseLine(getSize()))),
-			getX(), 
-			getY() + getFontVariant().getDistanceFromBottom(getSize()), 
-			getX() + getWidth());
+	/**
+	 * Compute the bounding-box based on coordinates, font variant, font size and text value.
+	 */
+	protected void computeBoundingBox() {
+		boundingBox.setLeft(x);
+		
+		//Compute width of bounding box.
+		switch(script) {
+		case SUPER:
+		case SUB:
+			boundingBox.setWidth(getFontVariant().getWidth(getSize() / 2.0f, getValue()));
+			break;
+		default:
+			boundingBox.setWidth(getFontVariant().getWidth(getSize(), getValue()));
+			break;
+		}
+		
+		boundingBox.setTop(getY());
+		boundingBox.setHeight(getSize() - (getFontVariant().getHeight(getSize()) - getFontVariant().getBaseLine(getSize())));
 	}
 }

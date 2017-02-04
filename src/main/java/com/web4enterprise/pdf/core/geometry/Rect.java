@@ -39,7 +39,7 @@ public class Rect {
 	protected float top;
 
 	/**
-	 * Create a bounding box.
+	 * Create a rectangle.
 	 * 
 	 * @param top The top position of the box.
 	 * @param left The left position of the box.
@@ -53,27 +53,163 @@ public class Rect {
 		this.right = right;
 	}
 	
+	/**
+	 * Re-copy constructor.
+	 * 
+	 * @param source The source rectangle to copy.
+	 */
+	public Rect(Rect source) {
+		this.top = source.top;
+		this.left = source.left;
+		this.bottom = source.bottom;
+		this.right = source.right;
+	}
+	
+	/**
+	 * Get the top coordinate.
+	 * Top coordinate should be less than the bottom one or rectangle will be inverted.
+	 * 
+	 * @return The top coordinate of rectangle.
+	 */
 	public float getTop() {
 		return top;
 	}
 	
+	/**
+	 * Set the top coordinate.
+	 * Top coordinate should be less than the bottom one or rectangle will be inverted.
+	 * 
+	 * @param top The top coordinate of rectangle.
+	 */
+	public void setTop(float top) {
+		this.top = top;
+	}
+
+	/**
+	 * Set the top coordinate.
+	 * Top coordinate should be less than the bottom one or rectangle will be inverted.
+	 * If keepRatio is true, the bottom coordinate will be moved by the amount of movement of top.
+	 * 
+	 * @param top The top coordinate of rectangle.
+	 * @param keepRatio true if bottom must be moved to. False otherwise.
+	 */
+	public void setTop(float top, boolean keepRatio) {
+		if(keepRatio) {
+			this.bottom = top + getHeight();
+		}
+		this.top = top;
+	}
+	
+	/**
+	 * Get the left coordinate.
+	 * Left coordinate should be less than the right one or rectangle will be inverted.
+	 * 
+	 * @return The left coordinate of rectangle.
+	 */
 	public float getLeft() {
 		return left;
 	}
 	
+	/**
+	 * Set the left coordinate.
+	 * Left coordinate should be less than the right one or rectangle will be inverted.
+	 * 
+	 * @param left The left coordinate of rectangle.
+	 */
+	public void setLeft(float left) {
+		this.left = left;
+	}
+
+	/**
+	 * Set the left coordinate.
+	 * Left coordinate should be less than the right one or rectangle will be inverted.
+	 * If keepRatio is true, the right coordinate will be moved by the amount of movement of left.
+	 * 
+	 * @param left The left coordinate of rectangle.
+	 * @param keepRatio true if bottom must be moved to. False otherwise.
+	 */
+	public void setLeft(float left, boolean keepRatio) {
+		if(keepRatio) {
+			this.right = left + getWidth();
+		}
+		this.left = left;
+	}
+
+	/**
+	 * Get the bottom coordinate.
+	 * Bottom coordinate should be greater than the top one or rectangle will be inverted.
+	 * 
+	 * @return The bottom coordinate of rectangle.
+	 */
 	public float getBottom() {
 		return bottom;
 	}
 	
+	/**
+	 * Set the bottom coordinate.
+	 * Bottom coordinate should be less than the right one or rectangle will be inverted.
+	 * 
+	 * @param bottom The bottom coordinate of rectangle.
+	 */
+	public void setBottom(float bottom) {
+		this.bottom = bottom;
+	}
+
+	/**
+	 * Get the right coordinate.
+	 * Right coordinate should be greater than the left one or rectangle will be inverted.
+	 * 
+	 * @return The right coordinate of rectangle.
+	 */
 	public float getRight() {
 		return right;
 	}
 	
+	/**
+	 * Set the right coordinate.
+	 * Right coordinate should be greater than the left one or rectangle will be inverted.
+	 * 
+	 * @param right The right coordinate of rectangle.
+	 */
+	public void setRight(float right) {
+		this.right = right;
+	}
+
+	/**
+	 * Get the width of the rectangle.
+	 * 
+	 * @return The width of rectangle.
+	 */
 	public float getWidth() {
 		return right - left;
 	}
 	
+	/**
+	 * Set the width of the rectangle.
+	 * The right coordinate will be moved to left coordinates + width.
+	 * 
+	 * @param width The width to set.
+	 */
+	public void setWidth(float width) {
+		right = left + width;
+	}
+
+	/**
+	 * Get the height of the rectangle.
+	 * 
+	 * @return The height of rectangle.
+	 */
 	public float getHeight() {
-		return top - bottom;
+		return bottom - top;
+	}
+	
+	/**
+	 * Set the height of the rectangle.
+	 * The bottom coordinate will be moved to top coordinates + height.
+	 * 
+	 * @param height The height to set.
+	 */
+	public void setHeight(float height) {
+		bottom = top + height;
 	}
 }

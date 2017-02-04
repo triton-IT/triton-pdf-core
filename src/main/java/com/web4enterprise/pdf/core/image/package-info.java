@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing image related classes.
+ * Contains image related classes.
  * 
  * @author rramillien
  */

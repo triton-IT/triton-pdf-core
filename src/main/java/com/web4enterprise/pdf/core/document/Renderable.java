@@ -13,31 +13,79 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.web4enterprise.pdf.core;
+package com.web4enterprise.pdf.core.document;
 
 import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
 import com.web4enterprise.pdf.core.link.Linkable;
 
-
-public interface Renderable extends Anchor, Linkable {		
+/**
+ * Defines a component renderable to a PDF.
+ * 
+ * 
+ * @author Régis Ramillien
+ */
+public abstract class Renderable implements Anchor, Linkable {
+	/**
+	 * The identifier of the page where this text is contained to.
+	 */
+	protected int pageId;
+	/**
+	 * The bounding box of path.
+	 */
+	protected Rect boundingBox = new Rect(0.0f, 0.0f, 0.0f, 0.0f);
+	/**
+	 * The {@link Linkable} where this Linkable is bound to.
+	 */
+	protected Linkable link;
+	
+	@Override
+	public Integer getPage() {
+		return pageId;
+	}
+	
 	/**
 	 * Set the page where this Renderable is positioned to.
 	 * 
 	 * @param pageId The id of the page to set to this element.
 	 */
-	void setPage(int pageId);
+	public void setPage(int pageId) {
+		this.pageId = pageId;
+	}
+	
+	@Override
+	public Linkable getLink() {
+		return link;
+	}
+	
+	@Override
+	public void setLink(Linkable destination) {
+		this.link = destination;
+	}
+	
+	@Override
+	public Float getLinkX() {
+		return boundingBox.getLeft();
+	}
+	
+	@Override
+	public Float getLinkY() {
+		return boundingBox.getTop();
+	}
+
 	/**
 	 * Get the bounding box of renderable.
 	 * 
 	 * @return The bounding box.
 	 */
-	Rect getBoundingBox();
+	public Rect getBoundingBox() {
+		return boundingBox;
+	}
 	
 	/**
 	 * Render object in PDF format. 
 	 * 
 	 * @param builder The String builder to render element to.
 	 */
-	void render(StringBuilder builder);
+	public abstract void render(StringBuilder builder);
 }

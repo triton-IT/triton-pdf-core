@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing path related classes.
+ * Contains path related classes.
  * 
  * @author Régis Ramillien
  */

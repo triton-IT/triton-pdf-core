@@ -22,8 +22,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.Renderable;
 import com.web4enterprise.pdf.core.document.PdfObject;
+import com.web4enterprise.pdf.core.document.Renderable;
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
 import com.web4enterprise.pdf.core.link.Linkable;

@@ -19,6 +19,12 @@ import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
+/**
+ * Defines an object to write in PDF.
+ * 
+ * 
+ * @author Régis Ramillien
+ */
 public interface PdfObject {	
 	/**
 	 * Render an object to output stream.

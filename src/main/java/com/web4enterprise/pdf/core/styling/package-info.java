@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing styling related classes.
+ * Contains styling related classes.
  * 
  * @author Régis Ramillien
  */

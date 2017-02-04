@@ -35,6 +35,12 @@ import com.web4enterprise.pdf.core.page.Page;
 import com.web4enterprise.pdf.core.page.PageTree;
 import com.web4enterprise.pdf.core.page.RootPageTree;
 
+/**
+ * The PDF document.
+ * 
+ * 
+ * @author Régis Ramillien
+ */
 public class Pdf {
 	/**
 	 * The line separator that will be used in this PDF.

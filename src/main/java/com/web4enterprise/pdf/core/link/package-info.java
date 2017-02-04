@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the different kind of links available in a PDF.
+ * Contains the different kind of links available in a PDF.
  * 
  * @author Régis Ramillien
  */

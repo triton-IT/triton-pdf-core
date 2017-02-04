@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing font related classes.
+ * Contains font related classes.
  * 
  * @author Régis Ramillien
  */

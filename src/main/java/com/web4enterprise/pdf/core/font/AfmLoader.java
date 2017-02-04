@@ -41,7 +41,7 @@ public class AfmLoader {
 	/**
 	 * Load a font variant in AFM format from the input stream.
 	 * 
-	 * @param stream THe stream to load font variant from.
+	 * @param stream The stream to load font variant from.
 	 * @return The loaded font variant.
 	 * @throws IOException When font variant cannot be loaded.
 	 */
@@ -104,5 +104,4 @@ public class AfmLoader {
 		
 		return fontVariant;
 	}
-
 }

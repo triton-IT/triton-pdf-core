@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing page related classes.
+ * Contains page related classes.
  * 
  * @author Régis Ramillien
  */

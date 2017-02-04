@@ -15,10 +15,9 @@
  */
 package com.web4enterprise.pdf.core.path;
 
-import com.web4enterprise.pdf.core.Renderable;
+import com.web4enterprise.pdf.core.document.Renderable;
 import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.geometry.Rect;
-import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
 
 /**
@@ -26,7 +25,7 @@ import com.web4enterprise.pdf.core.styling.Color;
  * 
  * @author Régis Ramillien
  */
-public abstract class Path implements Renderable {
+public abstract class Path extends Renderable {
 	/**
 	 * The first point of path.
 	 */
@@ -55,18 +54,6 @@ public abstract class Path implements Renderable {
 	 * The fill color (default is black).
 	 */
 	protected Color fillColor = Color.BLACK;
-	/**
-	 * The identifier of the page where this text is contained to.
-	 */
-	protected int pageId;
-	/**
-	 * The {@link Linkable} where this Linkable is bound to.
-	 */
-	protected Linkable link;
-	/**
-	 * The bounding box of path.
-	 */
-	protected Rect boundingBox;
 	
 	/**
 	 * Creates a path.
@@ -215,40 +202,5 @@ public abstract class Path implements Renderable {
 	 */
 	public void setFillColor(Color fillColor) {
 		this.fillColor = fillColor;
-	}
-	
-	@Override
-	public void setLink(Linkable destination) {
-		this.link = destination;
-	}
-	
-	@Override
-	public Linkable getLink() {
-		return link;
-	}
-	
-	@Override
-	public void setPage(int pageId) {
-		this.pageId = pageId;
-	}
-	
-	@Override
-	public Integer getPage() {
-		return pageId;
-	}
-	
-	@Override
-	public Float getLinkX() {
-		return boundingBox.getLeft();
-	}
-	
-	@Override
-	public Float getLinkY() {
-		return boundingBox.getTop();
-	}
-	
-	@Override
-	public Rect getBoundingBox() {
-		return boundingBox;
 	}
 }

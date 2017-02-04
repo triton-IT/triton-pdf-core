@@ -21,9 +21,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.pdf.core.geometry.Rect;
 
 /**
- * class representing a Bezier curve to render in a PDF document.
+ * Represents a Bezier curve to render in a PDF document.
  * 
  * @author Régis Ramillien
  */
@@ -42,6 +43,43 @@ public class BezierPath extends Path {
 		super(startPoint, points);
 		
 		this.bezierPoints = Arrays.asList(points);
+
+		float top = boundingBox.getTop();
+		float left = boundingBox.getLeft();
+		float bottom = boundingBox.getBottom();
+		float right = boundingBox.getRight();
+		
+		for(BezierPoint point : points) {
+			if(point.getY1() > top) {
+				top = point.getY1();
+			}
+			if(point.getY2() > top) {
+				top = point.getY2();
+			}
+			
+			if(point.getX1() < left) {
+				left = point.getX1();
+			}
+			if(point.getX2() < left) {
+				left = point.getX2();
+			}
+			
+			if(point.getY1() < bottom) {
+				bottom = point.getY1();
+			}
+			if(point.getY2() < bottom) {
+				bottom = point.getY2();
+			}
+			
+			if(point.getY1() < bottom) {
+				bottom = point.getY1();
+			}
+			if(point.getY2() < bottom) {
+				bottom = point.getY2();
+			}
+		}
+		
+		boundingBox = new Rect(top, left, bottom, right);
 	}
 
 	/**

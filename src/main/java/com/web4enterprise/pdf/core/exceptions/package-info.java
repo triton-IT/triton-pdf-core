@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing all custom exceptions.
+ * Contains all custom exceptions.
  * 
  * @author Régis Ramillien
  */

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Package containing text related classes.
+ * Contains text related classes.
  * 
  * @author Régis Ramillien
  */

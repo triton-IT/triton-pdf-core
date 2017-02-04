@@ -27,6 +27,12 @@ import java.util.List;
 
 import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
+/**
+ * The meta-data available for PDF.
+ * 
+ * 
+ * @author Régis Ramillien
+ */
 public class DocumentMetaData implements PdfObject {
 	/**
 	 * The title of document.
