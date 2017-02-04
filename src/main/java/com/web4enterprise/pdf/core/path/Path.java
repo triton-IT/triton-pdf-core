@@ -15,6 +15,9 @@
  */
 package com.web4enterprise.pdf.core.path;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import com.web4enterprise.pdf.core.document.Renderable;
 import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.geometry.Rect;
@@ -70,18 +73,10 @@ public abstract class Path extends Renderable {
 		float right = startPoint.getX();
 		
 		for(Point point : points) {
-			if(point.getY() > top) {
-				top = point.getY();
-			}
-			if(point.getX() < left) {
-				left = point.getX();
-			}
-			if(point.getY() < bottom) {
-				bottom = point.getY();
-			}
-			if(point.getX() > right) {
-				right = point.getX();
-			}
+			top = max(point.getY(), top);
+			left = min(point.getX(), left);
+			bottom = min(point.getY(), top);
+			right = max(point.getX(), top);
 		}
 		
 		boundingBox = new Rect(top, left, bottom, right);

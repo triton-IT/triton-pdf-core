@@ -16,6 +16,8 @@
 package com.web4enterprise.pdf.core.path;
 
 import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,33 +52,17 @@ public class BezierPath extends Path {
 		float right = boundingBox.getRight();
 		
 		for(BezierPoint point : points) {
-			if(point.getY1() > top) {
-				top = point.getY1();
-			}
-			if(point.getY2() > top) {
-				top = point.getY2();
-			}
+			top = max(point.getY1(), top);
+			top = max(point.getY2(), top);
 			
-			if(point.getX1() < left) {
-				left = point.getX1();
-			}
-			if(point.getX2() < left) {
-				left = point.getX2();
-			}
+			left = min(point.getX1(), left);
+			left = min(point.getX2(), left);
 			
-			if(point.getY1() < bottom) {
-				bottom = point.getY1();
-			}
-			if(point.getY2() < bottom) {
-				bottom = point.getY2();
-			}
+			bottom = min(point.getY1(), bottom);
+			bottom = min(point.getY2(), bottom);
 			
-			if(point.getY1() < bottom) {
-				bottom = point.getY1();
-			}
-			if(point.getY2() < bottom) {
-				bottom = point.getY2();
-			}
+			right = max(point.getX1(), right);
+			right = max(point.getX2(), right);
 		}
 		
 		boundingBox = new Rect(top, left, bottom, right);
