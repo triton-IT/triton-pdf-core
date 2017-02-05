@@ -16,194 +16,51 @@
 package com.web4enterprise.pdf.core.document;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Locale;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
-import com.web4enterprise.pdf.core.font.Font;
-import com.web4enterprise.pdf.core.font.FontsVariant;
-import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.image.Image;
-import com.web4enterprise.pdf.core.page.Page;
-import com.web4enterprise.pdf.core.path.BezierPath;
-import com.web4enterprise.pdf.core.path.BezierPoint;
-import com.web4enterprise.pdf.core.path.StraightPath;
-import com.web4enterprise.pdf.core.styling.Color;
-import com.web4enterprise.pdf.core.text.Text;
-import com.web4enterprise.pdf.core.text.TextScript;
+import com.web4enterprise.pdf.core.page.RootPageTree;
 
 public class PdfTest {
+	/**
+	 * A new PDf must instantiate a catalog, root page tree and document meta-data.
+	 */
 	@Test
-	public void testWrite() throws IOException, PdfGenerationException {
-		try(OutputStream out = new FileOutputStream("documentation.pdf")) {
-			Pdf pdf = new Pdf();
-			pdf.setAuthor("Regis Ramillien");
-			pdf.setModificationDate(new Date());
-			pdf.setProducer("web4enterprise");
-			pdf.setSubject("documentation for simplyPDF-core library");
-			pdf.setTitle("simplyPDF-core documentation");
-			pdf.addKeyword("http://web4enterprise.com");
-			pdf.addKeyword("simplyPDF-core");
-			pdf.addKeyword("Documentation");
-			pdf.addMetaData("Customer-specific", "meta-data");
-			
-			Page page1 = pdf.createPage(595, 842);
-			
-			page1.addText(20, 820, 12, "A PDF is created with:");
-			page1.addText(20, 800, 8, "Pdf pdf = new Pdf();");
-			page1.addText(20, 780, 12, "A PDF is written with:");
-			page1.addText(20, 760, 8, "pdf.write(out);");
-			
-			page1.addText(20, 720, 12, "A page is created with:");
-			page1.addText(20, 700, 8, "Page page1 = pdf.createPage(595, 842);");
-			page1.addText(20, 680, 12, "A text with font times-roman is added with:");
-			page1.addText(20, 660, 8, "page1.addText(20, 700, 12, \"The text to display\");");
-			page1.addText(20, 640,  12, "A text width can be calculated with:");
-			page1.addText(20, 620, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
-			float textWidth = Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 8.0f, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
-			StraightPath startPath = new StraightPath(new Point(20, 628), new Point(20, 620));
-			startPath.setStrokeColor(new Color(128, 80, 128));
-			startPath.setLineWidth(0.6f);
-			StraightPath endPath = new StraightPath(new Point(22 + textWidth, 628), new Point(22 + textWidth, 620));
-			endPath.setStrokeColor(new Color(128, 80, 128));
-			endPath.setLineWidth(0.6f);
-			page1.add(startPath);
-			page1.add(endPath);
-			
-			page1.addText(20, 600, 12, "A text with another font is added with:");
-			page1.addText(20, 580, 8, "page1.addText(20, 700, 12, Font.COURIER.getVariant(FontStyle.BOLD), \"The text to display\");");
-			page1.addText(20, 560, 18, "Below are texts with different fonts, colors, sizes and underlines:");
-			page1.addText(20, 540, 18, "Times-Roman");
-			page1.addText(20, 520, 12, Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Times-Roman Bold");
-			page1.addText(20, 500, 8, Font.TIMES_ROMAN.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Times-Roman Italic");
-			page1.addText(20, 480, 6, Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Times-Roman Bold Italic");
-			page1.addText(20, 460, 18, Font.COURIER.getVariant(FontsVariant.PLAIN), "Courier");
-			page1.addText(20, 440, 12, Font.COURIER.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Courier Bold");
-			page1.addText(20, 420, 8, Font.COURIER.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Courier Italic");
-			Text courierBolditalic = new Text(20, 400, 6, Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
-			courierBolditalic.setUnderlined(true);
-			courierBolditalic.setUnderlineColor(new Color(128, 80, 128));
-			page1.add(courierBolditalic);
-			page1.addText(20, 380, 18, Font.HELVTICA.getVariant(FontsVariant.PLAIN), "Helvetica");
-			page1.addText(20, 360, 12, Font.HELVTICA.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Helvetica Bold");
-			page1.addText(20, 340, 8, Font.HELVTICA.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Helvetica Italic");
-			page1.addText(20, 320, 6, Font.HELVTICA.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Helvetica Bold Italic");
-			page1.addText(20, 300, 12, Font.SYMBOL.getVariant(FontsVariant.PLAIN), "Symbol");
-			Text zapfDingbats = new Text(20, 280, 12, Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
-			zapfDingbats.setUnderlined(true);
-			zapfDingbats.setUnderlineColor(new Color(80, 128, 128));
-			page1.add(zapfDingbats);
-
-			page1.addText(20, 220, 12, "An image is created with:");
-			page1.addText(20, 200, 8, "Image image = pdf.createImage(this.getClass().getResourceAsStream(\"/logo.png\"));");
-			page1.addText(20, 180, 12, "An image is sized and positioned with:");
-			page1.addText(20, 160, 8, "image.setX(20);");
-			page1.addText(20, 140, 8, "image.setY(70);");
-			page1.addText(20, 120, 8, "image.setWidth(60);");
-			page1.addText(20, 100, 8, "image.setHeight(30);");
-			page1.addText(20, 80, 12, "An image is added with:");
-			page1.addText(20, 60, 8, "page1.addImage(image);");
-			Image image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
-			image.setX(20);
-			image.setY(20);
-			image.setWidth(19);
-			image.setHeight(26);
-			page1.add(image);
-
-			Page page2 = pdf.createPage(595, 842);
-			page2.addText(20, 820, 12, "When an image is used multiple times, no need to re-create its data.");
-			page2.addText(20, 800, 12, "Just save space in PDF by cloning it's references using:");
-			page2.addText(20, 780, 8, "Image image2 = image.cloneReference();");
-			page2.addText(20, 760, 12, "Change its size, position, etc and draw it again.");
-			Image image2 = image.cloneReference();
-			image2.setX(20);
-			image2.setY(690);
-			image2.setWidth(37);
-			image2.setHeight(53);
-			page2.add(image2);
-
-			page2.addText(20, 650, 12, "A straight line can be added with:");
-			page2.addText(20, 630, 8, "page2.addPath(new StraightPath(new Point(20, 640), new Point(150, 650)));");			
-			page2.add(new StraightPath(new Point(20, 600), new Point(30, 610)));
-
-			page2.addText(20, 580, 12, "A line can be added with more points using:");
-			page2.addText(20, 560, 8, "StraightPath straightPath = new StraightPath(new Point(20, 510), new Point(20, 500), new Point(150, 500));");
-			page2.addText(20, 540, 8, "straightPath.setClosed(true);");
-			page2.addText(20, 520, 8, "page2.addPath(straightPath);");
-			StraightPath straightPath = new StraightPath(new Point(20, 500), new Point(30, 510), new Point(40, 500));
-			straightPath.setClosed(true);
-			page2.add(straightPath);
-
-			page2.addText(20, 480, 12, "A Bezier line can be added with:");
-			page2.addText(20, 460, 8, "page2.addPath(new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432))");
-			BezierPath bezierPath = new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432));
-			page2.add(bezierPath);
-
-			page2.addText(20, 420, 12, "Straight and Bezier lines can be filled/stroked/closed with:");
-			page2.addText(20, 400, 8, "BezierPath bezierPath2 = new BezierPath(new Point(20, 400), new BezierPoint(50, 440, 30, 432, 40, 432));");
-			page2.addText(20, 380, 8, "bezierPath2.setFillColor(new Color(80, 128, 128));");
-			page2.addText(20, 360, 8, "bezierPath2.setFilled(true);");
-			page2.addText(20, 340, 8, "bezierPath2.setStrokeColor(new Color(128, 80, 128));");
-			page2.addText(20, 320, 8, "bezierPath2.setLineWidth(4.0f);");
-			page2.addText(20, 300, 8, "bezierPath2.setClosed(true);");
-			page2.addText(20, 280, 8, "page2.addPath(bezierPath2);");
-			BezierPath bezierPath2 = new BezierPath(new Point(20, 260), new BezierPoint(50, 260, 30, 252, 40, 252));
-			bezierPath2.setClosed(true);
-			page2.add(bezierPath2);
-			BezierPath bezierPath3 = new BezierPath(new Point(60, 260), new BezierPoint(90, 260, 70, 252, 80, 252));
-			bezierPath3.setFilled(true);
-			bezierPath3.setStroked(false);
-			page2.add(bezierPath3);
-			BezierPath bezierPath4 = new BezierPath(new Point(100, 260), new BezierPoint(130, 260, 110, 252, 120, 252));
-			bezierPath4.setFillColor(new Color(80, 128, 128));
-			bezierPath4.setFilled(true);
-			bezierPath4.setStrokeColor(new Color(128, 80, 128));
-			bezierPath4.setLineWidth(4.0f);
-			page2.add(bezierPath4);
-
-			Text linkedText = new Text(20, 220, 12, "click on this text to see internal link in action.");
-			linkedText.setLink(image);
-			page2.add(linkedText);
-			page2.addText(20, 200, 8, "Text linkedText = new Text(20, 200, 12, \"click on this text to see internal link in action.\");");
-			page2.addText(20, 180, 8, "linkedText.setLink(image);");
-			image.setLink(linkedText);
-
-			Text superScriptedText = new Text(20, 140, 12, "Super");
-			superScriptedText.setScript(TextScript.SUPER);
-			page2.add(superScriptedText);
-			page2.addText(40, 140, 12, "and");
-			Text subScriptedText = new Text(60, 140, 12, "sub");
-			subScriptedText.setScript(TextScript.SUB);
-			page2.add(subScriptedText);
-			page2.addText(70, 140, 12, "-scriptedtext");
-			page2.add(superScriptedText);
-			page2.addText(20, 120, 8, "text.setScript(TextScript.SUPER);");
-			page2.addText(20, 100, 8, "text.setScript(TextScript.SUB);");
-			
-			pdf.write(out);
-		}
+	public void testConstructor() {
+		Pdf pdf = new Pdf();
+		assertEquals("Indirect objects length", 3, pdf.indirectsObjects.size());
+		assertTrue("Catalog", pdf.indirectsObjects.get(0) instanceof Catalog);
+		assertEquals("Catalog id", 1, pdf.indirectsObjects.get(0).getId());
+		assertTrue("Root page tree", pdf.indirectsObjects.get(1) instanceof RootPageTree);
+		assertEquals("Root page tree id", 2, pdf.indirectsObjects.get(1).getId());
+		assertTrue("Document meta-data", pdf.indirectsObjects.get(2) instanceof DocumentMetaData);
+		assertEquals("Document meta-data id", 3, pdf.indirectsObjects.get(2).getId());
 	}
 	
+	/**
+	 * All meta-data are wrapped in a PDF object.
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
 	@Test
-	public void testSetAttributes() throws IOException, PdfGenerationException, ParseException {
+	public void testSetMetaData() throws Exception {
 		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			
 			pdf.write(out);
 			String actual = out.toString();
 			
-			Assert.assertThat(actual, containsString("/Creator (http://simplypdf-core.web4enterprise.com)"));
-			Assert.assertThat(actual, containsString("/CreationDate (D:"));
+			//Only presence of field is tested, content is tested in DocumentMetaDataTest.
+			assertThat(actual, containsString("/Creator "));
+			assertThat(actual, containsString("/CreationDate (D:"));
 		}
 		
 		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -220,18 +77,24 @@ public class PdfTest {
 			pdf.write(out);
 			String actual = out.toString();
 			
-			Assert.assertThat(actual, containsString("/Title (simplyPDF-core documentation)"));
-			Assert.assertThat(actual, containsString("/Author (Regis Ramillien)"));
-			Assert.assertThat(actual, containsString("/Subject (documentation for simplyPDF-core library)"));
-			Assert.assertThat(actual, containsString("/Creator (http://simplypdf-core.web4enterprise.com - tests)"));
-			Assert.assertThat(actual, containsString("/Producer (web4enterprise)"));
-			Assert.assertThat(actual, containsString("/CreationDate (D:20161225"));
-			Assert.assertThat(actual, containsString("/ModDate (D:20161226"));
+			assertThat(actual, containsString("/Title (simplyPDF-core documentation)"));
+			assertThat(actual, containsString("/Author (Regis Ramillien)"));
+			assertThat(actual, containsString("/Subject (documentation for simplyPDF-core library)"));
+			assertThat(actual, containsString("/Creator (http://simplypdf-core.web4enterprise.com - tests)"));
+			assertThat(actual, containsString("/Producer (web4enterprise)"));
+			assertThat(actual, containsString("/CreationDate (D:20161225"));
+			assertThat(actual, containsString("/ModDate (D:20161226"));
 		}
 	}
 	
+	/**
+	 * PDF must allow to create keywords.
+	 * 
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
 	@Test
-	public void testAddKeyword() throws IOException, PdfGenerationException {
+	public void testAddKeyword() throws Exception {
 		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 
@@ -242,12 +105,18 @@ public class PdfTest {
 			pdf.write(out);
 			String actual = out.toString();
 
-			Assert.assertThat(actual, containsString("/Keywords (http://web4enterprise.com simplyPDF-core Documentation)"));
+			assertThat(actual, containsString("/Keywords (http://web4enterprise.com simplyPDF-core Documentation)"));
 		}
 	}
 	
+	/**
+	 * PDF must allow to add meta-data.
+	 * 
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
 	@Test
-	public void testAddMetadata() throws IOException, PdfGenerationException {
+	public void testAddMetadata() throws Exception {
 		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 
@@ -256,12 +125,18 @@ public class PdfTest {
 			pdf.write(out);
 			String actual = out.toString();
 
-			Assert.assertThat(actual, containsString("/Customer-specific (meta-data)"));
+			assertThat(actual, containsString("/Customer-specific (meta-data)"));
 		}
 	}
 	
+	/**
+	 * PDF must allow to create new pages.
+	 * 
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
 	@Test
-	public void testCreatePage() throws IOException, PdfGenerationException {
+	public void testCreatePage() throws Exception {
 		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			pdf.createPage(100, 80);
@@ -270,14 +145,20 @@ public class PdfTest {
 			pdf.write(out);
 			String actual = out.toString();
 
-			Assert.assertThat(actual, containsString("/MediaBox [0 0 100 80]"));
-			Assert.assertThat(actual, containsString("/MediaBox [0 0 180 120]"));
-			Assert.assertThat(actual, containsString("/Type /Page"));
+			assertThat(actual, containsString("/MediaBox [0 0 100 80]"));
+			assertThat(actual, containsString("/MediaBox [0 0 180 120]"));
+			assertThat(actual, containsString("/Type /Page"));
 		}
 	}
-	
+
+	/**
+	 * PDF must allow to create images.
+	 * 
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
 	@Test
-	public void testCreateImage() throws IOException, PdfGenerationException {
+	public void testCreateImage() throws Exception {
 		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			pdf.createPage(100, 80);
@@ -286,14 +167,38 @@ public class PdfTest {
 			pdf.write(out);
 			String actual = out.toString();
 
-			Assert.assertThat(actual, containsString("/Length 9737"));
-			Assert.assertThat(actual, containsString("/Type /XObject"));
-			Assert.assertThat(actual, containsString("/Subtype /Image"));
-			Assert.assertThat(actual, containsString("/Filter /FlateDecode"));
-			Assert.assertThat(actual, containsString("/BitsPerComponent 8"));
-			Assert.assertThat(actual, containsString("/Width 744"));
-			Assert.assertThat(actual, containsString("/Height 1052"));
-			Assert.assertThat(actual, containsString("/ColorSpace /DeviceRGB"));
+			assertThat(actual, containsString("/Length 9737"));
+			assertThat(actual, containsString("/Type /XObject"));
+			assertThat(actual, containsString("/Subtype /Image"));
+			assertThat(actual, containsString("/Filter /FlateDecode"));
+			assertThat(actual, containsString("/BitsPerComponent 8"));
+			assertThat(actual, containsString("/Width 744"));
+			assertThat(actual, containsString("/Height 1052"));
+			assertThat(actual, containsString("/ColorSpace /DeviceRGB"));
 		}
+	}
+	
+	/**
+	 * Clear must reset indirectObjets and but not catalog, root page tree or document meta-data.
+	 * After a clear, an image should be re-bound.
+	 * 
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
+	@Test
+	public void testClearAndRebind() throws Exception {
+		Pdf pdf = new Pdf();
+		Image image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
+		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof Image);
+		
+		pdf.clear();
+		assertTrue("Catalog should be present", pdf.indirectsObjects.get(0) instanceof Catalog);
+		assertTrue("Root page tree should be present", pdf.indirectsObjects.get(1) instanceof RootPageTree);
+		assertTrue("Document meta-data should be present", pdf.indirectsObjects.get(2) instanceof DocumentMetaData);
+		assertEquals("pdf must be re-set", 3, pdf.indirectsObjects.size());
+		
+		pdf.rebindImage(image);
+		assertEquals("Image muust be re-bound", 4, pdf.indirectsObjects.size());
+		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof Image);
 	}
 }

@@ -47,9 +47,9 @@ public class DocumentMetaData implements PdfObject {
 	 */
 	protected String subject;
 	/**
-	 * The keywords of document.
+	 * The key-words of document.
 	 */
-	protected List<String> keywords = new ArrayList<>();
+	protected List<String> keyWords = new ArrayList<>();
 	/**
 	 * The creator of document.
 	 */
@@ -74,7 +74,7 @@ public class DocumentMetaData implements PdfObject {
 	/**
 	 * The date format in PDF document.
 	 */
-	protected DateFormat dateFormat = new SimpleDateFormat("'D':YYYYMMddHHmmssZ");
+	protected DateFormat dateFormat = new SimpleDateFormat("'D':YYYYMMddHHmmssXXX");
 	
 	/**
 	 * The identifier of the object.
@@ -100,9 +100,9 @@ public class DocumentMetaData implements PdfObject {
 		writeMetadata(builder, "Author", author);
 		writeMetadata(builder, "Subject", subject);
 		
-		if(!keywords.isEmpty()) {
+		if(!keyWords.isEmpty()) {
 			builder.append("/Keywords (");
-			for(String keyword : keywords) {
+			for(String keyword : keyWords) {
 				builder.append(keyword + " ");
 			}
 			builder.deleteCharAt(builder.length() - 1);
@@ -114,23 +114,11 @@ public class DocumentMetaData implements PdfObject {
 		writeMetadata(builder, "Producer", producer);
 
 		if(creationDate != null) {
-			String date = dateFormat.format(creationDate);
-			if(!date.endsWith("Z")) {
-				//Correct format
-				date = date.substring(0, 19) + "'" + date.substring(19, date.length());
-				date = date.substring(0, 22) + "'" + date.substring(22, date.length());
-			}
-			writeMetadata(builder, "CreationDate", date);
+			writeMetadata(builder, "CreationDate", formatDate(creationDate));
 		}
 		
 		if(modificationDate != null) {
-			String date = dateFormat.format(modificationDate);
-			if(!date.endsWith("Z")) {
-				//Correct format.
-				date = date.substring(0, 19) + "'" + date.substring(19, date.length());
-				date = date.substring(0, 22) + "'" + date.substring(22, date.length());
-			}
-			writeMetadata(builder, "ModDate", date);
+			writeMetadata(builder, "ModDate", formatDate(modificationDate));
 		}
 		
 		if(!customs.isEmpty()) {
@@ -168,5 +156,12 @@ public class DocumentMetaData implements PdfObject {
 		if(value != null) {
 			builder.append("/").append(name).append(" (").append(value).append(")").append(LINE_SEPARATOR);
 		}
+	}
+	
+	protected String formatDate(Date date) {
+		String formattedDate = dateFormat.format(date);
+		//replace ':' separating time zone by quotes because PDF does not seems to use an exact ISO 8601. 
+		formattedDate = formattedDate.substring(0, 19) + "'" + formattedDate.substring(20, formattedDate.length());
+		return formattedDate + "'";
 	}
 }

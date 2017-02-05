@@ -115,7 +115,7 @@ public class Pdf {
 	 * @param keyword The keyword to add to document meta-data.
 	 */
 	public void addKeyword(String keyword) {
-		documentMetaData.keywords.add(keyword);
+		documentMetaData.keyWords.add(keyword);
 	}
 
 	/**
@@ -208,19 +208,6 @@ public class Pdf {
 		
 		return page;
 	}
-	
-	/**
-	 * Remove all pages from document and keep other data.
-	 */
-	public void clear() {
-		indirectsObjects.clear();
-		indirectsPositions.clear();
-
-		indirectsObjects.add(catalog);
-		rootPageTree.clearPages();
-		indirectsObjects.add(rootPageTree);
-		indirectsObjects.add(documentMetaData);
-	}
 
 	/**
 	 * Create an image.
@@ -269,6 +256,19 @@ public class Pdf {
 		}
 		
 		return image;
+	}
+	
+	/**
+	 * Remove all pages from document and keep other data.
+	 */
+	public void clear() {
+		indirectsObjects.clear();
+		indirectsPositions.clear();
+
+		indirectsObjects.add(catalog);
+		rootPageTree.clearPages();
+		indirectsObjects.add(rootPageTree);
+		indirectsObjects.add(documentMetaData);
 	}
 	
 	/**
@@ -402,7 +402,7 @@ public class Pdf {
 	 * @throws IOException When deflation cannot occur.
 	 */
 	@SuppressWarnings("squid:S2093") //Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
-	private byte[] deflate(byte[] data) throws IOException {
+	protected byte[] deflate(byte[] data) throws IOException {
 		ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
 		DeflaterOutputStream deflaterOutputStream = null;
 		try {

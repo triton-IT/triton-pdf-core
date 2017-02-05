@@ -13,31 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.web4enterprise.pdf.core.document;
 
 /**
- * Represent a single metadata of a document.
+ * 
  * 
  * @author Régis Ramillien
  */
-public class MetaData {
-	/**
-	 * The key of metadata.
-	 */
-	protected String key;
-	/**
-	 * The value of metadata.
-	 */
-	protected String value;
-	
-	/**
-	 * Constructs a metadata with non null key and value.
-	 * 
-	 * @param key The key of metadata.
-	 * @param value The value of metadata.
-	 */
-	public MetaData(String key, String value) {
-		this.key = key;
-		this.value = value;
-	}
-}
+package com.web4enterprise.pdf.core.documentation;
