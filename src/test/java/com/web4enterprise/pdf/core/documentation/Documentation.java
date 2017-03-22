@@ -41,14 +41,14 @@ public class Documentation {
 			page1.addText(20, 820, 12, "A PDF is created with:");
 			page1.addText(20, 800, 8, "Pdf pdf = new Pdf();");
 			page1.addText(20, 780, 12, "A PDF is written with:");
-			page1.addText(20, 760, 8, "pdf.write(out);");
+			page1.addText(20, 760, 8, "pdf.write(outputStream);");
 			
 			page1.addText(20, 720, 12, "A page is created with:");
-			page1.addText(20, 700, 8, "Page page1 = pdf.createPage(595, 842);");
-			page1.addText(20, 680, 12, "A text with font times-roman is added with:");
-			page1.addText(20, 660, 8, "page1.addText(20, 700, 12, \"The text to display\");");
+			page1.addText(20, 700, 8, "Page page1 = pdf.createPage(pageWidth, pageHeight);");
+			page1.addText(20, 680, 12, "A text with font times-roman (default font) is added with:");
+			page1.addText(20, 660, 8, "page1.addText(positionX, positionY, fontSize, \"The text to display\");");
 			page1.addText(20, 640,  12, "A text width can be calculated with:");
-			page1.addText(20, 620, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
+			page1.addText(20, 620, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, fontSize, \"The text to search width for.\");");
 			float textWidth = Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 8.0f, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
 			StraightPath startPath = new StraightPath(new Point(20, 628), new Point(20, 620));
 			startPath.setStrokeColor(new Color(128, 80, 128));
@@ -59,7 +59,7 @@ public class Documentation {
 			page1.add(startPath);
 			page1.add(endPath);
 			
-			page1.addText(20, 600, 12, "A text with another font is added with:");
+			page1.addText(20, 600, 12, "A text with another font and font variant is added with:");
 			page1.addText(20, 580, 8, "page1.addText(20, 700, 12, Font.COURIER.getVariant(FontStyle.BOLD), \"The text to display\");");
 			page1.addText(20, 560, 18, "Below are texts with different fonts, colors, sizes and underlines:");
 			page1.addText(20, 540, 18, "Times-Roman");
@@ -110,7 +110,6 @@ public class Documentation {
 			image2.setWidth(37);
 			image2.setHeight(53);
 			page2.add(image2);
-
 			page2.addText(20, 650, 12, "A straight line can be added with:");
 			page2.addText(20, 630, 8, "page2.addPath(new StraightPath(new Point(20, 640), new Point(150, 650)));");			
 			page2.add(new StraightPath(new Point(20, 600), new Point(30, 610)));
@@ -168,6 +167,20 @@ public class Documentation {
 			page2.add(superScriptedText);
 			page2.addText(20, 120, 8, "text.setScript(TextScript.SUPER);");
 			page2.addText(20, 100, 8, "text.setScript(TextScript.SUB);");
+
+			page2.addText(20, 80, 8, "A character not supported (like this one: ഷ) does not compute width correctly and logs a warning.");
+			
+			Color color = new Color(0, 0, 0);
+			page2.addText(20,  60, 8, Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN), color, "Color is computed not when text is added (or this text should be black) but when pdf is written.");
+			page2.addText(20,  40, 8, "So be sure to control your object references.");
+			color.setRed(80);
+			color.setGreen(128);
+			color.setBlue(128);
+
+			Page page3 = pdf.createPage(595, 842);
+			page3.addText(20, 820, 12, "Document meta-data can be added with setter on document (like document.setAuthor(\"author\")).");
+			page3.addText(20, 800, 12, "Or specific meta-data can be added with document.addMetaData(name, value).");
+			page3.addText(20, 780, 12, "Key words are added with pdf.addKeyword(keyword)");
 			
 			pdf.write(out);
 		}

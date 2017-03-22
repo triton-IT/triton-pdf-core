@@ -22,7 +22,6 @@ import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
 
@@ -225,7 +224,7 @@ public class Image extends Renderable implements PdfObject, Anchor {
 	}
 
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {
+	public int write(OutputStream stream) throws IOException {
 		//Write image header.
 		String asString = id + " 0 obj <<" + LINE_SEPARATOR
 		+ "/Length " + data.length + LINE_SEPARATOR
@@ -241,23 +240,19 @@ public class Image extends Renderable implements PdfObject, Anchor {
 		
 		int length = asString.length();
 		
-		try {
-			stream.write(asString.getBytes());
-			stream.write(data);
-			
-			length += data.length;
-			
-			//Write image footer.
-			asString = LINE_SEPARATOR		
-				+ "endstream" + LINE_SEPARATOR
-				+ "endobj" + LINE_SEPARATOR;
-			
-			length += asString.length();
-			
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write root page tree to output stream", e);
-		}
+		stream.write(asString.getBytes());
+		stream.write(data);
+		
+		length += data.length;
+		
+		//Write image footer.
+		asString = LINE_SEPARATOR		
+			+ "endstream" + LINE_SEPARATOR
+			+ "endobj" + LINE_SEPARATOR;
+		
+		length += asString.length();
+		
+		stream.write(asString.getBytes());
 		
 		return length;
 	}

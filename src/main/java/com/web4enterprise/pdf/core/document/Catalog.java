@@ -20,8 +20,6 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
-
 /**
  * Defines the list of PDF objects.
  * 
@@ -29,19 +27,20 @@ import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
  * @author Régis Ramillien
  */
 public class Catalog implements PdfObject {
+	/**
+	 * The id of catalog as string.
+	 */
+	private String id = String.valueOf(getId());
+	
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {
-		String asString = "1 0 obj <<" + LINE_SEPARATOR
+	public int write(OutputStream stream) throws IOException {
+		String asString = id + " 0 obj <<" + LINE_SEPARATOR
 		 		+ "/Type /Catalog" + LINE_SEPARATOR
 				+ "/Pages 2 0 R" + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR
 				+ "endobj" + LINE_SEPARATOR;
 		
-		try {
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write to output stream", e);
-		}
+		stream.write(asString.getBytes());
 		
 		return asString.length();
 	}

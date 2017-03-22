@@ -22,7 +22,6 @@ import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
 /**
  * Internal class to write data to the content-stream section of PDF.
@@ -49,7 +48,7 @@ public class ContentStream implements PdfObject {
 	}
 	
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {		
+	public int write(OutputStream stream) throws IOException {		
 		streamBuilder.insert(0, id + " 0 obj <<" + LINE_SEPARATOR
 				+ "/Length " + streamBuilder.length() + LINE_SEPARATOR
 				+ ">>" + LINE_SEPARATOR
@@ -59,11 +58,7 @@ public class ContentStream implements PdfObject {
 				+ "endobj" + LINE_SEPARATOR);
 		
 		String asString = streamBuilder.toString();
-		try {
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write to output stream", e);
-		}
+		stream.write(asString.getBytes());
 		
 		return asString.length();
 	}

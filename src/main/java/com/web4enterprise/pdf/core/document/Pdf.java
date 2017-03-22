@@ -320,9 +320,9 @@ public class Pdf {
 	 * @param stream The output stream where object will be rendered.
 	 * @param position The number of bytes written before the body in PDF.
 	 * @return The number of bytes written.
-	 * @throws PdfGenerationException When PDF cannot be generated.
+	 * @throws IOException When object cannot be write to stream.
 	 */
-	protected int writeBody(OutputStream stream, int position) throws PdfGenerationException {
+	protected int writeBody(OutputStream stream, int position) throws IOException {
 		int length = 0;
 		
 		int newPosition = position;
@@ -401,19 +401,13 @@ public class Pdf {
 	 * @return The deflated data.
 	 * @throws IOException When deflation cannot occur.
 	 */
-	@SuppressWarnings("squid:S2093") //Because Jacoco reports coverage false positives, we cannot use try-with-resource. So do it old school.
 	protected byte[] deflate(byte[] data) throws IOException {
-		ByteArrayOutputStream compressedOutpuStream = new ByteArrayOutputStream(data.length);
-		DeflaterOutputStream deflaterOutputStream = null;
-		try {
-			deflaterOutputStream = new DeflaterOutputStream(compressedOutpuStream);
-			deflaterOutputStream.write(data, 0, data.length);
-		} finally {
-			if(deflaterOutputStream != null) {
-				deflaterOutputStream.close();
+		try(ByteArrayOutputStream compressedOutputStream = new ByteArrayOutputStream(data.length)) {
+			try(DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(compressedOutputStream)) {
+				deflaterOutputStream.write(data, 0, data.length);
 			}
-			compressedOutpuStream.close();
+			
+			return compressedOutputStream.toByteArray();
 		}
-		return compressedOutpuStream.toByteArray();
 	}
 }

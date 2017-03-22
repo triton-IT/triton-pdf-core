@@ -15,9 +15,8 @@
  */
 package com.web4enterprise.pdf.core.document;
 
+import java.io.IOException;
 import java.io.OutputStream;
-
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
 /**
  * Defines an object to write in PDF.
@@ -31,9 +30,9 @@ public interface PdfObject {
 	 * 
 	 * @param stream The output stream where object will be rendered.
 	 * @return The number of bytes rendered.
-	 * @throws PdfGenerationException When object cannot be rendered to output stream.
+	 * @throws IOException When object cannot be rendered to output stream.
 	 */
-	int write(OutputStream stream) throws PdfGenerationException;
+	int write(OutputStream stream) throws IOException;
 	
 	/**
 	 * Get the identifier of this object.

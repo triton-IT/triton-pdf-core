@@ -61,7 +61,7 @@ public class CatalogTest {
 	 * 
 	 * @throws Exception When something goes wrong.
 	 */
-	@Test(expected = PdfGenerationException.class)
+	@Test(expected = IOException.class)
 	public void testWriteWithIOException() throws Exception {
 		Catalog catalog = new Catalog();
 		try(ByteArrayOutputStream outputStream = mock(ByteArrayOutputStream.class)) {			

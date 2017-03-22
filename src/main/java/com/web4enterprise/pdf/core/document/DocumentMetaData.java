@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
-
 /**
  * The meta-data available for PDF.
  * 
@@ -91,7 +89,7 @@ public class DocumentMetaData implements PdfObject {
 	}
 	
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {
+	public int write(OutputStream stream) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append(id).append(" 0 obj <<").append(LINE_SEPARATOR);
@@ -113,9 +111,7 @@ public class DocumentMetaData implements PdfObject {
 		writeMetadata(builder, "Creator", creator);
 		writeMetadata(builder, "Producer", producer);
 
-		if(creationDate != null) {
-			writeMetadata(builder, "CreationDate", formatDate(creationDate));
-		}
+		writeMetadata(builder, "CreationDate", formatDate(creationDate));
 		
 		if(modificationDate != null) {
 			writeMetadata(builder, "ModDate", formatDate(modificationDate));
@@ -131,11 +127,7 @@ public class DocumentMetaData implements PdfObject {
 		.append("endobj").append(LINE_SEPARATOR);
 		
 		String asString = builder.toString();
-		try {
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write to output stream", e);
-		}
+		stream.write(asString.getBytes());
 		
 		return asString.length();
 	}

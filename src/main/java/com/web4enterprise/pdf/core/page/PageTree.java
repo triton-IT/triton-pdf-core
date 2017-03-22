@@ -20,8 +20,6 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
-
 /**
  * Represent a page tree in a PDF.
  * The page tree default styling for future pages. 
@@ -58,7 +56,7 @@ public class PageTree extends RootPageTree {
 	}
 	
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {
+	public int write(OutputStream stream) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append(id + " 0 obj <<").append(LINE_SEPARATOR)
@@ -77,11 +75,7 @@ public class PageTree extends RootPageTree {
 		.append("endobj").append(LINE_SEPARATOR);
 		
 		String asString = builder.toString();
-		try {
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write to output stream", e);
-		}
+		stream.write(asString.getBytes());
 		
 		return asString.length();
 	}

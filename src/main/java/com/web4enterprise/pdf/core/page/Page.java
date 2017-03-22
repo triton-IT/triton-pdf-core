@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.FontVariant;
 import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
@@ -84,7 +83,7 @@ public class Page implements PdfObject, PageNode {
 	}
 	
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {
+	public int write(OutputStream stream) throws IOException {
 		List<LinkAnnotation> links = new ArrayList<>();
 		for(Renderable renderable : renderables) {
 			contentStream.add(renderable);
@@ -122,11 +121,7 @@ public class Page implements PdfObject, PageNode {
 			    .append("endobj").append(LINE_SEPARATOR);
 		
 		String asString = stringBuilder.toString();
-		try {
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write to output stream", e);
-		}
+		stream.write(asString.getBytes());
 		
 		return asString.length();
 	}

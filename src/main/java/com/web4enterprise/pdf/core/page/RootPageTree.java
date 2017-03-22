@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.font.Font;
 import com.web4enterprise.pdf.core.font.FontsVariant;
 import com.web4enterprise.pdf.core.image.Image;
@@ -57,7 +56,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	}
 
 	@Override
-	public int write(OutputStream stream) throws PdfGenerationException {
+	public int write(OutputStream stream) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append(id).append(" 0 obj <<").append(LINE_SEPARATOR)
@@ -100,11 +99,7 @@ public class RootPageTree implements PdfObject, PageNode {
 		.append("endobj").append(LINE_SEPARATOR);
 		
 		String asString = builder.toString();
-		try {
-			stream.write(asString.getBytes());
-		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot write to output stream", e);
-		}
+		stream.write(asString.getBytes());
 		
 		return asString.length();
 	}

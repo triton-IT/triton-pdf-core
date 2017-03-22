@@ -229,11 +229,7 @@ public class Text extends Renderable implements Anchor {
 	 * @return The color of underline or the color of text if not set.
 	 */
 	public Color getUnderlineColor() {
-		Color returnedColor = underlineColor;
-		if(returnedColor == null) {
-			returnedColor = this.color;
-		}
-		return returnedColor;
+		return (underlineColor != null)?underlineColor:this.color;
 	}
 
 	/**

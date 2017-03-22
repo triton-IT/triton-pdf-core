@@ -15,7 +15,8 @@
  */
 package com.web4enterprise.pdf.core.document;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -29,8 +30,6 @@ import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 
 /**
  * Unit test class for Catalog.
@@ -125,7 +124,7 @@ public class DocumentMetaDataTest {
 	 * 
 	 * @throws Exception When something goes wrong.
 	 */
-	@Test(expected = PdfGenerationException.class)
+	@Test(expected = IOException.class)
 	public void testWriteWithIOException() throws Exception {
 		DocumentMetaData metaData = new DocumentMetaData(0);
 		try(ByteArrayOutputStream outputStream = mock(ByteArrayOutputStream.class)) {			

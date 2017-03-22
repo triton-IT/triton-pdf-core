@@ -17,6 +17,7 @@ package com.web4enterprise.pdf.core.font;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.web4enterprise.pdf.core.geometry.Rect;
 
@@ -27,6 +28,11 @@ import com.web4enterprise.pdf.core.geometry.Rect;
  * @author Régis Ramillien
  */
 public class FontVariant {
+	/**
+	 * Logger for class.
+	 */
+	private static final Logger LOGGER = Logger.getLogger(FontVariant.class.getName());
+	
 	/**
 	 * The width of each byte described in the font.
 	 */
@@ -121,16 +127,6 @@ public class FontVariant {
 	}
 
 	/**
-	 * Set the standard position of the underline.
-	 * 
-	 * @param size The size of the font to set position for.
-	 * @param position The position of the underline.
-	 */
-	public void setUnderlinePosition(float size, float position) {
-		this.underlinePosition = position * 1000.f / size;
-	}
-
-	/**
 	 * Get the thickness of the underline.
 	 * 
 	 * @return The thickness.
@@ -156,16 +152,6 @@ public class FontVariant {
 	 */
 	public float getUnderlineThickness(float size) {
 		return underlineThickness * size / 1000.0f;
-	}
-
-	/**
-	 * Set the standard thickness of the underline.
-	 * 
-	 * @param size The size of the font to set thickness for.
-	 * @param thickness The thickness of the underline.
-	 */
-	public void setUnderlineThickness(float size, float thickness) {
-		this.underlineThickness = thickness * 1000.f / size;
 	}
 
 	/**
@@ -269,14 +255,14 @@ public class FontVariant {
 	 * @return The size of the byte.
 	 */
 	protected int getWidth(Byte character) {
-		int result = 0;
-		
 		Integer width = widths.get(character);
-		if(width != null) {
-			result = width;
+		
+		if(width == null) {
+			LOGGER.warning(() -> "An incorrect character is displayed in document: " + character.toString());
+			width = 0;
 		}
 		
-		return result;
+		return width;
 	}
 	
 	/**

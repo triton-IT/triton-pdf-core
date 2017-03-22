@@ -19,13 +19,19 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Locale;
 
 import org.junit.Test;
 
+import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.image.Image;
 import com.web4enterprise.pdf.core.page.RootPageTree;
 
@@ -52,18 +58,18 @@ public class PdfTest {
 	 */
 	@Test
 	public void testSetMetaData() throws Exception {
-		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			
-			pdf.write(out);
-			String actual = out.toString();
+			pdf.write(outputStream);
+			String actual = outputStream.toString();
 			
 			//Only presence of field is tested, content is tested in DocumentMetaDataTest.
 			assertThat(actual, containsString("/Creator "));
 			assertThat(actual, containsString("/CreationDate (D:"));
 		}
 		
-		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			pdf.setTitle("simplyPDF-core documentation");
 			pdf.setAuthor("Regis Ramillien");
@@ -74,8 +80,8 @@ public class PdfTest {
 			pdf.setCreationDate(dateFormat.parse("Monday, December 25, 2016 10:39:45 PM CET"));
 			pdf.setModificationDate(dateFormat.parse("Monday, December 26, 2016 10:39:46 PM CET"));
 			
-			pdf.write(out);
-			String actual = out.toString();
+			pdf.write(outputStream);
+			String actual = outputStream.toString();
 			
 			assertThat(actual, containsString("/Title (simplyPDF-core documentation)"));
 			assertThat(actual, containsString("/Author (Regis Ramillien)"));
@@ -95,15 +101,15 @@ public class PdfTest {
 	 */
 	@Test
 	public void testAddKeyword() throws Exception {
-		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 
 			pdf.addKeyword("http://web4enterprise.com");
 			pdf.addKeyword("simplyPDF-core");
 			pdf.addKeyword("Documentation");
 			
-			pdf.write(out);
-			String actual = out.toString();
+			pdf.write(outputStream);
+			String actual = outputStream.toString();
 
 			assertThat(actual, containsString("/Keywords (http://web4enterprise.com simplyPDF-core Documentation)"));
 		}
@@ -117,15 +123,30 @@ public class PdfTest {
 	 */
 	@Test
 	public void testAddMetadata() throws Exception {
-		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 
 			pdf.addMetaData("Customer-specific", "meta-data");
 			
-			pdf.write(out);
-			String actual = out.toString();
+			pdf.write(outputStream);
+			String actual = outputStream.toString();
 
 			assertThat(actual, containsString("/Customer-specific (meta-data)"));
+		}
+	}
+	
+	/**
+	 * When PDF cannot be written, a PDFGenerationException should be thrown.
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
+	@Test(expected = PdfGenerationException.class)
+	public void testWriteWithIOException() throws Exception {
+		Pdf pdf = new Pdf();
+		try(ByteArrayOutputStream outputStream = mock(ByteArrayOutputStream.class)) {			
+			doThrow(IOException.class).when(outputStream).write(any(byte[].class));
+			
+			pdf.write(outputStream);
 		}
 	}
 	
@@ -137,13 +158,13 @@ public class PdfTest {
 	 */
 	@Test
 	public void testCreatePage() throws Exception {
-		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			pdf.createPage(100, 80);
 			pdf.createPage(180, 120);
 			
-			pdf.write(out);
-			String actual = out.toString();
+			pdf.write(outputStream);
+			String actual = outputStream.toString();
 
 			assertThat(actual, containsString("/MediaBox [0 0 100 80]"));
 			assertThat(actual, containsString("/MediaBox [0 0 180 120]"));
@@ -159,13 +180,13 @@ public class PdfTest {
 	 */
 	@Test
 	public void testCreateImage() throws Exception {
-		try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			Pdf pdf = new Pdf();
 			pdf.createPage(100, 80);
 			pdf.createImage(getClass().getResourceAsStream("/logo.png"));
 			
-			pdf.write(out);
-			String actual = out.toString();
+			pdf.write(outputStream);
+			String actual = outputStream.toString();
 
 			assertThat(actual, containsString("/Length 9737"));
 			assertThat(actual, containsString("/Type /XObject"));
@@ -175,6 +196,25 @@ public class PdfTest {
 			assertThat(actual, containsString("/Width 744"));
 			assertThat(actual, containsString("/Height 1052"));
 			assertThat(actual, containsString("/ColorSpace /DeviceRGB"));
+		}
+	}
+	
+	/**
+	 * When image cannot be created, a PDFGenerationException should be thrown.
+	 * 
+	 * @throws Exception When something goes wrong.
+	 */
+	@Test(expected = PdfGenerationException.class)
+	public void testCreateImageWithIOException() throws Exception {
+		try(InputStream inputStream = this.getClass().getResourceAsStream("/logo.png")) {
+			Pdf pdf = new Pdf();
+			pdf.createPage(100, 80);
+			
+			//It could be better to mock InputStream, but can't make it throw exception...
+			pdf.rootPageTree = mock(RootPageTree.class);
+			doThrow(IOException.class).when(pdf.rootPageTree).addImage(any(Image.class));
+			
+			pdf.createImage(inputStream);
 		}
 	}
 	
@@ -198,7 +238,7 @@ public class PdfTest {
 		assertEquals("pdf must be re-set", 3, pdf.indirectsObjects.size());
 		
 		pdf.rebindImage(image);
-		assertEquals("Image muust be re-bound", 4, pdf.indirectsObjects.size());
+		assertEquals("Image must be re-bound", 4, pdf.indirectsObjects.size());
 		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof Image);
 	}
 }

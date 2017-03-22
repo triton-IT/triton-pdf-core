@@ -58,34 +58,22 @@ public class Font {
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier-Bold.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier-Oblique.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Courier-BoldOblique.afm")));
-		} catch (IOException e) {
-			throw new ConfigurationException("Unable to load font Courier.", e);
-		}
-		try {
+
 			HELVTICA = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica-Bold.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica-Oblique.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Helvetica-BoldOblique.afm")));
-		} catch (IOException | NullPointerException e) {
-			throw new ConfigurationException("Unable to load font Helvetica.", e);
-		}
-		try {
+
 			SYMBOL = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Symbol.afm")));
-		} catch (IOException | NullPointerException e) {
-			throw new ConfigurationException("Unable to load font Symbol.", e);
-		}
-		try {
+
 			TIMES_ROMAN = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-Roman.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-Bold.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-Italic.afm")), 
 					AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/Times-BoldItalic.afm")));
-		} catch (IOException | NullPointerException e) {
-			throw new ConfigurationException("Unable to load font Times-Roman.", e);
-		}
-		try {
+
 			ZAPF_DINGBATS = new Font(AfmLoader.load(Font.class.getResourceAsStream("/fonts/base14/ZapfDingbats.afm")));
-		} catch (IOException | NullPointerException e) {
-			throw new ConfigurationException("Unable to load font Zapf-Dingbats.", e);
+		} catch (IOException e) {
+			throw new ConfigurationException("Unable to load font base 14 fonts.", e);
 		}
 	}
 	
@@ -140,24 +128,6 @@ public class Font {
 		this.bold = bold;
 		this.italic = italic;
 		this.boldItalic = boldItalic;
-	}
-	
-	/**
-	 * Add a font to document.
-	 * 
-	 * @param font The font to add.
-	 */
-	public static void addFont(Font font) {
-		fonts.put(font.getVariant(FontsVariant.PLAIN).getName(), font);
-	}
-	
-	/**
-	 * Get font by name.
-	 * @param name The name of the font.
-	 * @return The font.
-	 */
-	public static Font getFont(String name) {
-		return fonts.get(name);
 	}
 	
 	/**
