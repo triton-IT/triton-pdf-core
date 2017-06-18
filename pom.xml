@@ -6,7 +6,7 @@
 	<version>1.1.0-SNAPSHOT</version>
 
 	<name>Simply PDF core</name>
-	<description>Simple low-level API to create a PDF.</description>
+	<description>Simple low-level API to create PDF files.</description>
 	<url>https://github.com/rramillien/simplypdf-core</url>
 
 	<licenses>
