@@ -20,8 +20,8 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import java.util.Arrays;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.styling.Color;
+import com.web4enterprise.report.commons.geometry.Point;
 
 /**
  * Class representing a straight path to render in a PDF document.

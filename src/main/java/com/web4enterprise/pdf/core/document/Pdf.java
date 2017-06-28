@@ -28,12 +28,12 @@ import java.util.zip.DeflaterOutputStream;
 
 import javax.imageio.ImageIO;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.image.Image;
 import com.web4enterprise.pdf.core.page.ContentStream;
 import com.web4enterprise.pdf.core.page.Page;
 import com.web4enterprise.pdf.core.page.PageTree;
 import com.web4enterprise.pdf.core.page.RootPageTree;
+import com.web4enterprise.report.commons.exception.DocumentGenerationException;
 
 /**
  * The PDF document.
@@ -170,7 +170,7 @@ public class Pdf {
 	 * @param stream The stream to write PDF to.
 	 * @throws PdfGenerationException When PDF cannot be generated.
 	 */
-	public void write(OutputStream stream) throws PdfGenerationException {
+	public void write(OutputStream stream) throws DocumentGenerationException {
 		try {
 			int position = writeHeader(stream);
 			position += writeBody(stream, position);
@@ -179,7 +179,7 @@ public class Pdf {
 			writeStartXRef(stream, position);
 			stream.write("%%EOF".getBytes());
 		} catch(IOException e) {
-			throw new PdfGenerationException("Cannot write PDF.", e);
+			throw new DocumentGenerationException("Cannot write PDF.", e);
 		}
 	}
 	
@@ -216,7 +216,7 @@ public class Pdf {
 	 * @return The image reference.
 	 * @throws PdfGenerationException When PDfd cannot be compressed.
 	 */
-	public Image createImage(InputStream imageStream) throws PdfGenerationException {
+	public Image createImage(InputStream imageStream) throws DocumentGenerationException {
 		Image image = new Image(indirectsObjects.size() + 1);
 		
 		try {
@@ -252,7 +252,7 @@ public class Pdf {
 			indirectsObjects.add(image);
 			rootPageTree.addImage(image);
 		} catch (IOException e) {
-			throw new PdfGenerationException("Cannot create image.", e);
+			throw new DocumentGenerationException("Cannot create image.", e);
 		}
 		
 		return image;

@@ -22,8 +22,8 @@ import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
+import com.web4enterprise.report.commons.geometry.Rect;
 
 /**
  * Class representing an image that must be embedded and rendered into a PDF document.

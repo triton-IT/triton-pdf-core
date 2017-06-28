@@ -8,10 +8,6 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.web4enterprise.pdf.core.document.Pdf;
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
-import com.web4enterprise.pdf.core.font.Font;
-import com.web4enterprise.pdf.core.font.FontsVariant;
-import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.image.Image;
 import com.web4enterprise.pdf.core.page.Page;
 import com.web4enterprise.pdf.core.path.BezierPath;
@@ -20,10 +16,14 @@ import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
 import com.web4enterprise.pdf.core.text.Text;
 import com.web4enterprise.pdf.core.text.TextScript;
+import com.web4enterprise.report.commons.exception.DocumentGenerationException;
+import com.web4enterprise.report.commons.font.FontCache;
+import com.web4enterprise.report.commons.font.FontVariant;
+import com.web4enterprise.report.commons.geometry.Point;
 
 public class Documentation {
 	@Test
-	public void generateDocumentation() throws IOException, PdfGenerationException {
+	public void generateDocumentation() throws IOException, DocumentGenerationException {
 		try(OutputStream out = new FileOutputStream("documentation.pdf")) {
 			Pdf pdf = new Pdf();
 			pdf.setAuthor("Regis Ramillien");
@@ -49,7 +49,7 @@ public class Documentation {
 			page1.addText(20, 660, 8, "page1.addText(positionX, positionY, fontSize, \"The text to display\");");
 			page1.addText(20, 640,  12, "A text width can be calculated with:");
 			page1.addText(20, 620, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, fontSize, \"The text to search width for.\");");
-			float textWidth = Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 8.0f, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
+			float textWidth = FontCache.TIMES_ROMAN.getWidth(FontVariant.PLAIN, 8.0f, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
 			StraightPath startPath = new StraightPath(new Point(20, 628), new Point(20, 620));
 			startPath.setStrokeColor(new Color(128, 80, 128));
 			startPath.setLineWidth(0.6f);
@@ -63,22 +63,22 @@ public class Documentation {
 			page1.addText(20, 580, 8, "page1.addText(20, 700, 12, Font.COURIER.getVariant(FontStyle.BOLD), \"The text to display\");");
 			page1.addText(20, 560, 18, "Below are texts with different fonts, colors, sizes and underlines:");
 			page1.addText(20, 540, 18, "Times-Roman");
-			page1.addText(20, 520, 12, Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Times-Roman Bold");
-			page1.addText(20, 500, 8, Font.TIMES_ROMAN.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Times-Roman Italic");
-			page1.addText(20, 480, 6, Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Times-Roman Bold Italic");
-			page1.addText(20, 460, 18, Font.COURIER.getVariant(FontsVariant.PLAIN), "Courier");
-			page1.addText(20, 440, 12, Font.COURIER.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Courier Bold");
-			page1.addText(20, 420, 8, Font.COURIER.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Courier Italic");
-			Text courierBolditalic = new Text(20, 400, 6, Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
+			page1.addText(20, 520, 12, FontCache.TIMES_ROMAN.getVariant(FontVariant.BOLD), new Color(128, 128, 80), "Times-Roman Bold");
+			page1.addText(20, 500, 8, FontCache.TIMES_ROMAN.getVariant(FontVariant.ITALIC), new Color(80, 128, 128), "Times-Roman Italic");
+			page1.addText(20, 480, 6, FontCache.TIMES_ROMAN.getVariant(FontVariant.BOLD_ITALIC), new Color(128, 80, 128), "Times-Roman Bold Italic");
+			page1.addText(20, 460, 18, FontCache.COURIER.getVariant(FontVariant.PLAIN), "Courier");
+			page1.addText(20, 440, 12, FontCache.COURIER.getVariant(FontVariant.BOLD), new Color(128, 128, 80), "Courier Bold");
+			page1.addText(20, 420, 8, FontCache.COURIER.getVariant(FontVariant.ITALIC), new Color(80, 128, 128), "Courier Italic");
+			Text courierBolditalic = new Text(20, 400, 6, FontCache.COURIER.getVariant(FontVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
 			courierBolditalic.setUnderlined(true);
 			courierBolditalic.setUnderlineColor(new Color(128, 80, 128));
 			page1.add(courierBolditalic);
-			page1.addText(20, 380, 18, Font.HELVTICA.getVariant(FontsVariant.PLAIN), "Helvetica");
-			page1.addText(20, 360, 12, Font.HELVTICA.getVariant(FontsVariant.BOLD), new Color(128, 128, 80), "Helvetica Bold");
-			page1.addText(20, 340, 8, Font.HELVTICA.getVariant(FontsVariant.ITALIC), new Color(80, 128, 128), "Helvetica Italic");
-			page1.addText(20, 320, 6, Font.HELVTICA.getVariant(FontsVariant.BOLD_ITALIC), new Color(128, 80, 128), "Helvetica Bold Italic");
-			page1.addText(20, 300, 12, Font.SYMBOL.getVariant(FontsVariant.PLAIN), "Symbol");
-			Text zapfDingbats = new Text(20, 280, 12, Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
+			page1.addText(20, 380, 18, FontCache.HELVTICA.getVariant(FontVariant.PLAIN), "Helvetica");
+			page1.addText(20, 360, 12, FontCache.HELVTICA.getVariant(FontVariant.BOLD), new Color(128, 128, 80), "Helvetica Bold");
+			page1.addText(20, 340, 8, FontCache.HELVTICA.getVariant(FontVariant.ITALIC), new Color(80, 128, 128), "Helvetica Italic");
+			page1.addText(20, 320, 6, FontCache.HELVTICA.getVariant(FontVariant.BOLD_ITALIC), new Color(128, 80, 128), "Helvetica Bold Italic");
+			page1.addText(20, 300, 12, FontCache.SYMBOL.getVariant(FontVariant.PLAIN), "Symbol");
+			Text zapfDingbats = new Text(20, 280, 12, FontCache.ZAPF_DINGBATS.getVariant(FontVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
 			zapfDingbats.setUnderlined(true);
 			zapfDingbats.setUnderlineColor(new Color(80, 128, 128));
 			page1.add(zapfDingbats);
@@ -171,7 +171,7 @@ public class Documentation {
 			page2.addText(20, 80, 8, "A character not supported (like this one: ഷ) does not compute width correctly and logs a warning.");
 			
 			Color color = new Color(0, 0, 0);
-			page2.addText(20,  60, 8, Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN), color, "Color is computed not when text is added (or this text should be black) but when pdf is written.");
+			page2.addText(20,  60, 8, FontCache.TIMES_ROMAN.getVariant(FontVariant.PLAIN), color, "Color is computed not when text is added (or this text should be black) but when pdf is written.");
 			page2.addText(20,  40, 8, "So be sure to control your object references.");
 			color.setRed(80);
 			color.setGreen(128);

@@ -24,10 +24,10 @@ import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.font.FontVariant;
 import com.web4enterprise.pdf.core.link.Linkable;
 import com.web4enterprise.pdf.core.styling.Color;
 import com.web4enterprise.pdf.core.text.Text;
+import com.web4enterprise.report.commons.font.FontVariant;
 
 /**
  * Class representing a page and its content in PDF.

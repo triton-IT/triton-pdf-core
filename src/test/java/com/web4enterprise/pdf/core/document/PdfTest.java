@@ -31,9 +31,9 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
 import com.web4enterprise.pdf.core.image.Image;
 import com.web4enterprise.pdf.core.page.RootPageTree;
+import com.web4enterprise.report.commons.exception.DocumentGenerationException;
 
 public class PdfTest {
 	/**
@@ -140,7 +140,7 @@ public class PdfTest {
 	 * 
 	 * @throws Exception When something goes wrong.
 	 */
-	@Test(expected = PdfGenerationException.class)
+	@Test(expected = DocumentGenerationException.class)
 	public void testWriteWithIOException() throws Exception {
 		Pdf pdf = new Pdf();
 		try(ByteArrayOutputStream outputStream = mock(ByteArrayOutputStream.class)) {			
@@ -204,7 +204,7 @@ public class PdfTest {
 	 * 
 	 * @throws Exception When something goes wrong.
 	 */
-	@Test(expected = PdfGenerationException.class)
+	@Test(expected = DocumentGenerationException.class)
 	public void testCreateImageWithIOException() throws Exception {
 		try(InputStream inputStream = this.getClass().getResourceAsStream("/logo.png")) {
 			Pdf pdf = new Pdf();

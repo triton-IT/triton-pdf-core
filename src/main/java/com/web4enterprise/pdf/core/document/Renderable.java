@@ -15,9 +15,9 @@
  */
 package com.web4enterprise.pdf.core.document;
 
-import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.link.Anchor;
 import com.web4enterprise.pdf.core.link.Linkable;
+import com.web4enterprise.report.commons.geometry.Rect;
 
 /**
  * Defines a component renderable to a PDF.

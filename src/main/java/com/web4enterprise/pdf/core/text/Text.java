@@ -18,13 +18,12 @@ package com.web4enterprise.pdf.core.text;
 import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.font.Font;
-import com.web4enterprise.pdf.core.font.FontVariant;
-import com.web4enterprise.pdf.core.font.FontsVariant;
-import com.web4enterprise.pdf.core.geometry.Point;
 import com.web4enterprise.pdf.core.link.Anchor;
 import com.web4enterprise.pdf.core.path.StraightPath;
 import com.web4enterprise.pdf.core.styling.Color;
+import com.web4enterprise.report.commons.font.FontCache;
+import com.web4enterprise.report.commons.font.FontVariant;
+import com.web4enterprise.report.commons.geometry.Point;
 
 /**
  * Class representing a text to render in a PDF document.
@@ -77,7 +76,7 @@ public class Text extends Renderable implements Anchor {
 	 * @param value The string to display.
 	 */
 	public Text(float x, float y, float size, String value) {
-		this(x, y, size, Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN), Color.BLACK, value);
+		this(x, y, size, FontCache.TIMES_ROMAN.getVariant(FontVariant.PLAIN), Color.BLACK, value);
 	}
 	
 	/**

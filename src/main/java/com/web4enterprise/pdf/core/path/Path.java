@@ -19,9 +19,9 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.geometry.Point;
-import com.web4enterprise.pdf.core.geometry.Rect;
 import com.web4enterprise.pdf.core.styling.Color;
+import com.web4enterprise.report.commons.geometry.Point;
+import com.web4enterprise.report.commons.geometry.Rect;
 
 /**
  * Class representing a simple path with its default properties.

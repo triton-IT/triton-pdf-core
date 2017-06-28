@@ -22,8 +22,8 @@ import static java.lang.Math.min;
 import java.util.Arrays;
 import java.util.List;
 
-import com.web4enterprise.pdf.core.geometry.Point;
-import com.web4enterprise.pdf.core.geometry.Rect;
+import com.web4enterprise.report.commons.geometry.Point;
+import com.web4enterprise.report.commons.geometry.Rect;
 
 /**
  * Represents a Bezier curve to render in a PDF document.

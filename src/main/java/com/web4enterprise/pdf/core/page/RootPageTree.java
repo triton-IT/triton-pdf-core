@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
-import com.web4enterprise.pdf.core.font.Font;
-import com.web4enterprise.pdf.core.font.FontsVariant;
 import com.web4enterprise.pdf.core.image.Image;
+import com.web4enterprise.report.commons.font.FontCache;
+import com.web4enterprise.report.commons.font.FontVariant;
 
 /**
  * Represent the root page of a PDF document.
@@ -72,20 +72,20 @@ public class RootPageTree implements PdfObject, PageNode {
 		.append("/MediaBox [0 0 595 842]").append(LINE_SEPARATOR)
 		.append("/Resources <<").append(LINE_SEPARATOR)
 		.append("/Font <<").append(LINE_SEPARATOR)
-		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.PLAIN).getName()))
-		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.BOLD).getName()))
-		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.ITALIC).getName()))
-		.append(embedFontVariant(Font.COURIER.getVariant(FontsVariant.BOLD_ITALIC).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.PLAIN).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.BOLD).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.ITALIC).getName()))
-		.append(embedFontVariant(Font.HELVTICA.getVariant(FontsVariant.BOLD_ITALIC).getName()))
-		.append(embedFontVariant(Font.SYMBOL.getVariant(FontsVariant.PLAIN).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.PLAIN).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.ITALIC).getName()))
-		.append(embedFontVariant(Font.TIMES_ROMAN.getVariant(FontsVariant.BOLD_ITALIC).getName()))
-		.append(embedFontVariant(Font.ZAPF_DINGBATS.getVariant(FontsVariant.PLAIN).getName()))
+		.append(embedFontVariant(FontCache.COURIER.getVariant(FontVariant.PLAIN).getName()))
+		.append(embedFontVariant(FontCache.COURIER.getVariant(FontVariant.BOLD).getName()))
+		.append(embedFontVariant(FontCache.COURIER.getVariant(FontVariant.ITALIC).getName()))
+		.append(embedFontVariant(FontCache.COURIER.getVariant(FontVariant.BOLD_ITALIC).getName()))
+		.append(embedFontVariant(FontCache.HELVTICA.getVariant(FontVariant.PLAIN).getName()))
+		.append(embedFontVariant(FontCache.HELVTICA.getVariant(FontVariant.BOLD).getName()))
+		.append(embedFontVariant(FontCache.HELVTICA.getVariant(FontVariant.ITALIC).getName()))
+		.append(embedFontVariant(FontCache.HELVTICA.getVariant(FontVariant.BOLD_ITALIC).getName()))
+		.append(embedFontVariant(FontCache.SYMBOL.getVariant(FontVariant.PLAIN).getName()))
+		.append(embedFontVariant(FontCache.TIMES_ROMAN.getVariant(FontVariant.PLAIN).getName()))
+		.append(embedFontVariant(FontCache.TIMES_ROMAN.getVariant(FontVariant.BOLD).getName()))
+		.append(embedFontVariant(FontCache.TIMES_ROMAN.getVariant(FontVariant.ITALIC).getName()))
+		.append(embedFontVariant(FontCache.TIMES_ROMAN.getVariant(FontVariant.BOLD_ITALIC).getName()))
+		.append(embedFontVariant(FontCache.ZAPF_DINGBATS.getVariant(FontVariant.PLAIN).getName()))
 		.append(">>").append(LINE_SEPARATOR);
 		if(!images.isEmpty()) {
 			for(Image image : images) {

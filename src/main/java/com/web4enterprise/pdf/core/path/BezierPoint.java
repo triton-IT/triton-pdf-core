@@ -15,7 +15,7 @@
  */
 package com.web4enterprise.pdf.core.path;
 
-import com.web4enterprise.pdf.core.geometry.Point;
+import com.web4enterprise.report.commons.geometry.Point;
 
 /**
  * Class extending a simple {@link com.web4enterprise.pdf.core.geometry.Point} to add controls necessary for Bezier curves.

@@ -15,7 +15,7 @@
  */
 package com.web4enterprise.pdf.core.page;
 
-import com.web4enterprise.pdf.core.geometry.Rect;
+import com.web4enterprise.report.commons.geometry.Rect;
 
 /**
  * Defines a link annotation as expected in PDF format.

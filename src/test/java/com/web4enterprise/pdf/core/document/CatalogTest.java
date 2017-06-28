@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.web4enterprise.pdf.core.exceptions.PdfGenerationException;
+import com.web4enterprise.report.commons.exception.DocumentGenerationException;
 
 /**
  * Unit test class for Catalog.
@@ -50,7 +50,7 @@ public class CatalogTest {
 	 * @throws Exception When something goes wrong.
 	 */
 	@Test
-	public void testGetId() throws IOException, PdfGenerationException {
+	public void testGetId() throws IOException, DocumentGenerationException {
 		Catalog catalog = new Catalog();
 		int id = catalog.getId();
 		assertEquals("Catalog id", 1, id);

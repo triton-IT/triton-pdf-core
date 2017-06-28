@@ -133,5 +133,10 @@
 			<version>2.7.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.web4enterprise</groupId>
+			<artifactId>simplyreport-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
