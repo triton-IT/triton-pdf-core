@@ -17,33 +17,24 @@ package com.web4enterprise.pdf.core.path;
 
 import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.web4enterprise.pdf.core.styling.Color;
 import com.web4enterprise.report.commons.geometry.Point;
+import com.web4enterprise.report.commons.path.StraightPath;
+import com.web4enterprise.report.commons.style.Color;
 
 /**
  * Class representing a straight path to render in a PDF document.
  * 
  * @author Régis Ramillien
  */
-public class StraightPath extends Path {
-	/**
-	 * The list points in the straight path.
-	 */
-	protected List<Point> points;
-	
+public class PdfStraightPath extends StraightPath {	
 	/**
 	 * Creates a straight path from points.
 	 * 
 	 * @param startPoint The first point in path.
 	 * @param points The other points in path.
 	 */
-	public StraightPath(Point startPoint, Point... points) {
+	public PdfStraightPath(Point startPoint, Point... points) {
 		super(startPoint, points);
-		
-		this.points = Arrays.asList(points);
 	}
 	
 	/**
@@ -54,20 +45,8 @@ public class StraightPath extends Path {
 	 * @param startPoint The first point in path.
 	 * @param points The other points in path.
 	 */
-	public StraightPath(float lineWidth, Color strokeColor, Point startPoint, Point... points) {
-		this(startPoint, points);
-		
-		this.lineWidth = lineWidth;
-		this.strokeColor = strokeColor;
-	}
-
-	/**
-	 * Get the points of path.
-	 * 
-	 * @return The points.
-	 */
-	public List<Point> getPoints() {
-		return points;
+	public PdfStraightPath(float lineWidth, Color strokeColor, Point startPoint, Point... points) {
+		super(lineWidth, strokeColor, startPoint, points);
 	}
 	
 	@Override

@@ -28,11 +28,12 @@ import java.util.zip.DeflaterOutputStream;
 
 import javax.imageio.ImageIO;
 
-import com.web4enterprise.pdf.core.image.Image;
-import com.web4enterprise.pdf.core.page.ContentStream;
-import com.web4enterprise.pdf.core.page.Page;
-import com.web4enterprise.pdf.core.page.PageTree;
-import com.web4enterprise.pdf.core.page.RootPageTree;
+import com.web4enterprise.pdf.core.image.PdfImage;
+import com.web4enterprise.pdf.core.page.PdfContentStream;
+import com.web4enterprise.pdf.core.page.PdfPage;
+import com.web4enterprise.pdf.core.page.PdfPageTree;
+import com.web4enterprise.pdf.core.page.PdfRootPageTree;
+import com.web4enterprise.report.commons.document.MetaData;
 import com.web4enterprise.report.commons.exception.DocumentGenerationException;
 
 /**
@@ -59,26 +60,26 @@ public class Pdf {
 	/**
 	 * The catalog of PDF (root page tree for now only).
 	 */
-	protected Catalog catalog = new Catalog();
+	protected PdfCatalog catalog = new PdfCatalog();
 	
 	/**
 	 * The meta-data of document.
 	 */
-	protected DocumentMetaData documentMetaData;
+	protected PdfMetaData documentMetaData;
 	
 	/**
 	 * The root of pages tree.
 	 */
-	protected RootPageTree rootPageTree;	
+	protected PdfRootPageTree rootPageTree;	
 	
 	/**
 	 * Instantiate a new empty PDF.
 	 */
 	public Pdf() {
 		indirectsObjects.add(catalog);
-		rootPageTree = new RootPageTree(indirectsObjects.size() + 1);
+		rootPageTree = new PdfRootPageTree(indirectsObjects.size() + 1);
 		indirectsObjects.add(rootPageTree);
-		documentMetaData = new DocumentMetaData(indirectsObjects.size() + 1);
+		documentMetaData = new PdfMetaData(indirectsObjects.size() + 1);
 		indirectsObjects.add(documentMetaData);
 	}
 	
@@ -190,14 +191,14 @@ public class Pdf {
 	 * @param height The height of the page.
 	 * @return The page reference.
 	 */
-	public Page createPage(int width, int height) {
+	public PdfPage createPage(int width, int height) {
 		int pageTreeId = indirectsObjects.size() + 1;
 		int pageId = pageTreeId + 1;
 		int contentStreamId = pageId + 1;
 		
-		PageTree pageTree = new PageTree(rootPageTree.getId(), pageTreeId, width, height);
-		ContentStream contentStream = new ContentStream(contentStreamId);		
-		Page page = new Page(pageTree.getId(), pageId, contentStream, width, height);
+		PdfPageTree pageTree = new PdfPageTree(rootPageTree.getId(), pageTreeId, width, height);
+		PdfContentStream contentStream = new PdfContentStream(contentStreamId);		
+		PdfPage page = new PdfPage(pageTree.getId(), pageId, contentStream, width, height);
 		
 		indirectsObjects.add(pageTree);
 		indirectsObjects.add(page);
@@ -216,8 +217,8 @@ public class Pdf {
 	 * @return The image reference.
 	 * @throws PdfGenerationException When PDfd cannot be compressed.
 	 */
-	public Image createImage(InputStream imageStream) throws DocumentGenerationException {
-		Image image = new Image(indirectsObjects.size() + 1);
+	public PdfImage createImage(InputStream imageStream) throws DocumentGenerationException {
+		PdfImage image = new PdfImage(indirectsObjects.size() + 1);
 		
 		try {
 			BufferedImage bufferedImage = ImageIO.read(imageStream);
@@ -277,7 +278,7 @@ public class Pdf {
 	 * 
 	 * @param image The image to set new valid identifier to.
 	 */
-	public void rebindImage(Image image) {
+	public void rebindImage(PdfImage image) {
 		image.setId(indirectsObjects.size() + 1);
 		indirectsObjects.add(image);
 		rootPageTree.addImage(image);

@@ -16,17 +16,18 @@
 package com.web4enterprise.pdf.core.page;
 
 import com.web4enterprise.report.commons.geometry.Rect;
+import com.web4enterprise.report.commons.page.Page;
 
 /**
  * Defines a link annotation as expected in PDF format.
  * 
  * @author Régis Ramillien
  */
-public class LinkAnnotation {
+public class PdfLinkAnnotation {
 	/**
 	 * The target page of this link.
 	 */
-	protected int destinationPage;
+	protected Page destinationPage;
 	/**
 	 * The target X coordinate of this link.
 	 */
@@ -55,7 +56,7 @@ public class LinkAnnotation {
 	 * @param sourceRect The source rectangle of this linK.
 	 *  This is generally the bounding-box of linked element.
 	 */
-	public LinkAnnotation(int destinationPage, float destinationX, float destinationY, float destinationZ, Rect sourceRect) {
+	public PdfLinkAnnotation(Page destinationPage, float destinationX, float destinationY, float destinationZ, Rect sourceRect) {
 		this.destinationPage = destinationPage;
 		this.destinationX = destinationX;
 		this.destinationY = destinationY;
@@ -68,7 +69,7 @@ public class LinkAnnotation {
 	 * 
 	 * @return The target page.
 	 */
-	public int getDestinationPage() {
+	public Page getDestinationPage() {
 		return destinationPage;
 	}
 

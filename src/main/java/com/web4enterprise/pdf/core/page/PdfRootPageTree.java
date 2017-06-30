@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
-import com.web4enterprise.pdf.core.image.Image;
+import com.web4enterprise.pdf.core.image.PdfImage;
 import com.web4enterprise.report.commons.font.FontCache;
 import com.web4enterprise.report.commons.font.FontVariant;
 
@@ -32,15 +32,15 @@ import com.web4enterprise.report.commons.font.FontVariant;
  * 
  * @author Régis Ramillien
  */
-public class RootPageTree implements PdfObject, PageNode {
+public class PdfRootPageTree implements PdfObject, PdfPageNode {
 	/**
 	 * The pages in the PDF.
 	 */
-	protected List<PageNode> pageNodes = new ArrayList<>();
+	protected List<PdfPageNode> pageNodes = new ArrayList<>();
 	/**
 	 * The definition of images in the PDF.
 	 */
-	protected List<Image> images = new ArrayList<>();
+	protected List<PdfImage> images = new ArrayList<>();
 	/**
 	 * The identifier of the object.
 	 */
@@ -51,7 +51,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	 * 
 	 * @param id The identifier this object.
 	 */
-	public RootPageTree(int id) {
+	public PdfRootPageTree(int id) {
 		this.id = id;
 	}
 
@@ -63,7 +63,7 @@ public class RootPageTree implements PdfObject, PageNode {
 		.append("/Type /Pages").append(LINE_SEPARATOR)
 		.append("/Kids [").append(LINE_SEPARATOR);
 
-		for(PageNode pageNode : pageNodes) {
+		for(PdfPageNode pageNode : pageNodes) {
 			builder.append(pageNode.getId()).append(" 0 R").append(LINE_SEPARATOR);
 		}
 		
@@ -88,7 +88,7 @@ public class RootPageTree implements PdfObject, PageNode {
 		.append(embedFontVariant(FontCache.ZAPF_DINGBATS.getVariant(FontVariant.PLAIN).getName()))
 		.append(">>").append(LINE_SEPARATOR);
 		if(!images.isEmpty()) {
-			for(Image image : images) {
+			for(PdfImage image : images) {
 				builder.append("/XObject <<").append(LINE_SEPARATOR)
 				.append("/image").append(image.getId()).append(" ").append(image.getId()).append(" 0 R").append(LINE_SEPARATOR)
 				.append(">>").append(LINE_SEPARATOR);
@@ -114,7 +114,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	 * 
 	 * @param pageNode The page node to attach.
 	 */
-	public void addPageNode(PageNode pageNode) {
+	public void addPageNode(PdfPageNode pageNode) {
 		pageNodes.add(pageNode);
 	}
 	
@@ -123,7 +123,7 @@ public class RootPageTree implements PdfObject, PageNode {
 	 * 
 	 * @param image The image to attach.
 	 */
-	public void addImage(Image image) {
+	public void addImage(PdfImage image) {
 		images.add(image);
 	}
 	

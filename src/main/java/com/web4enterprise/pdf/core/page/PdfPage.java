@@ -23,18 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
-import com.web4enterprise.pdf.core.document.Renderable;
-import com.web4enterprise.pdf.core.link.Linkable;
-import com.web4enterprise.pdf.core.styling.Color;
-import com.web4enterprise.pdf.core.text.Text;
+import com.web4enterprise.pdf.core.text.PdfText;
+import com.web4enterprise.report.commons.document.Renderable;
 import com.web4enterprise.report.commons.font.FontVariant;
+import com.web4enterprise.report.commons.link.Linkable;
+import com.web4enterprise.report.commons.page.Page;
+import com.web4enterprise.report.commons.style.Color;
 
 /**
  * Class representing a page and its content in PDF.
  * 
  * @author Régis Ramillien
  */
-public class Page implements PdfObject, PageNode {
+public class PdfPage extends Page implements PdfObject, PdfPageNode {
 	/**
 	 * The no zoom factor.
 	 */
@@ -43,7 +44,7 @@ public class Page implements PdfObject, PageNode {
 	/**
 	 * The content stream needed for PDF format.
 	 */
-	protected ContentStream contentStream;
+	protected PdfContentStream contentStream;
 	/**
 	 * The identifier of page in PDF.
 	 */
@@ -52,18 +53,6 @@ public class Page implements PdfObject, PageNode {
 	 * The identifier of parent in PDF. 
 	 */
 	protected int parentId;
-	/**
-	 * The width of the page.
-	 */
-	protected int width;
-	/**
-	 * The height of the page.
-	 */
-	protected int height;
-	/**
-	 * The list of Renderables to render.
-	 */
-	protected List<Renderable> renderables = new ArrayList<>();
 	
 	/**
 	 * Create a page in PDF.
@@ -74,7 +63,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param width The width of the page.
 	 * @param height The height of the page.
 	 */
-	public Page(int parentId, int id, ContentStream contentStream, int width, int height) {
+	public PdfPage(int parentId, int id, PdfContentStream contentStream, int width, int height) {
 		this.parentId = parentId;
 		this.id = id;
 		this.contentStream = contentStream;
@@ -84,13 +73,13 @@ public class Page implements PdfObject, PageNode {
 	
 	@Override
 	public int write(OutputStream stream) throws IOException {
-		List<LinkAnnotation> links = new ArrayList<>();
+		List<PdfLinkAnnotation> links = new ArrayList<>();
 		for(Renderable renderable : renderables) {
 			contentStream.add(renderable);
 			
 			Linkable destination = renderable.getLink();
 			if(destination != null) {
-				links.add(new LinkAnnotation(destination.getPage(), destination.getLinkX(), destination.getLinkY(), NO_ZOOM, renderable.getBoundingBox()));
+				links.add(new PdfLinkAnnotation(destination.getPage(), destination.getLinkX(), destination.getLinkY(), NO_ZOOM, renderable.getBoundingBox()));
 			}
 		}
 		
@@ -101,7 +90,7 @@ public class Page implements PdfObject, PageNode {
 				.append("/Contents ").append(contentStream.getId()).append(" 0 R").append(LINE_SEPARATOR)
 				.append("/Annots [").append(LINE_SEPARATOR);
 		
-		for(LinkAnnotation link : links) {
+		for(PdfLinkAnnotation link : links) {
 			stringBuilder.append("<<").append(LINE_SEPARATOR)
 				.append("/Type /Annot").append(LINE_SEPARATOR)
 			    .append("/Subtype /Link").append(LINE_SEPARATOR)
@@ -110,7 +99,7 @@ public class Page implements PdfObject, PageNode {
 				.append(link.getSourceRect().getTop()).append(" ")
 				.append(link.getSourceRect().getRight()).append(" ")
 				.append(link.getSourceRect().getBottom()).append("]").append(LINE_SEPARATOR)
-				.append("/A [").append(link.getDestinationPage()).append(" 0 R /XYZ ")
+				.append("/A [").append(((PdfPage) link.getDestinationPage()).getId()).append(" 0 R /XYZ ")
 				.append(link.getDestinationX()).append(" ")
 				.append(link.getDestinationY()).append(" ")
 				.append(link.getDestinationZ()).append("]").append(LINE_SEPARATOR)
@@ -140,7 +129,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param text The text to add.
 	 */
 	public void addText(float x, float y, float size, String text) {
-		add(new Text(x, y, size, text));
+		add(new PdfText(x, y, size, text));
 	}
 	
 	/**
@@ -153,7 +142,7 @@ public class Page implements PdfObject, PageNode {
 	 * @param text The text to add.
 	 */
 	public void addText(float x, float y, float size, FontVariant fontVariant, String text) {
-		add(new Text(x, y, size, fontVariant, text));
+		add(new PdfText(x, y, size, fontVariant, text));
 	}
 	
 	/**
@@ -167,34 +156,6 @@ public class Page implements PdfObject, PageNode {
 	 * @param text The text to add.
 	 */
 	public void addText(float x, float y, float size, FontVariant fontVariant, Color color, String text) {
-		add(new Text(x, y, size, fontVariant, color, text));
-	}
-	
-	/**
-	 * Add a Renderable to the page.
-	 * 
-	 * @param renderable The addRenderable to add in the page.
-	 */
-	public void add(Renderable renderable) {
-		renderables.add(renderable);
-		renderable.setPage(getId());
-	}
-
-	/**
-	 * Get the width of the page.
-	 * 
-	 * @return The width of the page.
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * Get the height of the page.
-	 * 
-	 * @return The height of the page.
-	 */
-	public int getHeight() {
-		return height;
+		add(new PdfText(x, y, size, fontVariant, color, text));
 	}
 }

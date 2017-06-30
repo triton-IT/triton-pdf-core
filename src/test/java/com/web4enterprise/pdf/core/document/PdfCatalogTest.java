@@ -22,7 +22,7 @@ import com.web4enterprise.report.commons.exception.DocumentGenerationException;
  * @author Régis Ramillien
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CatalogTest {	
+public class PdfCatalogTest {	
 	/**
 	 * Catalog is a constant string and text should always be the same.
 	 * 
@@ -30,7 +30,7 @@ public class CatalogTest {
 	 */
 	@Test
 	public void testWrite() throws Exception {
-		Catalog catalog = new Catalog();
+		PdfCatalog catalog = new PdfCatalog();
 		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			int length = catalog.write(outputStream);
 			
@@ -51,7 +51,7 @@ public class CatalogTest {
 	 */
 	@Test
 	public void testGetId() throws IOException, DocumentGenerationException {
-		Catalog catalog = new Catalog();
+		PdfCatalog catalog = new PdfCatalog();
 		int id = catalog.getId();
 		assertEquals("Catalog id", 1, id);
 	}
@@ -63,7 +63,7 @@ public class CatalogTest {
 	 */
 	@Test(expected = IOException.class)
 	public void testWriteWithIOException() throws Exception {
-		Catalog catalog = new Catalog();
+		PdfCatalog catalog = new PdfCatalog();
 		try(ByteArrayOutputStream outputStream = mock(ByteArrayOutputStream.class)) {			
 			doThrow(IOException.class).when(outputStream).write(any(byte[].class));
 			

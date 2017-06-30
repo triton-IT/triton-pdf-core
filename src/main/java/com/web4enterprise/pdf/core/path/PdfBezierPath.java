@@ -16,65 +16,24 @@
 package com.web4enterprise.pdf.core.path;
 
 import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
-import java.util.Arrays;
-import java.util.List;
 
 import com.web4enterprise.report.commons.geometry.Point;
-import com.web4enterprise.report.commons.geometry.Rect;
+import com.web4enterprise.report.commons.path.BezierPath;
+import com.web4enterprise.report.commons.path.BezierPoint;
 
 /**
  * Represents a Bezier curve to render in a PDF document.
  * 
  * @author Régis Ramillien
  */
-public class BezierPath extends Path {
-	/**
-	 * The list points in the Bezier path.
-	 */
-	protected List<BezierPoint> bezierPoints;
-	
+public class PdfBezierPath extends BezierPath {	
 	/**
 	 * Creates a Bezier path from points.
 	 * @param startPoint The first point in path.
 	 * @param points The other points in path.
 	 */
-	public BezierPath(Point startPoint, BezierPoint... points) {
+	public PdfBezierPath(Point startPoint, BezierPoint... points) {
 		super(startPoint, points);
-		
-		this.bezierPoints = Arrays.asList(points);
-
-		float top = boundingBox.getTop();
-		float left = boundingBox.getLeft();
-		float bottom = boundingBox.getBottom();
-		float right = boundingBox.getRight();
-		
-		for(BezierPoint point : points) {
-			top = max(point.getY1(), top);
-			top = max(point.getY2(), top);
-			
-			left = min(point.getX1(), left);
-			left = min(point.getX2(), left);
-			
-			bottom = min(point.getY1(), bottom);
-			bottom = min(point.getY2(), bottom);
-			
-			right = max(point.getX1(), right);
-			right = max(point.getX2(), right);
-		}
-		
-		boundingBox = new Rect(top, left, bottom, right);
-	}
-
-	/**
-	 * Get the Bezier points of path.
-	 * 
-	 * @return The points.
-	 */
-	public List<BezierPoint> getBezierPoints() {
-		return bezierPoints;
 	}
 	
 	@Override

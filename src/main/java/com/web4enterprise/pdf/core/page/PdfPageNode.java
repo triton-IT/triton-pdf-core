@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.web4enterprise.pdf.core.page;
+
+import com.web4enterprise.pdf.core.document.PdfObject;
 
 /**
- * Contains the different kind of links available in a PDF.
+ * Simple interface with no contract to identify a class representing a page node.
  * 
  * @author Régis Ramillien
  */
-package com.web4enterprise.pdf.core.link;
+public interface PdfPageNode extends PdfObject {
+}

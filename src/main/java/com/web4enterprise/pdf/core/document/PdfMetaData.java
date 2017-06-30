@@ -25,13 +25,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.web4enterprise.report.commons.document.MetaData;
+
 /**
  * The meta-data available for PDF.
  * 
  * 
  * @author Régis Ramillien
  */
-public class DocumentMetaData implements PdfObject {
+public class PdfMetaData implements PdfObject {
 	/**
 	 * The title of document.
 	 */
@@ -84,7 +86,7 @@ public class DocumentMetaData implements PdfObject {
 	 * 
 	 * @param id The identifier this object.
 	 */
-	public DocumentMetaData(int id) {
+	public PdfMetaData(int id) {
 		this.id = id;
 	}
 	
@@ -119,7 +121,7 @@ public class DocumentMetaData implements PdfObject {
 		
 		if(!customs.isEmpty()) {
 			for(MetaData metaData : customs) {
-				writeMetadata(builder, metaData.key, metaData.value);
+				writeMetadata(builder, metaData.getKey(), metaData.getValue());
 			}
 		}
 		

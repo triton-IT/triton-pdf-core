@@ -15,29 +15,38 @@
  */
 package com.web4enterprise.pdf.core.document;
 
+import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
 /**
- * Represent a single metadata of a document.
+ * Defines the list of PDF objects.
+ * 
  * 
  * @author Régis Ramillien
  */
-public class MetaData {
+public class PdfCatalog implements PdfObject {
 	/**
-	 * The key of metadata.
+	 * The id of catalog as string.
 	 */
-	protected String key;
-	/**
-	 * The value of metadata.
-	 */
-	protected String value;
+	private String id = String.valueOf(getId());
 	
-	/**
-	 * Constructs a metadata with non null key and value.
-	 * 
-	 * @param key The key of metadata.
-	 * @param value The value of metadata.
-	 */
-	public MetaData(String key, String value) {
-		this.key = key;
-		this.value = value;
+	@Override
+	public int write(OutputStream stream) throws IOException {
+		String asString = id + " 0 obj <<" + LINE_SEPARATOR
+		 		+ "/Type /Catalog" + LINE_SEPARATOR
+				+ "/Pages 2 0 R" + LINE_SEPARATOR
+				+ ">>" + LINE_SEPARATOR
+				+ "endobj" + LINE_SEPARATOR;
+		
+		stream.write(asString.getBytes());
+		
+		return asString.length();
+	}
+	
+	@Override
+	public int getId() {
+		return 1;
 	}
 }

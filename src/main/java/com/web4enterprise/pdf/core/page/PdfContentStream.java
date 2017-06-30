@@ -21,14 +21,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
-import com.web4enterprise.pdf.core.document.Renderable;
+import com.web4enterprise.report.commons.document.Renderable;
 
 /**
  * Internal class to write data to the content-stream section of PDF.
  * 
  * @author Régis Ramillien
  */
-public class ContentStream implements PdfObject {
+public class PdfContentStream implements PdfObject {
 	/**
 	 * The identifier of this object in the document.
 	 */
@@ -43,7 +43,7 @@ public class ContentStream implements PdfObject {
 	 * 
 	 * @param id The identifier of content stream.
 	 */
-	public ContentStream(int id) {
+	public PdfContentStream(int id) {
 		this.id = id;
 	}
 	

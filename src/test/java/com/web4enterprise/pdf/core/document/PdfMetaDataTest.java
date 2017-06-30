@@ -31,6 +31,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.web4enterprise.report.commons.document.MetaData;
+
 /**
  * Unit test class for Catalog.
  * 
@@ -38,13 +40,13 @@ import org.mockito.junit.MockitoJUnitRunner;
  * @author Régis Ramillien
  */
 @RunWith(MockitoJUnitRunner.class)
-public class DocumentMetaDataTest {
+public class PdfMetaDataTest {
 	/**
 	 * Constructor sets an id accessible through a getter.
 	 */
 	@Test
 	public void testConstructor() {
-		DocumentMetaData metaData = new DocumentMetaData(99);
+		PdfMetaData metaData = new PdfMetaData(99);
 		assertEquals("id", 99, metaData.getId());
 	}
 
@@ -55,7 +57,7 @@ public class DocumentMetaDataTest {
 	 */
 	@Test
 	public void testWriteDefaultMetadata() throws Exception {
-		DocumentMetaData metaData = new DocumentMetaData(0);
+		PdfMetaData metaData = new PdfMetaData(0);
 
 		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			int length = metaData.write(outputStream);
@@ -84,7 +86,7 @@ public class DocumentMetaDataTest {
 	 */
 	@Test
 	public void testWriteAllMetaData() throws Exception {
-		DocumentMetaData metaData = new DocumentMetaData(0);
+		PdfMetaData metaData = new PdfMetaData(0);
 		metaData.title = "titleMetaData";
 		metaData.author = "authorMetaData";
 		metaData.subject = "subjectMetaData";
@@ -126,7 +128,7 @@ public class DocumentMetaDataTest {
 	 */
 	@Test(expected = IOException.class)
 	public void testWriteWithIOException() throws Exception {
-		DocumentMetaData metaData = new DocumentMetaData(0);
+		PdfMetaData metaData = new PdfMetaData(0);
 		try(ByteArrayOutputStream outputStream = mock(ByteArrayOutputStream.class)) {			
 			doThrow(IOException.class).when(outputStream).write(any(byte[].class));
 			

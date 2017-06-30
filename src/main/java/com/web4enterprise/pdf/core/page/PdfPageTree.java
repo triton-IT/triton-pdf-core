@@ -26,7 +26,7 @@ import java.io.OutputStream;
  * 
  * @author Régis Ramillien
  */
-public class PageTree extends RootPageTree {
+public class PdfPageTree extends PdfRootPageTree {
 	/**
 	 * Identifier of the parent of this page tree.
 	 */
@@ -48,7 +48,7 @@ public class PageTree extends RootPageTree {
 	 * @param width The width of the page tree.
 	 * @param height The height of page tree.
 	 */
-	public PageTree(int parent, int id, int width, int height) {
+	public PdfPageTree(int parent, int id, int width, int height) {
 		super(id);
 		this.parent = parent;
 		this.width = width;
@@ -64,7 +64,7 @@ public class PageTree extends RootPageTree {
 		.append("/Parent 2 0 R").append(LINE_SEPARATOR)
 		.append("/Kids [").append(LINE_SEPARATOR);
 		
-		for(PageNode pageNode : pageNodes) {
+		for(PdfPageNode pageNode : pageNodes) {
 			builder.append(pageNode.getId()).append(" 0 R").append(LINE_SEPARATOR);
 		}
 		

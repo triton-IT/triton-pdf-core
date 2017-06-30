@@ -8,18 +8,21 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.web4enterprise.pdf.core.document.Pdf;
-import com.web4enterprise.pdf.core.image.Image;
-import com.web4enterprise.pdf.core.page.Page;
-import com.web4enterprise.pdf.core.path.BezierPath;
-import com.web4enterprise.pdf.core.path.BezierPoint;
-import com.web4enterprise.pdf.core.path.StraightPath;
-import com.web4enterprise.pdf.core.styling.Color;
-import com.web4enterprise.pdf.core.text.Text;
-import com.web4enterprise.pdf.core.text.TextScript;
+import com.web4enterprise.pdf.core.path.PdfBezierPath;
+import com.web4enterprise.pdf.core.path.PdfStraightPath;
+import com.web4enterprise.pdf.core.text.PdfText;
 import com.web4enterprise.report.commons.exception.DocumentGenerationException;
 import com.web4enterprise.report.commons.font.FontCache;
 import com.web4enterprise.report.commons.font.FontVariant;
 import com.web4enterprise.report.commons.geometry.Point;
+import com.web4enterprise.report.commons.image.Image;
+import com.web4enterprise.report.commons.page.Page;
+import com.web4enterprise.report.commons.path.BezierPath;
+import com.web4enterprise.report.commons.path.BezierPoint;
+import com.web4enterprise.report.commons.path.StraightPath;
+import com.web4enterprise.report.commons.style.Color;
+import com.web4enterprise.report.commons.text.Text;
+import com.web4enterprise.report.commons.text.TextScript;
 
 public class Documentation {
 	@Test
@@ -50,10 +53,10 @@ public class Documentation {
 			page1.addText(20, 640,  12, "A text width can be calculated with:");
 			page1.addText(20, 620, 8, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, fontSize, \"The text to search width for.\");");
 			float textWidth = FontCache.TIMES_ROMAN.getWidth(FontVariant.PLAIN, 8.0f, "Font.TIMES_ROMAN.getWidth(FontsVariant.PLAIN, 12, \"The text to search width for.\");");
-			StraightPath startPath = new StraightPath(new Point(20, 628), new Point(20, 620));
+			StraightPath startPath = new PdfStraightPath(new Point(20, 628), new Point(20, 620));
 			startPath.setStrokeColor(new Color(128, 80, 128));
 			startPath.setLineWidth(0.6f);
-			StraightPath endPath = new StraightPath(new Point(22 + textWidth, 628), new Point(22 + textWidth, 620));
+			StraightPath endPath = new PdfStraightPath(new Point(22 + textWidth, 628), new Point(22 + textWidth, 620));
 			endPath.setStrokeColor(new Color(128, 80, 128));
 			endPath.setLineWidth(0.6f);
 			page1.add(startPath);
@@ -69,7 +72,7 @@ public class Documentation {
 			page1.addText(20, 460, 18, FontCache.COURIER.getVariant(FontVariant.PLAIN), "Courier");
 			page1.addText(20, 440, 12, FontCache.COURIER.getVariant(FontVariant.BOLD), new Color(128, 128, 80), "Courier Bold");
 			page1.addText(20, 420, 8, FontCache.COURIER.getVariant(FontVariant.ITALIC), new Color(80, 128, 128), "Courier Italic");
-			Text courierBolditalic = new Text(20, 400, 6, FontCache.COURIER.getVariant(FontVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
+			Text courierBolditalic = new PdfText(20, 400, 6, FontCache.COURIER.getVariant(FontVariant.BOLD_ITALIC), new Color(128, 80, 128), "Courier Bold Italic");
 			courierBolditalic.setUnderlined(true);
 			courierBolditalic.setUnderlineColor(new Color(128, 80, 128));
 			page1.add(courierBolditalic);
@@ -78,7 +81,7 @@ public class Documentation {
 			page1.addText(20, 340, 8, FontCache.HELVTICA.getVariant(FontVariant.ITALIC), new Color(80, 128, 128), "Helvetica Italic");
 			page1.addText(20, 320, 6, FontCache.HELVTICA.getVariant(FontVariant.BOLD_ITALIC), new Color(128, 80, 128), "Helvetica Bold Italic");
 			page1.addText(20, 300, 12, FontCache.SYMBOL.getVariant(FontVariant.PLAIN), "Symbol");
-			Text zapfDingbats = new Text(20, 280, 12, FontCache.ZAPF_DINGBATS.getVariant(FontVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
+			Text zapfDingbats = new PdfText(20, 280, 12, FontCache.ZAPF_DINGBATS.getVariant(FontVariant.PLAIN), new Color(128, 128, 80), "Zapf-Dingbats");
 			zapfDingbats.setUnderlined(true);
 			zapfDingbats.setUnderlineColor(new Color(80, 128, 128));
 			page1.add(zapfDingbats);
@@ -104,7 +107,7 @@ public class Documentation {
 			page2.addText(20, 800, 12, "Just save space in PDF by cloning it's references using:");
 			page2.addText(20, 780, 8, "Image image2 = image.cloneReference();");
 			page2.addText(20, 760, 12, "Change its size, position, etc and draw it again.");
-			Image image2 = image.cloneReference();
+			Image image2 = image.cloneMetaData();
 			image2.setX(20);
 			image2.setY(690);
 			image2.setWidth(37);
@@ -112,19 +115,19 @@ public class Documentation {
 			page2.add(image2);
 			page2.addText(20, 650, 12, "A straight line can be added with:");
 			page2.addText(20, 630, 8, "page2.addPath(new StraightPath(new Point(20, 640), new Point(150, 650)));");			
-			page2.add(new StraightPath(new Point(20, 600), new Point(30, 610)));
+			page2.add(new PdfStraightPath(new Point(20, 600), new Point(30, 610)));
 
 			page2.addText(20, 580, 12, "A line can be added with more points using:");
 			page2.addText(20, 560, 8, "StraightPath straightPath = new StraightPath(new Point(20, 510), new Point(20, 500), new Point(150, 500));");
 			page2.addText(20, 540, 8, "straightPath.setClosed(true);");
 			page2.addText(20, 520, 8, "page2.addPath(straightPath);");
-			StraightPath straightPath = new StraightPath(new Point(20, 500), new Point(30, 510), new Point(40, 500));
+			StraightPath straightPath = new PdfStraightPath(new Point(20, 500), new Point(30, 510), new Point(40, 500));
 			straightPath.setClosed(true);
 			page2.add(straightPath);
 
 			page2.addText(20, 480, 12, "A Bezier line can be added with:");
 			page2.addText(20, 460, 8, "page2.addPath(new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432))");
-			BezierPath bezierPath = new BezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432));
+			BezierPath bezierPath = new PdfBezierPath(new Point(20, 440), new BezierPoint(50, 440, 30, 432, 40, 432));
 			page2.add(bezierPath);
 
 			page2.addText(20, 420, 12, "Straight and Bezier lines can be filled/stroked/closed with:");
@@ -135,32 +138,32 @@ public class Documentation {
 			page2.addText(20, 320, 8, "bezierPath2.setLineWidth(4.0f);");
 			page2.addText(20, 300, 8, "bezierPath2.setClosed(true);");
 			page2.addText(20, 280, 8, "page2.addPath(bezierPath2);");
-			BezierPath bezierPath2 = new BezierPath(new Point(20, 260), new BezierPoint(50, 260, 30, 252, 40, 252));
+			BezierPath bezierPath2 = new PdfBezierPath(new Point(20, 260), new BezierPoint(50, 260, 30, 252, 40, 252));
 			bezierPath2.setClosed(true);
 			page2.add(bezierPath2);
-			BezierPath bezierPath3 = new BezierPath(new Point(60, 260), new BezierPoint(90, 260, 70, 252, 80, 252));
+			BezierPath bezierPath3 = new PdfBezierPath(new Point(60, 260), new BezierPoint(90, 260, 70, 252, 80, 252));
 			bezierPath3.setFilled(true);
 			bezierPath3.setStroked(false);
 			page2.add(bezierPath3);
-			BezierPath bezierPath4 = new BezierPath(new Point(100, 260), new BezierPoint(130, 260, 110, 252, 120, 252));
+			BezierPath bezierPath4 = new PdfBezierPath(new Point(100, 260), new BezierPoint(130, 260, 110, 252, 120, 252));
 			bezierPath4.setFillColor(new Color(80, 128, 128));
 			bezierPath4.setFilled(true);
 			bezierPath4.setStrokeColor(new Color(128, 80, 128));
 			bezierPath4.setLineWidth(4.0f);
 			page2.add(bezierPath4);
 
-			Text linkedText = new Text(20, 220, 12, "click on this text to see internal link in action.");
+			Text linkedText = new PdfText(20, 220, 12, "click on this text to see internal link in action.");
 			linkedText.setLink(image);
 			page2.add(linkedText);
 			page2.addText(20, 200, 8, "Text linkedText = new Text(20, 200, 12, \"click on this text to see internal link in action.\");");
 			page2.addText(20, 180, 8, "linkedText.setLink(image);");
 			image.setLink(linkedText);
 
-			Text superScriptedText = new Text(20, 140, 12, "Super");
+			Text superScriptedText = new PdfText(20, 140, 12, "Super");
 			superScriptedText.setScript(TextScript.SUPER);
 			page2.add(superScriptedText);
 			page2.addText(40, 140, 12, "and");
-			Text subScriptedText = new Text(60, 140, 12, "sub");
+			Text subScriptedText = new PdfText(60, 140, 12, "sub");
 			subScriptedText.setScript(TextScript.SUB);
 			page2.add(subScriptedText);
 			page2.addText(70, 140, 12, "-scriptedtext");

@@ -31,8 +31,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.web4enterprise.pdf.core.image.Image;
-import com.web4enterprise.pdf.core.page.RootPageTree;
+import com.web4enterprise.pdf.core.image.PdfImage;
+import com.web4enterprise.pdf.core.page.PdfRootPageTree;
 import com.web4enterprise.report.commons.exception.DocumentGenerationException;
 
 public class PdfTest {
@@ -43,11 +43,11 @@ public class PdfTest {
 	public void testConstructor() {
 		Pdf pdf = new Pdf();
 		assertEquals("Indirect objects length", 3, pdf.indirectsObjects.size());
-		assertTrue("Catalog", pdf.indirectsObjects.get(0) instanceof Catalog);
+		assertTrue("Catalog", pdf.indirectsObjects.get(0) instanceof PdfCatalog);
 		assertEquals("Catalog id", 1, pdf.indirectsObjects.get(0).getId());
-		assertTrue("Root page tree", pdf.indirectsObjects.get(1) instanceof RootPageTree);
+		assertTrue("Root page tree", pdf.indirectsObjects.get(1) instanceof PdfRootPageTree);
 		assertEquals("Root page tree id", 2, pdf.indirectsObjects.get(1).getId());
-		assertTrue("Document meta-data", pdf.indirectsObjects.get(2) instanceof DocumentMetaData);
+		assertTrue("Document meta-data", pdf.indirectsObjects.get(2) instanceof PdfMetaData);
 		assertEquals("Document meta-data id", 3, pdf.indirectsObjects.get(2).getId());
 	}
 	
@@ -211,8 +211,8 @@ public class PdfTest {
 			pdf.createPage(100, 80);
 			
 			//It could be better to mock InputStream, but can't make it throw exception...
-			pdf.rootPageTree = mock(RootPageTree.class);
-			doThrow(IOException.class).when(pdf.rootPageTree).addImage(any(Image.class));
+			pdf.rootPageTree = mock(PdfRootPageTree.class);
+			doThrow(IOException.class).when(pdf.rootPageTree).addImage(any(PdfImage.class));
 			
 			pdf.createImage(inputStream);
 		}
@@ -228,17 +228,17 @@ public class PdfTest {
 	@Test
 	public void testClearAndRebind() throws Exception {
 		Pdf pdf = new Pdf();
-		Image image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
-		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof Image);
+		PdfImage image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
+		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof PdfImage);
 		
 		pdf.clear();
-		assertTrue("Catalog should be present", pdf.indirectsObjects.get(0) instanceof Catalog);
-		assertTrue("Root page tree should be present", pdf.indirectsObjects.get(1) instanceof RootPageTree);
-		assertTrue("Document meta-data should be present", pdf.indirectsObjects.get(2) instanceof DocumentMetaData);
+		assertTrue("Catalog should be present", pdf.indirectsObjects.get(0) instanceof PdfCatalog);
+		assertTrue("Root page tree should be present", pdf.indirectsObjects.get(1) instanceof PdfRootPageTree);
+		assertTrue("Document meta-data should be present", pdf.indirectsObjects.get(2) instanceof PdfMetaData);
 		assertEquals("pdf must be re-set", 3, pdf.indirectsObjects.size());
 		
 		pdf.rebindImage(image);
 		assertEquals("Image must be re-bound", 4, pdf.indirectsObjects.size());
-		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof Image);
+		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof PdfImage);
 	}
 }
