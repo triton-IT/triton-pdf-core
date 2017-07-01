@@ -20,13 +20,14 @@ import static com.web4enterprise.pdf.core.document.Pdf.LINE_SEPARATOR;
 import com.web4enterprise.report.commons.geometry.Point;
 import com.web4enterprise.report.commons.path.BezierPath;
 import com.web4enterprise.report.commons.path.BezierPoint;
+import com.web4enterprise.report.commons.style.Color;
 
 /**
  * Represents a Bezier curve to render in a PDF document.
  * 
  * @author Régis Ramillien
  */
-public class PdfBezierPath extends BezierPath {	
+public class PdfBezierPath extends BezierPath {
 	/**
 	 * Creates a Bezier path from points.
 	 * @param startPoint The first point in path.
@@ -34,6 +35,15 @@ public class PdfBezierPath extends BezierPath {
 	 */
 	public PdfBezierPath(Point startPoint, BezierPoint... points) {
 		super(startPoint, points);
+	}
+
+	/**
+	 * Creates a Bezier path from points.
+	 * @param startPoint The first point in path.
+	 * @param points The other points in path.
+	 */
+	public PdfBezierPath(float lineWidth, Color strokeColor, Point startPoint, BezierPoint... points) {
+		super(lineWidth, strokeColor, startPoint, points);
 	}
 	
 	@Override

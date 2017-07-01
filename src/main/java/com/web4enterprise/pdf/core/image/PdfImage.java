@@ -38,15 +38,6 @@ public class PdfImage extends Image implements PdfObject {
 	protected int id;
 	
 	/**
-	 * Creates an image with the given id.
-	 * 
-	 * @param id The identifier in image.
-	 */
-	public PdfImage(int id) {
-		this.id = id;
-	}
-	
-	/**
 	 * Set the identifier of this image.
 	 * 
 	 * @param id The new identifier of image.
@@ -109,8 +100,9 @@ public class PdfImage extends Image implements PdfObject {
 	
 	@Override
 	public PdfImage cloneMetaData() {
-		PdfImage clone = new PdfImage(this.id);
+		PdfImage clone = new PdfImage();
 		
+		clone.setId(id);
 		clone.boundingBox = new Rect(boundingBox);
 		clone.skewX = this.skewX;
 		clone.skewY = this.skewY;

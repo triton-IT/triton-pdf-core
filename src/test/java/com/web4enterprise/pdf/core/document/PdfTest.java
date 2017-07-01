@@ -25,7 +25,6 @@ import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Locale;
 
@@ -159,9 +158,12 @@ public class PdfTest {
 	@Test
 	public void testCreatePage() throws Exception {
 		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-			Pdf pdf = new Pdf();
-			pdf.createPage(100, 80);
-			pdf.createPage(180, 120);
+			PdfElementFactory factory = new PdfElementFactory();
+
+			Pdf pdf = factory.createDocument();
+			
+			pdf.addPage(factory.createPage(100, 80));
+			pdf.addPage(factory.createPage(180, 120));
 			
 			pdf.write(outputStream);
 			String actual = outputStream.toString();
@@ -181,9 +183,12 @@ public class PdfTest {
 	@Test
 	public void testCreateImage() throws Exception {
 		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-			Pdf pdf = new Pdf();
-			pdf.createPage(100, 80);
-			pdf.createImage(getClass().getResourceAsStream("/logo.png"));
+			PdfElementFactory factory = new PdfElementFactory();
+
+			Pdf pdf = factory.createDocument();
+			
+			pdf.addPage(factory.createPage(100, 80));
+			pdf.registerImage(factory.createImage(getClass().getResourceAsStream("/logo.png")));
 			
 			pdf.write(outputStream);
 			String actual = outputStream.toString();
@@ -200,25 +205,6 @@ public class PdfTest {
 	}
 	
 	/**
-	 * When image cannot be created, a PDFGenerationException should be thrown.
-	 * 
-	 * @throws Exception When something goes wrong.
-	 */
-	@Test(expected = DocumentGenerationException.class)
-	public void testCreateImageWithIOException() throws Exception {
-		try(InputStream inputStream = this.getClass().getResourceAsStream("/logo.png")) {
-			Pdf pdf = new Pdf();
-			pdf.createPage(100, 80);
-			
-			//It could be better to mock InputStream, but can't make it throw exception...
-			pdf.rootPageTree = mock(PdfRootPageTree.class);
-			doThrow(IOException.class).when(pdf.rootPageTree).addImage(any(PdfImage.class));
-			
-			pdf.createImage(inputStream);
-		}
-	}
-	
-	/**
 	 * Clear must reset indirectObjets and but not catalog, root page tree or document meta-data.
 	 * After a clear, an image should be re-bound.
 	 * 
@@ -227,8 +213,12 @@ public class PdfTest {
 	 */
 	@Test
 	public void testClearAndRebind() throws Exception {
-		Pdf pdf = new Pdf();
-		PdfImage image = pdf.createImage(this.getClass().getResourceAsStream("/logo.png"));
+		PdfElementFactory factory = new PdfElementFactory();
+
+		Pdf pdf = factory.createDocument();
+		
+		PdfImage image = factory.createImage(this.getClass().getResourceAsStream("/logo.png"));
+		pdf.registerImage(image);
 		assertTrue("Image should be present", pdf.indirectsObjects.get(3) instanceof PdfImage);
 		
 		pdf.clear();

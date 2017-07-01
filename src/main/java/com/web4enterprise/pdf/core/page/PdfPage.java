@@ -23,12 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web4enterprise.pdf.core.document.PdfObject;
-import com.web4enterprise.pdf.core.text.PdfText;
 import com.web4enterprise.report.commons.document.Renderable;
-import com.web4enterprise.report.commons.font.FontVariant;
 import com.web4enterprise.report.commons.link.Linkable;
 import com.web4enterprise.report.commons.page.Page;
-import com.web4enterprise.report.commons.style.Color;
 
 /**
  * Class representing a page and its content in PDF.
@@ -63,10 +60,7 @@ public class PdfPage extends Page implements PdfObject, PdfPageNode {
 	 * @param width The width of the page.
 	 * @param height The height of the page.
 	 */
-	public PdfPage(int parentId, int id, PdfContentStream contentStream, int width, int height) {
-		this.parentId = parentId;
-		this.id = id;
-		this.contentStream = contentStream;
+	public PdfPage(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
@@ -114,48 +108,29 @@ public class PdfPage extends Page implements PdfObject, PdfPageNode {
 		
 		return asString.length();
 	}
-
+	
 	@Override
 	public int getId() {
 		return id;
 	}
-	
-	/**
-	 * Add a text to the page.
-	 * 
-	 * @param x The X position of the text in the page.
-	 * @param y The Y position of the text in the page.
-	 * @param size The size of the text to add.
-	 * @param text The text to add.
-	 */
-	public void addText(float x, float y, float size, String text) {
-		add(new PdfText(x, y, size, text));
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	/**
-	 * Add a text to the page.
-	 * 
-	 * @param x The X position of the text in the page.
-	 * @param y The Y position of the text in the page.
-	 * @param size The size of the text to add.
-	 * @param fontVariant The font variant of the text.
-	 * @param text The text to add.
-	 */
-	public void addText(float x, float y, float size, FontVariant fontVariant, String text) {
-		add(new PdfText(x, y, size, fontVariant, text));
+
+	public PdfContentStream getContentStream() {
+		return contentStream;
 	}
-	
-	/**
-	 * Add a text to the page.
-	 * 
-	 * @param x The X position of the text in the page.
-	 * @param y The Y position of the text in the page.
-	 * @param size The size of the text to add.
-	 * @param fontVariant The font variant of the text.
-	 * @param color The color of the text.
-	 * @param text The text to add.
-	 */
-	public void addText(float x, float y, float size, FontVariant fontVariant, Color color, String text) {
-		add(new PdfText(x, y, size, fontVariant, color, text));
+
+	public void setContentStream(PdfContentStream contentStream) {
+		this.contentStream = contentStream;
+	}
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 }
