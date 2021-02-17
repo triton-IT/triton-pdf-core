@@ -1,60 +1,81 @@
-# simplypdf-core
+# triton-pdf-core
 
-[![Build Status](https://travis-ci.org/web4enterprise/simplypdf-core.svg?branch=master)](https://travis-ci.org/web4enterprise/simplypdf-core)
-[![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.web4enterprise:simplypdf-core)](https://sonarqube.com/dashboard/index/com.web4enterprise:simplypdf-core)
+## What is triton-pdf-core ?
+triton-pdf-core is a simple low-level API for creating PDFs.
 
-## What is simplypdf-core ?
-Simplypdf-core is a simple low-level API for creating PDFs.
-It is named "simplypdf" because it is simply a PDF library and that the design is made to be very simple to use.
-
-Simpypdf-core use absolute positionning, no line wrapping is calculated, new pages are not created automatically it only renders a PDF. In short, layouting is not in the scope of simplypdf-core.
-For layouting possibilities, use [simplypdf-layout](https://github.com/web4enterprise/simplypdf-layout).
+It is designed to be able to create a PDF easily using absolute positioning. It's perfect to create a static PDF file from scratch.
+If you need laying possibilities and easier styling, use [triton-pdf-layout](https://github.com/tritonit/triton-pdf-layout) instead.
 
 ### Why another PDF API ?
-There is already great "low level" PDF APIs in java, but all are difficult to use and provides more a "wrapper" for PDF format than a real API. In other terms, lot of them exposes all the complexity of the raw PDF format.
-simplypdf-core is created to be still a low-level API but is intended to be simpler to use by creating a more abstracted API.
+There is already great "low level" PDF APIs in java, but all of them are difficult to use and provides more a "wrapper" for PDF format than a real API. In other terms, a lot of them exposes all the complexity of the raw PDF format.
+[triton-pdf-core](https://github.com/tritonit/triton-pdf-core) is created to be a low-level PDF API but is intended to be as simple to use as possible.
+[triton-pdf-core](https://github.com/tritonit/triton-pdf-core) is also free to use, even for a commercial use. So, don't hesitate to give it a try.
 
-Some other APIs have a "high level" design but simplypdf-core is not intended to compete with them.
+Some other APIs have a "high level" design but triton-pdf-core is not intended to compete with them.
 
-If you're interested in a high level API, you can take a look at [simplypdf-layout](https://github.com/web4enterprise/simplypdf-layout).
+If you're interested in a high level API, you can take a look at [triton-pdf-layout](https://github.com/tritonit/triton-pdf-layout).
 
-## What license is used for simplypdf-core
-Simplypdf-core is under Apache 2.0 license.
-This means that you can use simplypdf-core either in a non-commercial or commercial product and can modify it.
-Read the full license [here](http://www.apache.org/licenses/LICENSE-2.0).
+## What license is used for triton-pdf-core
+triton-pdf-core is under Apache 2.0 license.
+This means that you can use triton-pdf-core either in a non-commercial or commercial product and can modify it.
+Read the full license on [apache website](https://www.apache.org/licenses/LICENSE-2.0).
 
-## What are the plans for simplypdf-core
-The goal of simplypdf-core is to abstract the more common PDF functionalities.
+## What are the plans for triton-pdf-core
+The goal of triton-pdf-core is to abstract the more common PDF functionalities.
 
-Today, simplypdf-core is capable of the following.
-* Create a valid PDF 1.7 document.
-* Adding pages.
+Today, triton-pdf-core is capable of the following.
+* Create a valid PDF and [PDF/A](https://en.wikipedia.org/wiki/PDF/A) 1.7 document.
+* Adding pages with any format in most common units (mm, cm, inch, PDF native unit).
 * Adding texts with base 14 Adobe fonts.
-* Adding non transparent images.
-* Adding lines and curves.
+* Adding images (with support for the transparency).
+* Adding lines and curves (To generate charts for instance).
 
-Future versions will permit to load custom fonts, handle transparent images and different PDF formats, particularly PDF-A.
+Other PDFs capabilities like adding 3d content, videos, etc. will not be implemented. [triton-pdf-core](https://github.com/tritonit/triton-pdf-core) goal is to be capable to draw anything that can be drawn on a paper page, no more, but no less.
 
-Other PDFs capabilities like adding 3d content, videos, etc. will not be implemented. Simplypdf-core goal is to be capable to draw anything that can be drawn on a paper page, no more, but not less.
+You can track advancement of project in a "kanban style" for any version on github [project page](https://github.com/tritonit/triton-pdf-core/projects).
 
-You can track advancement of project in a "kanban style" for any version [here](https://github.com/web4enterprise/simplypdf-core/projects).
-
-### Can I use simplypdf-core on android ?
-The response is no for the moment, because I use AWT to load graphics. It does not mean that rest of code is fully compatible with android, but if it is not, it shouldn't be hard to change.
-Android support is intended but will probably be done after version 1 of [simplypdf-layout](https://github.com/web4enterprise/simplypdf-layout).
+### Can I use triton-pdf-core on android ?
+Yes, [triton-pdf-layout](https://github.com/tritonit/triton-pdf-layout) is a pure java library without any external dependency and no dependency on platform-dependent code.
 
 ## Where can I get documentation ?
 Please read "documentation.pdf" in project files for more information on the API.
-This documentation is created by using this library and for a concrete example you can find the code used to render it in the unit test "PdfTest.java".
+This file also contains a simple example below.
+File documentation.pdf is created by using this library and for a concrete example you can find the code used to render it in the unit test "PdfTest.java".
 
-You can also take a look at project [wiki](https://github.com/web4enterprise/simplypdf-core/wiki) for getting started information.
+You can also take a look at project [wiki](https://github.com/tritonit/triton-pdf-core/wiki) for getting started information.
 
 ## What about quality ?
-I do my best to provide the best quality for design, code and documentation.
-Quality is super important for me, so if documentation is not clear, if design or code has a flaw, if my English writting is not good enough :blush:, if you find a bug or if you find anything else that can be improved, you can [create an issue](https://github.com/web4enterprise/simplypdf-core/issues).
+We do our best to provide the best quality for design, code and documentation.
+Quality is one of the application aspects the most important for us, so if documentation is not clear, if design or code has a flaw, if you find a bug or if you find anything else that can be improved, you can [create an issue](https://github.com/tritonit/triton-pdf-core/issues).
+We have worked on many [IEC 62304](https://www.iso.org/standard/38421.html) and [FDA](https://www.fda.gov/) compliant projects and do our best to apply these standards to this project.
+
+### Which quality metrics are used ?
+We know that quality experts are better than us to define metrics.
+That's why we use defaults rules of IntelliJ and SonarCloud on our projects.
+
+### How to consult project quality metrics ?
+Metrics can be found on sonarcloud page for [this project](https://sonarcloud.io/dashboard?id=triton-IT_triton-pdf-core)
 
 ## Where can I get support ?
-If documentation is not sufficient, just create an issue, I will reply to issue and update documentation if needed.
+If documentation is not sufficient, just create an issue, We will reply to it and update documentation if needed.
 
-For professional support and services, use the web site [web4enterprise.com](http://web4enterprise.com).
+For professional support and services, use the website [tritonit.tech](https://tritonit.tech).
 
+## More information about the PDF format:
+https://www.adobe.com/devnet/pdf/pdf_reference.html
+
+## Hello world example
+    //Create an output stream to write PDF to.
+    try(OutputStream out = new FileOutputStream("hello-world.pdf")) {
+        //Instanciate a new PDF.
+        Pdf pdf = new Pdf();
+    
+        //Create the first page in A4 format (210mm x 297mm) 
+        Page page1 = pdf.createPage(210.0f, 297.0f);
+    
+        //Add text at position x=20, y = 277, with font size 12 and text.
+        page1.addText(20, 277, 12, "Hello ISO 32000 !");
+    
+        //Write PDF content to output stream
+        pdf.write(out);
+    }
